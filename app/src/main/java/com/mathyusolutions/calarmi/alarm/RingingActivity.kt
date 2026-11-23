@@ -117,7 +117,8 @@ class RingingActivity : AppCompatActivity() {
 private fun RingingContent(item: RingItem, snoozeMinutes: Int) {
     val context = LocalContext.current
     val tint = parseHex(item.colorHex) ?: Color(0xFFFF6633)
-    var solving by remember(item.key) { mutableStateOf(false) }
+    // Guardado: si la pantalla se recrea (tema, idioma), se vuelve al reto, no al inicio.
+    var solving by androidx.compose.runtime.saveable.rememberSaveable(item.key) { mutableStateOf(false) }
     // Atrás no apaga nada: se sale del reto, pero la alarma sigue.
     BackHandler { if (solving) solving = false }
 

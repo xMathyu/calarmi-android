@@ -102,8 +102,15 @@ import kotlinx.coroutines.launch
 
 private const val MAX_LEAD_TIMES = 5
 
+/** Lo que el editor no puede perder al navegar a otra pantalla y volver. */
+class EditorState : androidx.lifecycle.ViewModel() {
+    internal val draft = mutableStateOf<Draft?>(null)
+    internal val original = mutableStateOf<Draft?>(null)
+    val sheet = mutableStateOf<String?>(null)
+}
+
 /** El estado que se edita: se guarda como una alarma al cerrar. */
-private data class Draft(
+internal data class Draft(
     val id: String = UUID.randomUUID().toString(),
     val isNew: Boolean = true,
     val title: String = "",
@@ -167,9 +174,13 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
     val customs by container.categories.categories.collectAsStateWithLifecycle(initialValue = emptyList())
     val scope = rememberCoroutineScope()
 
-    var draft by remember { mutableStateOf<Draft?>(null) }
-    var original by remember { mutableStateOf<Draft?>(null) }
+    // El borrador vive en un ViewModel de esta entrada de navegación: sobrevive a
+    // «Probar reto», al paywall o a girar la pantalla sin perder lo editado.
+    val state = androidx.lifecycle.viewmodel.compose.viewModel<EditorState>()
+    var draft by state.draft
+    var original by state.original
     LaunchedEffect(id, template) {
+        if (draft != null) return@LaunchedEffect
         val initial = when {
             id != null -> container.reminders.byId(id)?.let(Draft::from)
             else -> AlarmTemplate.byId(template)?.let { t ->
@@ -193,7 +204,7 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
     val d = draft ?: return
 
     var showTitleError by rememberSaveable { mutableStateOf(false) }
-    var sheet by remember { mutableStateOf<String?>(null) }
+    var sheet by state.sheet
     var confirmDelete by remember { mutableStateOf(false) }
     val style = when (val c = d.category) {
         is CategorySelection.Builtin -> CategoryStyle.of(context, c.category)
