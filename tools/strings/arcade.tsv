@@ -1,0 +1,19 @@
+name	en	es	pt
+arcade_success	You did it!	¡Lo lograste!	Você conseguiu!
+arcade_flap_progress	Gaps %1$d of %2$d	Huecos %1$d de %2$d	Vãos %1$d de %2$d
+arcade_flap_start	Tap to fly	Toca para volar	Toque para voar
+arcade_flap_crash	Crash! Tap to keep going	¡Choque! Toca para seguir	Bateu! Toque para continuar
+arcade_hurdles_progress	Fences %1$d of %2$d	Vallas %1$d de %2$d	Cercas %1$d de %2$d
+arcade_hurdles_start	Tap to jump; press and hold to jump higher	Toca para saltar; mantén pulsado para saltar más alto	Toque para pular; toque e segure para pular mais alto
+arcade_hurdles_crash	Oops! Tap to keep going	¡Ups! Toca para seguir	Ops! Toque para continuar
+arcade_cannon_progress	Hits %1$d of %2$d	Impactos %1$d de %2$d	Acertos %1$d de %2$d
+arcade_cannon_aim	Drag across the field to aim	Arrastra por el campo para apuntar	Arraste pelo campo para mirar
+arcade_cannon_power	Power	Fuerza	Força
+arcade_cannon_hold	Press and hold to charge	Mantén pulsado para cargar	Toque e segure para carregar
+arcade_cannon_release	Release to fire	Suelta para disparar	Solte para atirar
+arcade_cannon_wind	Wind %1$d	Viento %1$d	Vento %1$d
+arcade_sling_progress	Knocked down %1$d of %2$d	Derribados %1$d de %2$d	Derrubados %1$d de %2$d
+arcade_sling_shots	Shots: %1$d	Tiros: %1$d	Tiros: %1$d
+arcade_sling_aim	Pull back from the left side and let go	Estira hacia atrás desde la izquierda y suelta	Puxe para trás pela esquerda e solte
+arcade_sling_cleared	Tower cleared!	¡Torre despejada!	Torre limpa!
+arcade_sling_out	Out of shots: new tower	Sin tiros: torre nueva	Sem tiros: nova torre
