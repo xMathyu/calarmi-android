@@ -159,7 +159,7 @@ private data class Draft(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, initialDate: Long? = null) {
+fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, initialDate: Long? = null, initialTitle: String? = null) {
     val context = LocalContext.current
     val container = CalarmiApp.container(context)
     val navigator = LocalAppNavigator.current
@@ -182,12 +182,12 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                     symbol = t.symbol,
                     challenge = t.challenge,
                 )
-            } ?: Draft(date = initialDate ?: Draft.defaultDate(), leadTimes = listOf(settings.defaultLeadTime))
+            } ?: Draft(title = initialTitle.orEmpty(), date = initialDate ?: Draft.defaultDate(), leadTimes = listOf(settings.defaultLeadTime))
         }
         if (initial == null) onDone() else {
             draft = initial
             // Una plantilla ya es «trabajo»: cerrar el editor la crea.
-            original = if (template != null) null else initial
+            original = if (template != null || !initialTitle.isNullOrBlank()) null else initial
         }
     }
     val d = draft ?: return

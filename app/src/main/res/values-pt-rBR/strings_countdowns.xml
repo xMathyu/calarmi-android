@@ -59,4 +59,5 @@
     <string name="widget_preview_days_value">23</string>
     <string name="widget_preview_emoji">🎤</string>
     <string name="widget_preview_time">7:30</string>
+    <string name="countdowns_set_alarm">Definir um alarme para esse dia</string>
 </resources>

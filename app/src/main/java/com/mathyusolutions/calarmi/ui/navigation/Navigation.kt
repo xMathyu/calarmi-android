@@ -7,7 +7,7 @@ import com.mathyusolutions.calarmi.model.WakeChallenge
 import kotlinx.serialization.Serializable
 
 @Serializable object HomeRoute
-@Serializable data class ReminderEditorRoute(val id: String? = null, val template: String? = null, val initialDate: Long? = null)
+@Serializable data class ReminderEditorRoute(val id: String? = null, val template: String? = null, val initialDate: Long? = null, val initialTitle: String? = null)
 @Serializable data class CountdownDetailRoute(val id: String)
 @Serializable data class CountdownEditorRoute(val id: String? = null, val prefillJson: String? = null)
 @Serializable data class PaywallRoute(val highlight: String? = null)
@@ -26,7 +26,7 @@ interface AppNavigator {
     fun back()
     fun selectTab(tab: HomeTab)
     /** `initialDate`: el día elegido en el calendario (la alarma empieza ese día). */
-    fun newReminder(template: String? = null, initialDate: Long? = null)
+    fun newReminder(template: String? = null, initialDate: Long? = null, initialTitle: String? = null)
     fun openReminder(id: String)
     fun newCountdown(prefill: CountdownPrefill? = null)
     fun openCountdown(id: String)

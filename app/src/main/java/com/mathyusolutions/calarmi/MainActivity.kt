@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity() {
             requestedTab.value = tab
             nav.popBackStack(HomeRoute, inclusive = false)
         }
-        override fun newReminder(template: String?, initialDate: Long?) =
-            nav.navigate(ReminderEditorRoute(template = template, initialDate = initialDate)) { launchSingleTop = true }
+        override fun newReminder(template: String?, initialDate: Long?, initialTitle: String?) =
+            nav.navigate(ReminderEditorRoute(template = template, initialDate = initialDate, initialTitle = initialTitle)) { launchSingleTop = true }
         override fun openReminder(id: String) = nav.navigate(ReminderEditorRoute(id = id)) { launchSingleTop = true }
         override fun newCountdown(prefill: CountdownPrefill?) = nav.navigate(
             CountdownEditorRoute(prefillJson = prefill?.let { AppJson.encodeToString(CountdownPrefill.serializer(), it) }),
@@ -156,7 +156,7 @@ private fun AppNavHost(nav: NavHostController, tab: HomeTab, onTab: (HomeTab) ->
         composable<HomeRoute> { HomeScreen(tab, onTab) }
         composable<ReminderEditorRoute> {
             val route = it.toRoute<ReminderEditorRoute>()
-            ReminderEditorScreen(id = route.id, template = route.template, initialDate = route.initialDate, onDone = { nav.popBackStack() })
+            ReminderEditorScreen(id = route.id, template = route.template, initialDate = route.initialDate, initialTitle = route.initialTitle, onDone = { nav.popBackStack() })
         }
         composable<CountdownDetailRoute> {
             CountdownDetailScreen(id = it.toRoute<CountdownDetailRoute>().id, onBack = { nav.popBackStack() })

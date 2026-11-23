@@ -176,6 +176,17 @@
                 android:resource="@xml/widget_countdown_info" />
         </receiver>
 
+        <!-- Widget de cuenta regresiva: elegir cuál mostrar al ponerlo (y al reconfigurarlo). -->
+        <activity
+            android:name=".widget.CountdownWidgetConfigActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Calarmi">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <!-- Idioma por app en Android 12 y anteriores (AppCompat lo guarda solo). -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

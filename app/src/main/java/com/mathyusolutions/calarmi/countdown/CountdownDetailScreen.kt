@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
@@ -131,6 +132,18 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth().padding(horizontal = DS.lg, vertical = DS.sm),
                     ) {
                         Text(notes, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(DS.lg))
+                    }
+                }
+                // Mientras el evento no haya pasado: una alarma ese día, a su hora o a las 9:00.
+                if (!event.status(now).isPast) {
+                    val navigator = com.mathyusolutions.calarmi.ui.navigation.LocalAppNavigator.current
+                    SectionCard {
+                        SettingRow(
+                            title = stringResource(R.string.countdowns_set_alarm),
+                            icon = Icons.Filled.Alarm,
+                            divider = false,
+                            onClick = { navigator.newReminder(initialDate = alarmDate(event, now), initialTitle = event.title) },
+                        )
                     }
                 }
                 SectionCard {
@@ -265,4 +278,12 @@ private fun UnitBox(value: String, label: String) {
             color = Color.White.copy(alpha = 0.85f),
         )
     }
+}
+
+/** La alarma suena a la hora del evento o, si no tiene, a las 9:00 de ese día. */
+private fun alarmDate(event: CountdownEvent, now: Long): Long {
+    val target = event.target(now)
+    if (event.includesTime) return target
+    val zone = java.time.ZoneId.systemDefault()
+    return java.time.Instant.ofEpochMilli(target).atZone(zone).toLocalDate().atTime(9, 0).atZone(zone).toInstant().toEpochMilli()
 }
