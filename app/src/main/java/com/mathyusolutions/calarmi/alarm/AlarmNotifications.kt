@@ -19,6 +19,8 @@ object AlarmNotifications {
     const val CHANNEL_RINGING = "ringing"
     const val CHANNEL_UPCOMING = "upcoming"
     const val CHANNEL_MISSED = "missed"
+    /** Con sonido de alarma propio: solo si el servicio no pudo arrancar. */
+    const val CHANNEL_FALLBACK = "fallback"
 
     const val ID_RINGING = 1001
     const val ID_UPCOMING = 1002
@@ -43,6 +45,15 @@ object AlarmNotifications {
                 },
                 NotificationChannel(CHANNEL_MISSED, context.getString(R.string.channel_missed), NotificationManager.IMPORTANCE_DEFAULT).apply {
                     description = context.getString(R.string.channel_missed_desc)
+                },
+                NotificationChannel(CHANNEL_FALLBACK, context.getString(R.string.channel_fallback), NotificationManager.IMPORTANCE_HIGH).apply {
+                    description = context.getString(R.string.channel_fallback_desc)
+                    setSound(
+                        android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_ALARM),
+                        android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_ALARM).build(),
+                    )
+                    enableVibration(true)
+                    lockscreenVisibility = Notification.VISIBILITY_PUBLIC
                 },
             ),
         )
@@ -120,6 +131,26 @@ object AlarmNotifications {
             .setAutoCancel(true)
             .build()
         runCatching { NotificationManagerCompat.from(context).notify(ID_MISSED_BASE + (item.key.hashCode() and 0xFFF), notification) }
+    }
+
+    /** Plan B cuando el servicio no arranca: notificación de alarma con sonido del sistema. */
+    fun showFallback(context: Context, item: RingItem) {
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return
+        val open = PendingIntent.getActivity(
+            context, 13, Intent(context, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+        val notification = NotificationCompat.Builder(context, CHANNEL_FALLBACK)
+            .setSmallIcon(R.drawable.ic_stat_alarm)
+            .setContentTitle(item.title.ifBlank { context.getString(R.string.app_name) })
+            .setContentText(subtitle(context, item))
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setFullScreenIntent(open, true)
+            .setContentIntent(open)
+            .setAutoCancel(true)
+            .build()
+        runCatching { NotificationManagerCompat.from(context).notify(ID_MISSED_BASE + 0x1000 + (item.key.hashCode() and 0xFFF), notification) }
     }
 
     fun subtitle(context: Context, item: RingItem): String {

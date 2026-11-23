@@ -251,6 +251,8 @@ R = [
 ("channel_upcoming_desc","The countdown shown before an alarm rings.","La cuenta regresiva antes de que suene una alarma.","A contagem regressiva antes de um alarme tocar."),
 ("channel_missed","Missed alarms","Alarmas perdidas","Alarmes perdidos"),
 ("channel_missed_desc","Alarms that rang until the limit without being turned off.","Alarmas que sonaron hasta el límite sin que nadie las apagara.","Alarmes que tocaram até o limite sem ninguém desligar."),
+("channel_fallback","Alarms (backup)","Alarmas (respaldo)","Alarmes (reserva)"),
+("channel_fallback_desc","Used only if an alarm can't open its screen, so it still rings.","Solo se usa si una alarma no puede abrir su pantalla, para que igual suene.","Só é usado se um alarme não puder abrir a tela, para que toque mesmo assim."),
 ("calendar_untitled_event","Untitled event","Evento sin título","Evento sem título"),
 # Onboarding
 ("onboarding_1_title","Alarms you can't miss","Alarmas que no te puedes perder","Alarmes que você não pode perder"),

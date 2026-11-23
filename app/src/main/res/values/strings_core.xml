@@ -260,6 +260,8 @@
     <string name="channel_upcoming_desc">The countdown shown before an alarm rings.</string>
     <string name="channel_missed">Missed alarms</string>
     <string name="channel_missed_desc">Alarms that rang until the limit without being turned off.</string>
+    <string name="channel_fallback">Alarms (backup)</string>
+    <string name="channel_fallback_desc">Used only if an alarm can\'t open its screen, so it still rings.</string>
     <string name="calendar_untitled_event">Untitled event</string>
     <string name="onboarding_1_title">Alarms you can\'t miss</string>
     <string name="onboarding_1_detail">They ring loud even when your phone is silent, locked or on Do Not Disturb.</string>

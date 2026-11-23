@@ -44,6 +44,7 @@ class RingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        isRunning = true
         val container = CalarmiApp.container(this)
         player = TonePlayer(this, container.importedTones)
         vibrator = AlarmVibrator(this)
@@ -87,6 +88,11 @@ class RingService : Service() {
             Log.e(TAG, "No se pudo pasar a primer plano", e)
         }
         if (playingKey != current.key) {
+            // Con la app abierta, Android enseña un aviso flotante en vez de la
+            // pantalla completa: se abre la pantalla de la alarma directamente.
+            if (androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED)) {
+                runCatching { startActivity(RingingActivity.intent(this)) }
+            }
             playingKey = current.key
             muted = false
             handler.removeCallbacks(unmute)
@@ -151,6 +157,7 @@ class RingService : Service() {
     }
 
     override fun onDestroy() {
+        isRunning = false
         handler.removeCallbacksAndMessages(null)
         player.stop()
         vibrator.stop()
@@ -172,15 +179,31 @@ class RingService : Service() {
         private const val PLAIN_RING_MILLIS = 10L * 60 * 1000
         private const val CHALLENGE_QUIET_MILLIS = 3L * 60 * 1000
 
+        /** Si el servicio está vivo (los mensajes a uno detenido no deben recrearlo). */
+        @Volatile
+        var isRunning = false
+            private set
+
+        /**
+         * Hace sonar `items`. Si Android no deja arrancar el servicio (raro: el
+         * disparo de una alarma exacta lo permite), al menos sale una
+         * notificación de alarma con sonido para que no se pierda en silencio.
+         */
         fun ring(context: Context, items: List<RingItem>) {
             val intent = Intent(context, RingService::class.java)
                 .setAction(ACTION_RING)
                 .putExtra(EXTRA_ITEMS, AppJson.encodeToString(ListSerializer(RingItem.serializer()), items))
-            ContextCompat.startForegroundService(context, intent)
+            try {
+                ContextCompat.startForegroundService(context, intent)
+            } catch (e: Exception) {
+                Log.e(TAG, "No se pudo arrancar el servicio de alarma", e)
+                items.forEach { AlarmNotifications.showFallback(context, it) }
+            }
         }
 
         fun send(context: Context, action: String, key: String? = null) {
-            context.startService(Intent(context, RingService::class.java).setAction(action).putExtra(EXTRA_KEY, key))
+            if (!isRunning) return
+            runCatching { context.startService(Intent(context, RingService::class.java).setAction(action).putExtra(EXTRA_KEY, key)) }
         }
 
         fun actionIntent(context: Context, action: String, key: String): PendingIntent = PendingIntent.getService(

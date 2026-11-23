@@ -267,6 +267,8 @@
     <string name="channel_upcoming_desc">La cuenta regresiva antes de que suene una alarma.</string>
     <string name="channel_missed">Alarmas perdidas</string>
     <string name="channel_missed_desc">Alarmas que sonaron hasta el límite sin que nadie las apagara.</string>
+    <string name="channel_fallback">Alarmas (respaldo)</string>
+    <string name="channel_fallback_desc">Solo se usa si una alarma no puede abrir su pantalla, para que igual suene.</string>
     <string name="calendar_untitled_event">Evento sin título</string>
     <string name="onboarding_1_title">Alarmas que no te puedes perder</string>
     <string name="onboarding_1_detail">Suenan fuerte aunque el teléfono esté en silencio, bloqueado o en No molestar.</string>

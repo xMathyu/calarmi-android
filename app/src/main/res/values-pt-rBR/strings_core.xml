@@ -267,6 +267,8 @@
     <string name="channel_upcoming_desc">A contagem regressiva antes de um alarme tocar.</string>
     <string name="channel_missed">Alarmes perdidos</string>
     <string name="channel_missed_desc">Alarmes que tocaram até o limite sem ninguém desligar.</string>
+    <string name="channel_fallback">Alarmes (reserva)</string>
+    <string name="channel_fallback_desc">Só é usado se um alarme não puder abrir a tela, para que toque mesmo assim.</string>
     <string name="calendar_untitled_event">Evento sem título</string>
     <string name="onboarding_1_title">Alarmes que você não pode perder</string>
     <string name="onboarding_1_detail">Tocam alto mesmo com o celular no silencioso, bloqueado ou em Não perturbe.</string>
