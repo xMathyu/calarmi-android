@@ -107,6 +107,9 @@ class AlarmPlanner(
     /** Recalcula y deja programado el próximo disparo (y su cuenta regresiva previa). */
     suspend fun reschedule() = mutex.withLock {
         val now = System.currentTimeMillis()
+        // Si el reloj retrocedió (se corrigió la hora, o volvió atrás al reiniciar),
+        // lo «ya atendido» quedaría en el futuro y se saltaría las alarmas de hoy.
+        if (state.lastHandledAt > now + CLOCK_SLACK) state.lastHandledAt = now
         state.pruneSnoozes(now - STALE_SNOOZE)
         val next = nextFireAfter(maxOf(now, state.lastHandledAt))
         val fireIntent = AlarmReceiver.firePendingIntent(context)
@@ -196,6 +199,7 @@ class AlarmPlanner(
         private const val MAX_LEAD = 7L * 24 * 3600 * 1000
         private const val CALENDAR_WINDOW = 8L * 24 * 3600 * 1000
         private const val STALE_SNOOZE = 60L * 60 * 1000
+        private const val CLOCK_SLACK = 60L * 1000
     }
 }
 

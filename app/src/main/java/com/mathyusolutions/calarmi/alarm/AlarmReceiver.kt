@@ -43,7 +43,9 @@ class AlarmReceiver : BroadcastReceiver() {
         val now = System.currentTimeMillis()
         val state = container.alarmState
         // Lo que llegue muy tarde (teléfono apagado, proceso congelado) no suena de golpe.
-        val from = maxOf(state.lastHandledAt, now - LATE_LIMIT)
+        // Un «ya atendido» en el futuro es de un reloj que retrocedió: no cuenta.
+        val handled = state.lastHandledAt.takeIf { it <= now + EARLY_SLACK } ?: now - 1
+        val from = maxOf(handled, now - LATE_LIMIT)
         val to = now + EARLY_SLACK
         val due = container.planner.firesBetween(from, to)
         state.lastHandledAt = to
@@ -98,8 +100,9 @@ class SystemEventsReceiver : BroadcastReceiver() {
             try {
                 when (intent.action) {
                     Intent.ACTION_BOOT_COMPLETED, Intent.ACTION_LOCKED_BOOT_COMPLETED -> {
-                        // Lo que debía sonar con el teléfono apagado no suena todo junto al encender.
-                        container.alarmState.lastHandledAt = maxOf(container.alarmState.lastHandledAt, System.currentTimeMillis())
+                        // Lo que debía sonar con el teléfono apagado no suena todo junto al
+                        // encender. Y si el reloj volvió atrás, lo atendido «en el futuro» se olvida.
+                        container.alarmState.lastHandledAt = System.currentTimeMillis()
                     }
                     Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED -> {
                         container.alarmState.lastHandledAt = System.currentTimeMillis()
