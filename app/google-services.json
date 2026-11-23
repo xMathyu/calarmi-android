@@ -12,7 +12,44 @@
           "package_name": "com.mathyusolutions.calarmi"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "587317030511-13c6pp118pqb169orha87eg542mlmbon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mathyusolutions.calarmi",
+            "certificate_hash": "f2166594e1914416cae460063de4355d87ee7aff"
+          }
+        },
+        {
+          "client_id": "587317030511-5ndfp4l6i1cvv1hmjht11v5flbboafb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mathyusolutions.calarmi",
+            "certificate_hash": "68a639c9d7bf31e342c521c123b7b0e662756769"
+          }
+        },
+        {
+          "client_id": "587317030511-gmvllcp86s4orhh4u4q8g3m2cshf272l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mathyusolutions.calarmi",
+            "certificate_hash": "45d29447de8cc268c3d42ef855f228c65050196d"
+          }
+        },
+        {
+          "client_id": "587317030511-h64a0c0uqqegsssa63k05cg7irjg16qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mathyusolutions.calarmi",
+            "certificate_hash": "f39f1e71838e8170dd661f6c664b05f6198ae57a"
+          }
+        },
+        {
+          "client_id": "587317030511-m4npoh5bq44jr3ae3rc1qam6q4tmep25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBMUhMqU5EBGvkWWZYMsH1aQHfNmto2a7w"
@@ -20,7 +57,20 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587317030511-m4npoh5bq44jr3ae3rc1qam6q4tmep25.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "587317030511-q8hipp3fh1c52su77r4qssu3cun6ccs7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "MathyuSolutions.Calarm",
+                "app_store_id": "6772419323"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +81,20 @@
           "package_name": "com.mathyusolutions.calarmi.debug"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "587317030511-t6i9ug2l4n86ecj2vnf9tjahovk085bt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mathyusolutions.calarmi.debug",
+            "certificate_hash": "2ec6610221fe2c11bb8918cd6ca1eb1d642def45"
+          }
+        },
+        {
+          "client_id": "587317030511-m4npoh5bq44jr3ae3rc1qam6q4tmep25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBMUhMqU5EBGvkWWZYMsH1aQHfNmto2a7w"
@@ -39,7 +102,20 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587317030511-m4npoh5bq44jr3ae3rc1qam6q4tmep25.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "587317030511-q8hipp3fh1c52su77r4qssu3cun6ccs7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "MathyuSolutions.Calarm",
+                "app_store_id": "6772419323"
+              }
+            }
+          ]
         }
       }
     }
