@@ -1,6 +1,6 @@
 Calarmi llega a Android:
-• Alarmas que suenan al volumen de alarma aunque el teléfono esté en silencio, a pantalla completa sobre la pantalla bloqueada.
+• Alarmas que suenan aunque el teléfono esté en silencio, a pantalla completa sobre el bloqueo.
 • Repeticiones a tu medida, varios horarios y hasta 5 avisos por alarma.
-• Retos para despertar, alarmas para los eventos de tu calendario y cuentas regresivas con widgets.
-• Un asistente que funciona dentro de tu teléfono.
-• Calarmi Plus, opcional: retos Arcade, tus propios tonos, cuentas regresivas sin límite e íconos de colores.
+• Comparte alarmas y cuentas regresivas con quien quieras, tenga iPhone o Android.
+• Retos para despertar, alarmas del calendario, cuentas regresivas con widgets y un asistente en tu teléfono.
+• Calarmi Plus, opcional: retos Arcade, tus propios tonos, cuentas sin límite e íconos de colores.

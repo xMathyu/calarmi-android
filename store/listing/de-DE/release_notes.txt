@@ -1,6 +1,6 @@
-Calarmi gibt es jetzt für Android:
-• Wecker, die in Weckerlautstärke klingeln, auch wenn dein Handy lautlos ist, im Vollbild über dem Sperrbildschirm.
-• Wiederholungen nach deinem Plan, mehrere Uhrzeiten und bis zu 5 Erinnerungen pro Wecker.
-• Aufgaben zum Aufwachen, Wecker für deine Kalendertermine und Countdowns mit Widgets.
-• Ein Assistent, der direkt auf deinem Handy arbeitet.
-• Calarmi Plus, optional: Arcade-Aufgaben, eigene Töne, unbegrenzte Countdowns und farbige App-Symbole.
+Calarmi jetzt für Android:
+• Wecker, die auch im Lautlos-Modus klingeln, im Vollbild über dem Sperrbildschirm.
+• Flexible Wiederholungen, mehrere Zeitpläne und bis zu 5 Erinnerungen pro Wecker.
+• Teile Wecker und Countdowns mit allen, ob iPhone oder Android.
+• Aufwach-Challenges, Wecker für Kalendertermine, Countdowns mit Widgets und ein Assistent auf dem Handy.
+• Optional Calarmi Plus: Arcade-Challenges, eigene Töne, unbegrenzte Countdowns und farbige Icons.
