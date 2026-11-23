@@ -5,8 +5,8 @@ Uso, desde la raíz del repo:  python3 store/listing/check.py
 
 - Comprueba los límites de Play Console (título 30, descripción breve 80,
   descripción completa 4000, notas de la versión 500 caracteres).
-- Avisa si se coló algo que la versión de Android no tiene (iPhone, iCloud, Siri,
-  compartir, invitar…): la ficha no puede prometer funciones de iOS.
+- Avisa si se coló algo que la versión de Android no tiene (iCloud, Siri, Isla Dinámica…):
+  la ficha no puede prometer funciones de iOS.
 - Escribe release_notes_play_console.txt con las etiquetas <es-419>…</es-419> que
   acepta el cuadro «Notas de la versión» al crear un lanzamiento.
 
@@ -24,12 +24,12 @@ LIMITS = {
     "full_description.txt": 4000,
     "release_notes.txt": 500,
 }
-# Palabras que solo tienen sentido en iOS (o funciones que Android v1 no tiene).
+# Lo que la versión de Android no tiene. Compartir y personas de confianza SÍ están
+# (Firebase, también con iPhone), y «iPhone» vale cuando dice «iPhone o Android».
 IOS_ONLY = re.compile(
-    r"\b(?:iPhone|iPad|iOS|iCloud|Siri|Apple|App Store|AlarmKit|Dynamic Island|Isla Dinámica|"
+    r"\b(?:iPad|iOS|iCloud|Siri|Apple|App Store|AlarmKit|Dynamic Island|Isla Dinámica|"
     r"Live Activit\w*|Atividade ao Vivo|Live-Aktivität)\b"
-    r"|\b(?:compart|share|teilen|geteilt|invit|convit|einlad|trusted|Vertrauensperson)\w*"
-    r"|personas de confianza|pessoas de confiança",
+    r"|\biPhone\b(?!\s+(?:o|or|ou|oder)\s+(?:no\s+)?Android)",
     re.IGNORECASE,
 )
 
