@@ -25,10 +25,11 @@ es el idioma en que revisan; debajo de cada uno hay una versión en español par
 - Prueba cerrada «Alpha»: versión **3 (1.1)**, 178 países, lista «Testers Sinchi - prueba
   cerrada» (2 personas), comentarios a xmathyu@gmail.com. **Enviada a revisión.**
 - Pendiente: perfil de pagos (cuenta de comerciante) → productos de Plus (sección 7); 12 testers
-  × 14 días → acceso a producción (8.3); subir los `dist/Calarmi-1.1-N-mapping.txt` (pesan
-  ~100 MB: por la API de Play o comprimiendo no se puede desde el navegador).
-- Los AAB para subir por el navegador son `dist/Calarmi-1.1-N-upload.aab` (sin el mapa de R8,
-  vueltos a firmar con la llave de subida), porque el navegador limita a 10 MB.
+  × 14 días → acceso a producción (8.3); subir `dist/Calarmi-1.1-3-mapping.txt` (~100 MB) en
+  *Paquetes de la app › 3 › Descargas › Archivo de desofuscación*, a mano (la subida automatizada
+  de Claude en Chrome tiene un tope de 10 MB).
+- Por ese mismo tope, el AAB subido es `dist/Calarmi-1.1-N-upload.aab`: el mismo bundle sin el
+  mapa de R8 dentro, vuelto a firmar con la llave de subida.
 
 ---
 

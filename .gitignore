@@ -14,3 +14,5 @@ keystore.properties
 
 # AAB listo para subir
 /dist/
+
+/dist/*.txt
