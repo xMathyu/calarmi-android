@@ -21,7 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mathyusolutions.calarmi.CalarmiApp
 import com.mathyusolutions.calarmi.R
@@ -77,7 +77,16 @@ private fun androidx.compose.foundation.layout.RowScope.TabItem(
         selected = item == selected,
         onClick = { onTab(item) },
         icon = { Icon(icon, contentDescription = null) },
-        label = { Text(stringResource(label), maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall) },
+        // «Cuenta regresiva» / «Contagem regressiva» no caben en cinco pestañas: la
+        // etiqueta se achica hasta caber en vez de cortarse con «…».
+        label = {
+            androidx.compose.foundation.text.BasicText(
+                stringResource(label),
+                maxLines = 1,
+                style = MaterialTheme.typography.labelSmall.copy(color = androidx.compose.material3.LocalContentColor.current),
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = 8.sp, maxFontSize = MaterialTheme.typography.labelSmall.fontSize),
+            )
+        },
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = MaterialTheme.colorScheme.primary,
             selectedTextColor = MaterialTheme.colorScheme.primary,
