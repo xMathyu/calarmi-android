@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde assistant.tsv. No editar a mano. -->
+<resources>
+    <string name="assistant_empty_title">¿En qué te ayudo?</string>
+    <string name="assistant_empty_subtitle">Crea, busca y modifica alarmas conversando. Todo en tu teléfono, sin internet.</string>
+    <string name="assistant_tagline">Díselo y listo</string>
+    <string name="assistant_suggestion_today">¿Qué tengo hoy?</string>
+    <string name="assistant_suggestion_birthday">Cumple de mi mamá el 15 de marzo cada año</string>
+    <string name="assistant_suggestion_month">¿Cuántos cumpleaños hay este mes?</string>
+    <string name="assistant_suggestion_pill">Recuérdame la pastilla todos los días a las 9</string>
+    <string name="assistant_suggestion_tomorrow">Pon una alarma mañana a las 8am para el pastillero</string>
+    <string name="assistant_input_hint">Mensaje</string>
+    <string name="assistant_send">Enviar</string>
+    <string name="assistant_speak">Hablar</string>
+    <string name="assistant_speak_prompt">¿Qué quieres recordar?</string>
+    <string name="assistant_speech_unavailable">El dictado por voz no está disponible en este teléfono.</string>
+    <string name="assistant_new_chat">Nueva conversación</string>
+    <string name="assistant_mode_ai">IA en el teléfono · nada sale de tu teléfono</string>
+    <string name="assistant_mode_basic">Modo básico: entiende frases comunes · nada sale de tu teléfono</string>
+    <string name="assistant_mode_downloading">Descargando la IA del teléfono… mientras, modo básico</string>
+    <string name="assistant_typing">Pensando…</string>
+    <string name="assistant_open_alarm">Abrir alarma</string>
+    <string name="assistant_card_expired">Vencida</string>
+    <string name="assistant_card_off">Desactivada</string>
+    <string name="assistant_card_deleted">Borrada</string>
+    <string name="assistant_reply_created">Listo, alarma «%1$s» creada para %2$s.</string>
+    <string name="assistant_reply_repeats">Se repite: %1$s.</string>
+    <string name="assistant_reply_also_at">También suena %1$s.</string>
+    <string name="assistant_reply_leads">También te aviso %1$s.</string>
+    <string name="assistant_reply_past">Ojo: esa fecha ya pasó, así que no sonará. ¿La cambio?</string>
+    <string name="assistant_reply_exists">«%1$s» ya estaba para %2$s, así que no la repetí.</string>
+    <string name="assistant_reply_ask_time">¿Cuándo suena «%1$s»? Dime el día y la hora.</string>
+    <string name="assistant_reply_ask_time_untitled">¿A qué hora?</string>
+    <plurals name="assistant_reply_list">
+        <item quantity="one">Tienes %1$d alarma %2$s:</item>
+        <item quantity="many">Tienes %1$d alarmas %2$s:</item>
+        <item quantity="other">Tienes %1$d alarmas %2$s:</item>
+    </plurals>
+    <plurals name="assistant_reply_list_all">
+        <item quantity="one">Tu próxima alarma:</item>
+        <item quantity="many">Tus próximas %1$d alarmas:</item>
+        <item quantity="other">Tus próximas %1$d alarmas:</item>
+    </plurals>
+    <string name="assistant_reply_list_category">%1$s: %2$d</string>
+    <string name="assistant_reply_list_category_range">%1$s %2$s: %3$d</string>
+    <string name="assistant_reply_list_none">No tienes alarmas %1$s.</string>
+    <string name="assistant_reply_list_none_all">No tienes alarmas próximas.</string>
+    <string name="assistant_reply_list_none_category">Nada de «%1$s» %2$s.</string>
+    <plurals name="assistant_reply_list_more">
+        <item quantity="one">…y %1$d más.</item>
+        <item quantity="many">…y %1$d más.</item>
+        <item quantity="other">…y %1$d más.</item>
+    </plurals>
+    <string name="assistant_range_today">hoy</string>
+    <string name="assistant_range_tomorrow">mañana</string>
+    <string name="assistant_range_week">esta semana</string>
+    <string name="assistant_range_next_week">la próxima semana</string>
+    <string name="assistant_range_month">este mes</string>
+    <string name="assistant_range_day">para el %1$s</string>
+    <plurals name="assistant_reply_found">
+        <item quantity="one">Aquí está:</item>
+        <item quantity="many">Encontré %1$d:</item>
+        <item quantity="other">Encontré %1$d:</item>
+    </plurals>
+    <string name="assistant_reply_confirm_delete">¿Borro «%1$s»?</string>
+    <string name="assistant_quick_yes_delete">Sí, borrar</string>
+    <string name="assistant_quick_no">No, déjala</string>
+    <string name="assistant_reply_deleted">Borré «%1$s».</string>
+    <string name="assistant_reply_cancelled">Vale, lo dejamos así.</string>
+    <string name="assistant_reply_disabled">Desactivé «%1$s». No sonará hasta que la actives.</string>
+    <string name="assistant_reply_enabled">Activé «%1$s». Suena %2$s.</string>
+    <string name="assistant_reply_enabled_never">Activé «%1$s», pero ya no tiene fechas próximas.</string>
+    <string name="assistant_reply_updated">Cambié «%1$s»: ahora suena %2$s.</string>
+    <string name="assistant_reply_not_found">No encontré ninguna alarma con «%1$s». ¿Cuál quieres decir?</string>
+    <string name="assistant_reply_ambiguous">Encontré varias. ¿Cuál? Dime un poco más del nombre.</string>
+    <string name="assistant_reply_ask_which">¿Qué alarma? Dime su nombre.</string>
+    <string name="assistant_reply_ask_change">¿Qué cambio en «%1$s»? Dime el nuevo día u hora.</string>
+    <string name="assistant_reply_greeting">¡Hola! Dime qué recordar y cuándo, y pongo la alarma.</string>
+    <string name="assistant_reply_thanks">¡De nada! ¿Algo más?</string>
+    <string name="assistant_reply_help">Puedo crear alarmas («gym mañana a las 7:30»), decirte cuáles tienes («¿qué tengo esta semana?») y desactivarlas o borrarlas («borra la alarma del dentista»).</string>
+    <string name="assistant_reply_not_understood">No lo entendí. Prueba algo como «Recuérdame la pastilla todos los días a las 9».</string>
+    <string name="assistant_reply_error">Algo salió mal y no guardé ningún cambio. Inténtalo de nuevo.</string>
+    <string name="assistant_default_title">Alarma</string>
+    <string name="assistant_wake_title">Despertar</string>
+    <string name="assistant_at_time">a las %1$s</string>
+    <string name="assistant_at_time_one">a la %1$s</string>
+    <string name="assistant_day_today">hoy</string>
+    <string name="assistant_day_tomorrow">mañana</string>
+    <string name="assistant_when">%1$s %2$s</string>
+    <string name="assistant_date_pattern">\'el\' EEEE d \'de\' MMMM</string>
+    <string name="assistant_date_pattern_year">\'el\' EEEE d \'de\' MMMM \'de\' yyyy</string>
+    <string name="assistant_date_short">EEEE d \'de\' MMMM</string>
+</resources>

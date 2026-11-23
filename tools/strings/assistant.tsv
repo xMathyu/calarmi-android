@@ -1,0 +1,74 @@
+name	en	es	pt
+assistant_empty_title	How can I help?	¿En qué te ayudo?	Como posso ajudar?
+assistant_empty_subtitle	Create, search, and modify alarms by chatting. All on your phone, without internet.	Crea, busca y modifica alarmas conversando. Todo en tu teléfono, sin internet.	Crie, busque e altere alarmes conversando. Tudo no seu celular, sem internet.
+assistant_tagline	Just say it	Díselo y listo	É só falar
+assistant_suggestion_today	What do I have today?	¿Qué tengo hoy?	O que eu tenho hoje?
+assistant_suggestion_birthday	Mom's birthday March 15 every year	Cumple de mi mamá el 15 de marzo cada año	Aniversário da minha mãe dia 15 de março todo ano
+assistant_suggestion_month	How many birthdays this month?	¿Cuántos cumpleaños hay este mes?	Quantos aniversários tem este mês?
+assistant_suggestion_pill	Remind me to take my pill every day at 9	Recuérdame la pastilla todos los días a las 9	Me lembre do remédio todos os dias às 9
+assistant_suggestion_tomorrow	Set an alarm tomorrow 8am for medication	Pon una alarma mañana a las 8am para el pastillero	Crie um alarme para amanhã às 8h para o remédio
+assistant_input_hint	Message	Mensaje	Mensagem
+assistant_send	Send	Enviar	Enviar
+assistant_speak	Speak	Hablar	Falar
+assistant_speak_prompt	What do you want to be reminded of?	¿Qué quieres recordar?	Do que você quer se lembrar?
+assistant_speech_unavailable	Voice input isn't available on this phone.	El dictado por voz no está disponible en este teléfono.	O ditado por voz não está disponível neste celular.
+assistant_new_chat	New conversation	Nueva conversación	Nova conversa
+assistant_mode_ai	On-device AI · nothing leaves your phone	IA en el teléfono · nada sale de tu teléfono	IA no celular · nada sai do seu celular
+assistant_mode_basic	Basic mode: understands common phrases · nothing leaves your phone	Modo básico: entiende frases comunes · nada sale de tu teléfono	Modo básico: entende frases comuns · nada sai do seu celular
+assistant_mode_downloading	Downloading the on-device AI… basic mode meanwhile	Descargando la IA del teléfono… mientras, modo básico	Baixando a IA do celular… enquanto isso, modo básico
+assistant_typing	Thinking…	Pensando…	Pensando…
+assistant_open_alarm	Open alarm	Abrir alarma	Abrir alarme
+assistant_card_expired	Expired	Vencida	Vencido
+assistant_card_off	Off	Desactivada	Desativado
+assistant_card_deleted	Deleted	Borrada	Apagado
+assistant_reply_created	Done, alarm “%1$s” set for %2$s.	Listo, alarma «%1$s» creada para %2$s.	Pronto, alarme “%1$s” criado para %2$s.
+assistant_reply_repeats	Repeats: %1$s.	Se repite: %1$s.	Repete: %1$s.
+assistant_reply_also_at	It also rings %1$s.	También suena %1$s.	Também toca %1$s.
+assistant_reply_leads	I'll also remind you %1$s.	También te aviso %1$s.	Também vou te avisar %1$s.
+assistant_reply_past	Heads up: that date already passed, so it won't ring. Want me to move it?	Ojo: esa fecha ya pasó, así que no sonará. ¿La cambio?	Atenção: essa data já passou, então não vai tocar. Quer que eu mude?
+assistant_reply_exists	“%1$s” was already set for %2$s, so I didn't create it again.	«%1$s» ya estaba para %2$s, así que no la repetí.	“%1$s” já estava marcado para %2$s, então não repeti.
+assistant_reply_ask_time	When should “%1$s” ring? Tell me the day and time.	¿Cuándo suena «%1$s»? Dime el día y la hora.	Quando “%1$s” deve tocar? Diga o dia e a hora.
+assistant_reply_ask_time_untitled	At what time?	¿A qué hora?	A que horas?
+plural:assistant_reply_list	one=You have %1$d alarm %2$s: || other=You have %1$d alarms %2$s:	one=Tienes %1$d alarma %2$s: || many=Tienes %1$d alarmas %2$s: || other=Tienes %1$d alarmas %2$s:	one=Você tem %1$d alarme %2$s: || many=Você tem %1$d alarmes %2$s: || other=Você tem %1$d alarmes %2$s:
+plural:assistant_reply_list_all	one=Your next alarm: || other=Your next %1$d alarms:	one=Tu próxima alarma: || many=Tus próximas %1$d alarmas: || other=Tus próximas %1$d alarmas:	one=Seu próximo alarme: || many=Seus próximos %1$d alarmes: || other=Seus próximos %1$d alarmes:
+assistant_reply_list_category	%1$s: %2$d	%1$s: %2$d	%1$s: %2$d
+assistant_reply_list_category_range	%1$s %2$s: %3$d	%1$s %2$s: %3$d	%1$s %2$s: %3$d
+assistant_reply_list_none	You have no alarms %1$s.	No tienes alarmas %1$s.	Você não tem alarmes %1$s.
+assistant_reply_list_none_all	You have no upcoming alarms.	No tienes alarmas próximas.	Você não tem alarmes próximos.
+assistant_reply_list_none_category	Nothing in “%1$s” %2$s.	Nada de «%1$s» %2$s.	Nada de “%1$s” %2$s.
+plural:assistant_reply_list_more	one=…and %1$d more. || other=…and %1$d more.	one=…y %1$d más. || many=…y %1$d más. || other=…y %1$d más.	one=…e mais %1$d. || many=…e mais %1$d. || other=…e mais %1$d.
+assistant_range_today	today	hoy	hoje
+assistant_range_tomorrow	tomorrow	mañana	amanhã
+assistant_range_week	this week	esta semana	esta semana
+assistant_range_next_week	next week	la próxima semana	na próxima semana
+assistant_range_month	this month	este mes	este mês
+assistant_range_day	for %1$s	para el %1$s	para %1$s
+plural:assistant_reply_found	one=Here it is: || other=I found %1$d:	one=Aquí está: || many=Encontré %1$d: || other=Encontré %1$d:	one=Aqui está: || many=Encontrei %1$d: || other=Encontrei %1$d:
+assistant_reply_confirm_delete	Delete “%1$s”?	¿Borro «%1$s»?	Apago “%1$s”?
+assistant_quick_yes_delete	Yes, delete	Sí, borrar	Sim, apagar
+assistant_quick_no	No, keep it	No, déjala	Não, manter
+assistant_reply_deleted	Deleted “%1$s”.	Borré «%1$s».	Apaguei “%1$s”.
+assistant_reply_cancelled	OK, never mind.	Vale, lo dejamos así.	Tudo bem, deixa assim.
+assistant_reply_disabled	Turned off “%1$s”. It won't ring until you turn it back on.	Desactivé «%1$s». No sonará hasta que la actives.	Desativei “%1$s”. Não vai tocar até você ativar de novo.
+assistant_reply_enabled	Turned on “%1$s”. Next: %2$s.	Activé «%1$s». Suena %2$s.	Ativei “%1$s”. Toca %2$s.
+assistant_reply_enabled_never	Turned on “%1$s”, but it has no upcoming dates.	Activé «%1$s», pero ya no tiene fechas próximas.	Ativei “%1$s”, mas não tem datas próximas.
+assistant_reply_updated	Changed “%1$s”: it now rings %2$s.	Cambié «%1$s»: ahora suena %2$s.	Alterei “%1$s”: agora toca %2$s.
+assistant_reply_not_found	I couldn't find any alarm called “%1$s”. Which one do you mean?	No encontré ninguna alarma con «%1$s». ¿Cuál quieres decir?	Não encontrei nenhum alarme com “%1$s”. Qual você quer dizer?
+assistant_reply_ambiguous	I found several. Which one? Tell me a bit more of the name.	Encontré varias. ¿Cuál? Dime un poco más del nombre.	Encontrei vários. Qual? Diga um pouco mais do nome.
+assistant_reply_ask_which	Which alarm? Tell me its name.	¿Qué alarma? Dime su nombre.	Qual alarme? Diga o nome.
+assistant_reply_ask_change	What should I change in “%1$s”? Tell me the new day or time.	¿Qué cambio en «%1$s»? Dime el nuevo día u hora.	O que eu mudo em “%1$s”? Diga o novo dia ou horário.
+assistant_reply_greeting	Hi! Tell me what to remember and when, and I'll set the alarm.	¡Hola! Dime qué recordar y cuándo, y pongo la alarma.	Oi! Diga o que lembrar e quando, e eu crio o alarme.
+assistant_reply_thanks	You're welcome! Anything else?	¡De nada! ¿Algo más?	De nada! Mais alguma coisa?
+assistant_reply_help	I can create alarms (“gym tomorrow at 7:30”), tell you which ones you have (“what do I have this week?”), and turn them off or delete them (“delete the dentist alarm”).	Puedo crear alarmas («gym mañana a las 7:30»), decirte cuáles tienes («¿qué tengo esta semana?») y desactivarlas o borrarlas («borra la alarma del dentista»).	Posso criar alarmes (“academia amanhã às 7:30”), dizer quais você tem (“o que eu tenho esta semana?”) e desativar ou apagar (“apague o alarme do dentista”).
+assistant_reply_not_understood	I didn't get that. Try something like “Remind me to take my pill every day at 9”.	No lo entendí. Prueba algo como «Recuérdame la pastilla todos los días a las 9».	Não entendi. Tente algo como “Me lembre do remédio todos os dias às 9”.
+assistant_reply_error	Something went wrong and I couldn't save any change. Try again.	Algo salió mal y no guardé ningún cambio. Inténtalo de nuevo.	Algo deu errado e não salvei nenhuma alteração. Tente de novo.
+assistant_default_title	Alarm	Alarma	Alarme
+assistant_wake_title	Wake up	Despertar	Acordar
+assistant_at_time	at %1$s	a las %1$s	às %1$s
+assistant_at_time_one	at %1$s	a la %1$s	à %1$s
+assistant_day_today	today	hoy	hoje
+assistant_day_tomorrow	tomorrow	mañana	amanhã
+assistant_when	%1$s %2$s	%1$s %2$s	%1$s %2$s
+assistant_date_pattern	EEEE, MMMM d	'el' EEEE d 'de' MMMM	EEEE, d 'de' MMMM
+assistant_date_pattern_year	EEEE, MMMM d, yyyy	'el' EEEE d 'de' MMMM 'de' yyyy	EEEE, d 'de' MMMM 'de' yyyy
+assistant_date_short	EEEE, MMMM d	EEEE d 'de' MMMM	EEEE, d 'de' MMMM
