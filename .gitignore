@@ -11,3 +11,6 @@ captures/
 *.jks
 *.keystore
 keystore.properties
+
+# AAB listo para subir
+/dist/
