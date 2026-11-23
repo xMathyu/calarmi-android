@@ -14,10 +14,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <!-- Eventos del calendario (opcional, solo lectura). -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <!-- Reto «Caminar»: el contador de pasos. -->
 
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
-    <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="false" />
+    <!-- El escáner de códigos de ML Kit fija su actividad en vertical, y eso hace que Play
+         exija pantalla vertical (deja fuera tabletas, Chromebooks y XR). No hace falta. -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application

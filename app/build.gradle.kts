@@ -27,7 +27,7 @@ android {
         minSdk = 26
         targetSdk = 36
         // Mismo número de versión que la app de iOS al salir en Android.
-        versionCode = 2
+        versionCode = 3
         versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
