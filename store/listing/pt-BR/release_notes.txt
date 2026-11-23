@@ -1,0 +1,5 @@
+O Calarmi chegou ao Android:
+• Alarmes que tocam no volume de alarme mesmo com o celular no silencioso, em tela cheia por cima da tela bloqueada.
+• Repetições do seu jeito, vários horários e até 5 avisos por alarme.
+• Desafios para acordar, alarmes para os eventos do seu calendário e contagens regressivas com widgets.
+• Calarmi Plus, opcional: desafios Arcade, seus próprios toques, contagens regressivas ilimitadas e ícones coloridos.

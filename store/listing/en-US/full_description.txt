@@ -1,0 +1,41 @@
+The Clock app's alarms are for waking up. Calarmi rings just as loud for everything else: the 8 a.m. pill, your mom's birthday, the dentist at 4, the bill due on the 3rd.
+
+RINGS WHEN IT HAS TO
+• At alarm volume, even when your phone is on silent or vibrate.
+• Full screen, right over the lock screen.
+• After your phone restarts, even before you unlock it.
+
+MORE THAN A WAKE-UP ALARM
+• Meds and appointments: every day, Mondays and Wednesdays, or every 21 days. And several times in a single alarm, for the ones you take three times a day.
+• Birthdays and anniversaries: add the person's photo and it repeats every year on its own.
+• Bills and due dates: the 3rd of every month, no exceptions.
+• Shifts and routines: Monday at 5 p.m. and Saturday at 11 a.m., in the same alarm.
+• Up to 5 alerts per alarm: a week before, a day before, right on time.
+
+WAKE-UP CHALLENGES
+Pick a challenge for each alarm and it won't turn off until you solve it: a math problem, a memory game or a sentence to type; shaking your phone or taking a few steps; or scanning a QR code or barcode you left far from your bed, like the one on your toothpaste.
+
+YOUR CALENDAR EVENTS, WITH A REAL ALARM
+Calarmi reads your phone's calendar (Google Calendar or whichever one you sync) and gives each event up to 3 alerts. If the event has an address, "Go" appears when it rings: it stops the alarm and opens the address in your maps app. If it's a Teams, Zoom or Google Meet call, "Join" takes you straight in. You choose which calendars it watches, and it can skip the events you declined.
+
+COUNTDOWNS
+Count the days until a trip, a concert or a birthday, with a photo or an emoji, and put it on your home screen with a widget. Another widget shows your next alarms.
+
+JUST SAY IT
+"Remind me to take my pill every day at 9." The assistant schedules it for you, and what you ask never leaves your phone. On supported phones it uses Gemini Nano, Google's on-device AI; on the rest, a simpler parser that also works offline.
+
+CHOOSE HOW IT SOUNDS
+Six tones (Chime, Marimba, Radar, Arpeggio, Pulse and Harp) or your phone's own alarm sound. Every alarm can have its own.
+
+MAKE IT YOURS
+Give each alarm a photo, an emoji or an icon, and group them into categories, including your own, each with its color. Light or dark theme, and the accent color you like.
+
+NO ADS, NO ACCOUNT, NO SERVERS OF OURS
+Your alarms, photos and events are stored on your phone. No sign-up, nothing to sell.
+
+CALARMI PLUS (OPTIONAL)
+Calarmi is free. Calarmi Plus adds Arcade challenges (Flight, Sheep, Cannon and Slingshot), your own tones, unlimited countdowns (up to 3 without Plus) and colored home screen icons. Yearly subscription with a 1-week free trial, or a one-time lifetime purchase. The subscription renews automatically; cancel anytime in Google Play › Subscriptions.
+
+In English, Spanish and Portuguese.
+
+For people who refuse to miss what matters.
