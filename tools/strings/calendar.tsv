@@ -1,0 +1,41 @@
+name	en	es	pt
+calendar_previous_month	Previous month	Mes anterior	Mês anterior
+calendar_next_month	Next month	Mes siguiente	Próximo mês
+calendar_event_list	Event list	Lista de eventos	Lista de eventos
+calendar_month_view	Month view	Vista de mes	Visualização do mês
+calendar_refresh	Refresh	Actualizar	Atualizar
+calendar_nothing_this_day	Nothing on this day	Nada este día	Nada neste dia
+calendar_has_items	Has alarms or events	Con alarmas o eventos	Com alarmes ou eventos
+calendar_connect_title	Connect your calendar	Conecta tu calendario	Conecte seu calendário
+calendar_connect_message	Your phone's calendar events will show up here next to your alarms.	Los eventos del calendario de tu teléfono saldrán aquí junto a tus alarmas.	Os eventos do calendário do seu telefone vão aparecer aqui junto com seus alarmes.
+calendar_no_access_title	No calendar access	Sin acceso al calendario	Sem acesso ao calendário
+calendar_denied_message	Calarmi can't read your events. Tap Open settings, then under Permissions › Calendar choose Allow.	Calarmi no puede leer tus eventos. Toca Abrir ajustes y en Permisos › Calendario elige «Permitir».	O Calarmi não consegue ler seus eventos. Toque em Abrir configurações e, em Permissões › Agenda, escolha “Permitir”.
+calendar_allow	Allow	Permitir	Permitir
+calendar_allow_access	Allow access	Permitir acceso	Permitir acesso
+calendar_enable	Enable	Activar	Ativar
+calendar_open_settings	Open settings	Abrir ajustes	Abrir configurações
+calendar_permission_message	Calarmi needs permission to read your events and set alarms for them.	Calarmi necesita permiso para leer tus eventos y ponerles alarma.	O Calarmi precisa de permissão para ler seus eventos e criar alarmes para eles.
+calendar_off_message	Turn on calendar alarms so your events show up here with their alarm.	Activa las alarmas del calendario para que tus eventos salgan aquí con su alarma.	Ative os alarmes do calendário para que seus eventos apareçam aqui com o alarme.
+calendar_no_upcoming	No upcoming events	Sin eventos próximos	Nenhum evento próximo
+calendar_no_upcoming_message	When you have events in your phone's calendar they will appear here with their alarms.	Cuando tengas eventos agendados en el calendario de tu teléfono aparecerán aquí con su alarma programada.	Quando você tiver eventos agendados no calendário do seu telefone, eles vão aparecer aqui com o alarme programado.
+calendar_join_in	Join in %1$s	Unirse en %1$s	Entrar no %1$s
+plural:calendar_n_alerts	one=%1$d alert || other=%1$d alerts	one=%1$d aviso || many=%1$d avisos || other=%1$d avisos	one=%1$d alerta || many=%1$d alertas || other=%1$d alertas
+calendar_no_alarm	No alarm	Sin alarma	Sem alarme
+calendar_event	Event	Evento	Evento
+calendar_start	Start	Inicio	Início
+calendar_until	until %1$s	hasta %1$s	até %1$s
+calendar_organizer	Organizer	Organizador	Organizador
+calendar_location	Location	Ubicación	Local
+calendar_not_attending	No alarm: you're not part of this event	Sin alarma: no eres parte de este evento	Sem alarme: você não faz parte deste evento
+calendar_not_attending_footer	You declined it or it belongs to someone else, and in Settings you asked for only the events you attend. If you save alerts here, this event rings anyway.	Lo rechazaste o es de otra persona, y en Ajustes pediste solo los eventos a los que asistes. Si guardas avisos aquí, este evento sonará igual.	Você recusou ou ele é de outra pessoa, e nos Ajustes você pediu só os eventos dos quais participa. Se você salvar alertas aqui, este evento vai tocar mesmo assim.
+calendar_enabled_footer	When off, this alarm will not ring even if you have alerts configured.	Cuando esté apagado, esta alarma no sonará aunque tengas avisos configurados.	Quando estiver desativado, este alarme não vai tocar, mesmo que você tenha configurado alertas.
+calendar_no_alerts	No alerts. This alarm will not ring.	Sin avisos. Esta alarma no sonará.	Sem alertas. Este alarme não vai tocar.
+calendar_alerts_max	Alerts (max %1$d)	Avisos (máximo %1$d)	Alertas (máximo %1$d)
+calendar_alerts_footer	The alarm will ring at each of these moments before the event starts. If the event has a location, the alarm shows a Go button that stops it and opens the map with directions.	La alarma sonará en cada uno de estos momentos antes del inicio del evento. Si el evento tiene ubicación, en la alarma aparecerá un botón «Ir» que la detiene y abre el mapa con indicaciones.	O alarme vai tocar em cada um destes momentos antes do início do evento. Se o evento tiver um local, aparecerá no alarme um botão “Ir” que o para e abre o mapa com o itinerário.
+calendar_reset_default	Reset to default	Restablecer al valor por defecto	Redefinir para o padrão
+calendar_when_to_ring	When to ring	Cuándo sonar	Quando tocar
+calendar_all_calendars	All calendars	Todos los calendarios	Todos os calendários
+calendar_all_footer	Calarmi watches every one of your calendars, including any you add later.	Calarmi mira todos tus calendarios, incluidos los que agregues después.	O Calarmi acompanha todos os seus calendários, inclusive os que você adicionar depois.
+calendar_some_footer	Only events from the checked calendars ring.	Solo suenan los eventos de los calendarios marcados.	Só tocam os eventos dos calendários marcados.
+calendar_none_found	I found no calendars on this phone.	No encontré calendarios en este teléfono.	Não encontrei calendários neste telefone.
+calendar_other_account	Other	Otros	Outros

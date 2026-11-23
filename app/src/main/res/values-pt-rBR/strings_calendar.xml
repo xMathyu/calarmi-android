@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde calendar.tsv. No editar a mano. -->
+<resources>
+    <string name="calendar_previous_month">Mês anterior</string>
+    <string name="calendar_next_month">Próximo mês</string>
+    <string name="calendar_event_list">Lista de eventos</string>
+    <string name="calendar_month_view">Visualização do mês</string>
+    <string name="calendar_refresh">Atualizar</string>
+    <string name="calendar_nothing_this_day">Nada neste dia</string>
+    <string name="calendar_has_items">Com alarmes ou eventos</string>
+    <string name="calendar_connect_title">Conecte seu calendário</string>
+    <string name="calendar_connect_message">Os eventos do calendário do seu telefone vão aparecer aqui junto com seus alarmes.</string>
+    <string name="calendar_no_access_title">Sem acesso ao calendário</string>
+    <string name="calendar_denied_message">O Calarmi não consegue ler seus eventos. Toque em Abrir configurações e, em Permissões › Agenda, escolha “Permitir”.</string>
+    <string name="calendar_allow">Permitir</string>
+    <string name="calendar_allow_access">Permitir acesso</string>
+    <string name="calendar_enable">Ativar</string>
+    <string name="calendar_open_settings">Abrir configurações</string>
+    <string name="calendar_permission_message">O Calarmi precisa de permissão para ler seus eventos e criar alarmes para eles.</string>
+    <string name="calendar_off_message">Ative os alarmes do calendário para que seus eventos apareçam aqui com o alarme.</string>
+    <string name="calendar_no_upcoming">Nenhum evento próximo</string>
+    <string name="calendar_no_upcoming_message">Quando você tiver eventos agendados no calendário do seu telefone, eles vão aparecer aqui com o alarme programado.</string>
+    <string name="calendar_join_in">Entrar no %1$s</string>
+    <plurals name="calendar_n_alerts">
+        <item quantity="one">%1$d alerta</item>
+        <item quantity="many">%1$d alertas</item>
+        <item quantity="other">%1$d alertas</item>
+    </plurals>
+    <string name="calendar_no_alarm">Sem alarme</string>
+    <string name="calendar_event">Evento</string>
+    <string name="calendar_start">Início</string>
+    <string name="calendar_until">até %1$s</string>
+    <string name="calendar_organizer">Organizador</string>
+    <string name="calendar_location">Local</string>
+    <string name="calendar_not_attending">Sem alarme: você não faz parte deste evento</string>
+    <string name="calendar_not_attending_footer">Você recusou ou ele é de outra pessoa, e nos Ajustes você pediu só os eventos dos quais participa. Se você salvar alertas aqui, este evento vai tocar mesmo assim.</string>
+    <string name="calendar_enabled_footer">Quando estiver desativado, este alarme não vai tocar, mesmo que você tenha configurado alertas.</string>
+    <string name="calendar_no_alerts">Sem alertas. Este alarme não vai tocar.</string>
+    <string name="calendar_alerts_max">Alertas (máximo %1$d)</string>
+    <string name="calendar_alerts_footer">O alarme vai tocar em cada um destes momentos antes do início do evento. Se o evento tiver um local, aparecerá no alarme um botão “Ir” que o para e abre o mapa com o itinerário.</string>
+    <string name="calendar_reset_default">Redefinir para o padrão</string>
+    <string name="calendar_when_to_ring">Quando tocar</string>
+    <string name="calendar_all_calendars">Todos os calendários</string>
+    <string name="calendar_all_footer">O Calarmi acompanha todos os seus calendários, inclusive os que você adicionar depois.</string>
+    <string name="calendar_some_footer">Só tocam os eventos dos calendários marcados.</string>
+    <string name="calendar_none_found">Não encontrei calendários neste telefone.</string>
+    <string name="calendar_other_account">Outros</string>
+</resources>
