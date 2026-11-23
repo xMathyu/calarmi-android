@@ -3,6 +3,9 @@ package com.mathyusolutions.calarmi
 import android.app.Application
 import android.content.Context
 import android.os.UserManager
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.mathyusolutions.calarmi.alarm.AlarmNotifications
 import com.mathyusolutions.calarmi.alarm.AlarmPlanner
 import com.mathyusolutions.calarmi.alarm.AlarmStateStore
@@ -16,7 +19,10 @@ import com.mathyusolutions.calarmi.data.ImportedTonesStore
 import com.mathyusolutions.calarmi.data.PhotoStore
 import com.mathyusolutions.calarmi.data.ReminderRepository
 import com.mathyusolutions.calarmi.data.SettingsStore
+import com.mathyusolutions.calarmi.sharing.ShareNotifications
+import com.mathyusolutions.calarmi.sharing.SharingService
 import com.mathyusolutions.calarmi.widget.WidgetUpdater
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -30,6 +36,7 @@ class CalarmiApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AlarmNotifications.createChannels(this)
+        ShareNotifications.createChannels(this)
         container.start()
     }
 
@@ -59,12 +66,15 @@ class AppContainer(val app: Application) {
         AlarmPlanner(app, database.reminders(), database.categories(), settings, alarmState, calendar)
     }
 
+    /** Lo compartido por Firebase (alarmas, cuentas regresivas, personas de confianza). */
+    val sharing: SharingService by lazy { SharingService(this) }
+
     val reminders: ReminderRepository by lazy {
-        ReminderRepository(database.reminders(), photos) { onDataChanged() }
+        ReminderRepository(database.reminders(), photos, hooks = { sharing.hooks }) { onDataChanged() }
     }
     val categories: CategoryRepository by lazy { CategoryRepository(database.categories(), database.reminders()) }
     val countdowns: CountdownRepository by lazy {
-        CountdownRepository(database.countdowns(), photos) { WidgetUpdater.update(app) }
+        CountdownRepository(database.countdowns(), photos, hooks = { sharing.hooks }) { WidgetUpdater.update(app) }
     }
 
     val isUserUnlocked: Boolean
@@ -82,10 +92,22 @@ class AppContainer(val app: Application) {
         if (isUserUnlocked) onUserUnlocked()
     }
 
-    /** Lo que necesita el almacenamiento normal (WorkManager, facturación): tras el primer desbloqueo. */
+    private val unlockedStarted = AtomicBoolean(false)
+
+    /** Lo que necesita el almacenamiento normal (WorkManager, facturación, Firebase): tras el primer desbloqueo. */
     fun onUserUnlocked() {
         CalendarSyncWorker.schedule(app)
         plus.connect()
+        if (unlockedStarted.compareAndSet(false, true)) {
+            // Lo compartido se escucha solo con la app a la vista; con ella cerrada
+            // llegan los push. El observador se registra en el hilo principal.
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
+                    override fun onStart(owner: LifecycleOwner) = sharing.onForeground()
+                    override fun onStop(owner: LifecycleOwner) = sharing.onBackground()
+                })
+            }
+        }
     }
 
     suspend fun onDataChanged() {

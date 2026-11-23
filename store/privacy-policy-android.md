@@ -8,13 +8,21 @@ Google Play revisa que la URL de la política de privacidad hable de la app que 
 sección de Android tiene que estar publicada **antes** de enviar la app a revisión (ver
 `play-console.md`, paso 5).
 
-Describe solo lo que hace la versión 1.0.19 (versionCode 1) para Android, según el código de
-`app/`:
+Describe lo que hace Calarmi para Android con lo compartido por Firebase (rama `firebase-sharing`),
+según el código de `app/`:
 
-- Datos solo en el teléfono (Room + archivos privados de la app); sin cuenta, sin servidores
-  nuestros, sin anuncios, sin ID de publicidad.
-- No hay iCloud, ni sincronización entre dispositivos, ni alarmas o cuentas regresivas
-  compartidas, ni invitaciones, ni personas de confianza.
+- Lo propio sigue solo en el teléfono (Room + archivos privados de la app); sin cuenta con
+  contraseña, sin anuncios, sin ID de publicidad.
+- **Lo compartido vive en Firebase** (proyecto `calarmi` de Google Cloud, Firestore en `nam5`,
+  Cloud Functions en `us-central1`; contrato en `calarmi-firebase/DESIGN.md`): las alarmas y
+  cuentas regresivas que la persona comparte (con su foto, si tiene), las invitaciones, la lista
+  de personas de confianza y el espejo de sus alarmas mientras la delegación está activa, el
+  nombre que ve la otra gente y los tokens de push (FCM). Todo eso solo existe si la persona
+  comparte, acepta una invitación o activa «Personas de confianza»: hasta entonces la app no abre
+  sesión en Firebase ni genera token de push.
+- La sesión es **anónima** (Firebase Authentication): un identificador al azar por instalación,
+  sin correo ni contraseña.
+- Sin iCloud ni sincronización entre dispositivos propios.
 - Copia de seguridad de Google activada en el manifiesto (`allowBackup`, `data_extraction_rules.xml`):
   base de datos, preferencias y archivos (fotos y tonos), menos `alarm_state.xml`.
 - Permisos: notificaciones, alarmas exactas, pantalla completa, servicio en primer plano,
@@ -67,8 +75,34 @@ Todo lo anterior vale también para Calarmi en Android, con estas diferencias.
 
 **Dónde se guardan tus datos.** Tus alarmas, cuentas regresivas, categorías, ajustes, fotos y
 tonos importados se guardan en el almacenamiento privado de la app, en tu teléfono. En Android no
-hay sincronización con iCloud ni con ningún servidor nuestro, y todavía no se pueden compartir
-alarmas ni cuentas regresivas, invitar a otras personas ni tener personas de confianza.
+hay sincronización con iCloud. Lo único que sale del teléfono es lo que decides compartir (abajo).
+
+**Compartir y personas de confianza (Firebase).** Para compartir una alarma o una cuenta
+regresiva, aceptar una invitación o tener personas de confianza, Calarmi usa Firebase, un servicio
+de Google Cloud (Firestore para los datos, Cloud Functions para avisar a los otros teléfonos y
+Firebase Cloud Messaging para los avisos push), en servidores de Google en Estados Unidos. Solo
+se usa cuando tú haces una de esas cosas; si nunca compartes nada, Calarmi no se conecta a
+Firebase.
+
+- *Tu nombre:* el que escribes en «¿Cómo te llamas?» (o en Ajustes › Tu nombre). Lo ven las
+  personas con las que compartes y las que comparten contigo.
+- *Lo que compartes:* el contenido de cada alarma o cuenta regresiva que compartes (nombre,
+  notas, fechas y horarios, repetición, avisos, categoría, ícono, reto, tono de la app y, si su
+  ícono es una foto, esa foto reducida), y una invitación con una vista previa (nombre, fecha,
+  zona horaria, idioma, color e ícono, y una miniatura de la foto) que puede leer cualquiera que
+  tenga el enlace. Lo ven las personas que aceptan tu invitación. Tus avisos personales de una
+  alarma que te compartieron se quedan en tu teléfono.
+- *Personas de confianza:* si las activas, una copia de todas tus alarmas (sin fotos) y quiénes
+  pueden administrarlas. Si administras las alarmas de otra persona, lo que creas o cambias se
+  guarda en su lista, no en tu teléfono.
+- *Identificadores:* un identificador anónimo de Firebase Authentication (sin correo ni
+  contraseña), el identificador de instalación de Firebase y el token de Firebase Cloud Messaging
+  de tu teléfono, con el idioma de la app y la plataforma, para avisar a tu teléfono cuando algo
+  compartido cambia.
+
+No vendemos estos datos ni los usamos para publicidad; solo sirven para que lo compartido funcione.
+Google los procesa por nosotros según los [términos de Firebase](https://firebase.google.com/terms/data-processing-terms)
+y su [Política de Privacidad](https://policies.google.com/privacy).
 
 **Permisos.** Puedes revisarlos y quitarlos en Ajustes de Android › Apps › Calarmi.
 
@@ -116,12 +150,16 @@ si tienes Plus. La suscripción se gestiona y cancela en Google Play › Pagos y
 datos se les aplica la [Política de Privacidad de Google](https://policies.google.com/privacy).
 
 **Lo que Calarmi para Android no hace.** No muestra anuncios, no usa el ID de publicidad, no te
-pide una cuenta, no accede a tu ubicación, tus contactos ni tu micrófono, y no tiene servidores
-nuestros que guarden tus datos.
+pide una cuenta con correo o contraseña, no accede a tu ubicación, tus contactos ni tu micrófono,
+y fuera de lo que compartes no guarda tus datos en ningún servidor.
 
 **Borrar tus datos.** Borra una alarma o una cuenta regresiva en la app y desaparece del teléfono.
-Para borrarlo todo, desinstala Calarmi o borra su almacenamiento en Ajustes de Android › Apps ›
-Calarmi. La copia de seguridad de Google se gestiona en tu cuenta de Google.
+Si estaba compartida, borrarla o tocar «Dejar de compartir» la borra también de Firebase (con su
+foto) y anula su invitación; «Salir» de algo que te compartieron te quita de la lista. Apagar
+«Personas de confianza» borra la copia de tus alarmas y la lista. Para borrar también tu nombre y
+tus identificadores de Firebase, escríbenos a xmathyu@gmail.com. Para borrar todo lo del teléfono,
+desinstala Calarmi o borra su almacenamiento en Ajustes de Android › Apps › Calarmi. La copia de
+seguridad de Google se gestiona en tu cuenta de Google.
 
 | Tipo de dato | Uso | Sale del teléfono | Tracking |
 |---|---|---|---|
@@ -131,6 +169,10 @@ Calarmi. La copia de seguridad de Google se gestiona en tu cuenta de Google.
 | Lo que le pides al asistente | Crear o cambiar alarmas, en el teléfono. | No | No |
 | Diagnósticos técnicos de ML Kit | Que Google mida y mejore sus bibliotecas. No los recibimos. | Sí, a Google | No |
 | Compras de Calarmi Plus | Saber si tienes Plus. Las procesa Google Play. | Las gestiona Google Play | No |
+| Tu nombre (si compartes) | Que te reconozcan quienes comparten contigo. | Sí, a Firebase (Google Cloud) | No |
+| Alarmas y cuentas regresivas que compartes, con su foto | Que les lleguen a quienes invitas, con cada cambio. | Sí, a Firebase (Google Cloud) | No |
+| Alarmas reflejadas para tus personas de confianza | Que puedan administrarlas. | Sí, a Firebase (Google Cloud) | No |
+| Identificador anónimo, ID de instalación y token de push | Avisar a tu teléfono cuando algo compartido cambia. | Sí, a Firebase (Google Cloud) | No |
 
 ---
 
@@ -141,9 +183,32 @@ Calarmi. La copia de seguridad de Google se gestiona en tu cuenta de Google.
 Everything above also applies to Calarmi on Android, with these differences.
 
 **Where your data is stored.** Your alarms, countdowns, categories, settings, photos and imported
-tones are stored in the app's private storage, on your phone. On Android there is no sync with
-iCloud or with any server of ours, and you can't yet share alarms or countdowns, invite other
-people or have trusted helpers.
+tones are stored in the app's private storage, on your phone. On Android there is no iCloud sync.
+The only thing that leaves the phone is what you choose to share (below).
+
+**Sharing and trusted helpers (Firebase).** To share an alarm or a countdown, accept an invitation
+or have trusted helpers, Calarmi uses Firebase, a Google Cloud service (Firestore for the data,
+Cloud Functions to notify the other phones and Firebase Cloud Messaging for push notifications),
+on Google servers in the United States. It's only used when you do one of those things; if you
+never share anything, Calarmi doesn't connect to Firebase.
+
+- *Your name:* the one you type in "What's your name?" (or in Settings › Your name). The people
+  you share with, and those who share with you, see it.
+- *What you share:* the contents of each alarm or countdown you share (title, notes, dates and
+  times, repeat, alerts, category, icon, challenge, built-in tone and, if its icon is a photo, that
+  photo downsized), plus an invitation with a preview (title, date, time zone, language, color and
+  icon, and a photo thumbnail) that anyone with the link can read. The people who accept your
+  invitation see it. Your own alerts on an alarm someone shared with you stay on your phone.
+- *Trusted helpers:* if you turn them on, a copy of all your alarms (without photos) and who can
+  manage them. If you manage someone else's alarms, what you create or change is stored in their
+  list, not on your phone.
+- *Identifiers:* an anonymous Firebase Authentication identifier (no email or password), the
+  Firebase installation ID and your phone's Firebase Cloud Messaging token, with the app language
+  and platform, to notify your phone when something shared changes.
+
+We don't sell this data or use it for advertising; it only makes sharing work. Google processes it
+on our behalf under the [Firebase terms](https://firebase.google.com/terms/data-processing-terms)
+and its [Privacy Policy](https://policies.google.com/privacy).
 
 **Permissions.** You can review and remove them in Android Settings › Apps › Calarmi.
 
@@ -188,12 +253,16 @@ the phone whether you have Plus. You manage and cancel the subscription in Googl
 subscriptions. [Google's Privacy Policy](https://policies.google.com/privacy) applies to that data.
 
 **What Calarmi for Android doesn't do.** It shows no ads, doesn't use the advertising ID, doesn't
-ask for an account, doesn't access your location, contacts or microphone, and has no servers of
-ours storing your data.
+ask for an account with an email or password, doesn't access your location, contacts or
+microphone, and apart from what you share it stores your data on no server.
 
-**Deleting your data.** Delete an alarm or a countdown in the app and it's gone from the phone. To
-delete everything, uninstall Calarmi or clear its storage in Android Settings › Apps › Calarmi. The
-Google backup is managed in your Google Account.
+**Deleting your data.** Delete an alarm or a countdown in the app and it's gone from the phone. If
+it was shared, deleting it or tapping "Stop sharing" also deletes it from Firebase (with its photo)
+and voids its invitation; "Leave" on something shared with you takes you off its list. Turning off
+"Trusted helpers" deletes the copy of your alarms and the list. To also delete your name and your
+Firebase identifiers, write to xmathyu@gmail.com. To delete everything on the phone, uninstall
+Calarmi or clear its storage in Android Settings › Apps › Calarmi. The Google backup is managed in
+your Google Account.
 
 | Data type | Use | Leaves the phone | Tracking |
 |---|---|---|---|
@@ -203,6 +272,10 @@ Google backup is managed in your Google Account.
 | What you ask the assistant | Create or change alarms, on the phone. | No | No |
 | ML Kit technical diagnostics | Let Google measure and improve its libraries. We don't receive them. | Yes, to Google | No |
 | Calarmi Plus purchases | Know whether you have Plus. Processed by Google Play. | Handled by Google Play | No |
+| Your name (if you share) | Let the people who share with you recognize you. | Yes, to Firebase (Google Cloud) | No |
+| Alarms and countdowns you share, with their photo | Deliver them, and every change, to the people you invite. | Yes, to Firebase (Google Cloud) | No |
+| Alarms mirrored for your trusted helpers | Let them manage them. | Yes, to Firebase (Google Cloud) | No |
+| Anonymous identifier, installation ID and push token | Notify your phone when something shared changes. | Yes, to Firebase (Google Cloud) | No |
 
 ---
 
@@ -214,8 +287,34 @@ Tudo o que está acima também vale para o Calarmi no Android, com estas diferen
 
 **Onde seus dados ficam.** Seus alarmes, contagens regressivas, categorias, ajustes, fotos e
 toques importados ficam no armazenamento privado do app, no seu celular. No Android não há
-sincronização com o iCloud nem com nenhum servidor nosso, e ainda não é possível compartilhar
-alarmes ou contagens regressivas, convidar outras pessoas nem ter pessoas de confiança.
+sincronização com o iCloud. A única coisa que sai do celular é o que você decide compartilhar
+(abaixo).
+
+**Compartilhar e pessoas de confiança (Firebase).** Para compartilhar um alarme ou uma contagem
+regressiva, aceitar um convite ou ter pessoas de confiança, o Calarmi usa o Firebase, um serviço
+do Google Cloud (Firestore para os dados, Cloud Functions para avisar os outros celulares e
+Firebase Cloud Messaging para as notificações push), em servidores do Google nos Estados Unidos.
+Ele só é usado quando você faz uma dessas coisas; se você nunca compartilhar nada, o Calarmi não
+se conecta ao Firebase.
+
+- *Seu nome:* o que você digita em "Qual é o seu nome?" (ou em Ajustes › Seu nome). As pessoas
+  com quem você compartilha, e as que compartilham com você, o veem.
+- *O que você compartilha:* o conteúdo de cada alarme ou contagem regressiva que você compartilha
+  (nome, notas, datas e horários, repetição, alertas, categoria, ícone, desafio, toque do app e, se
+  o ícone for uma foto, essa foto reduzida), e um convite com uma prévia (nome, data, fuso horário,
+  idioma, cor e ícone, e uma miniatura da foto) que qualquer pessoa com o link pode ler. Quem
+  aceita seu convite vê isso. Seus alertas pessoais em um alarme que compartilharam com você ficam
+  no seu celular.
+- *Pessoas de confiança:* se você ativar, uma cópia de todos os seus alarmes (sem fotos) e quem
+  pode gerenciá-los. Se você gerencia os alarmes de outra pessoa, o que você cria ou altera fica
+  na lista dela, não no seu celular.
+- *Identificadores:* um identificador anônimo do Firebase Authentication (sem e-mail nem senha),
+  o ID de instalação do Firebase e o token do Firebase Cloud Messaging do seu celular, com o idioma
+  do app e a plataforma, para avisar seu celular quando algo compartilhado muda.
+
+Não vendemos esses dados nem os usamos para publicidade; eles só servem para o compartilhamento
+funcionar. O Google os processa em nosso nome conforme os [termos do Firebase](https://firebase.google.com/terms/data-processing-terms)
+e a [Política de Privacidade](https://policies.google.com/privacy) dele.
 
 **Permissões.** Você pode revisá-las e removê-las em Configurações do Android › Apps › Calarmi.
 
@@ -262,12 +361,16 @@ celular se você tem o Plus. A assinatura é gerenciada e cancelada no Google Pl
 assinaturas. A esses dados se aplica a [Política de Privacidade do Google](https://policies.google.com/privacy).
 
 **O que o Calarmi para Android não faz.** Não mostra anúncios, não usa o ID de publicidade, não pede
-conta, não acessa sua localização, seus contatos nem seu microfone, e não tem servidores nossos
-guardando seus dados.
+conta com e-mail ou senha, não acessa sua localização, seus contatos nem seu microfone, e fora o
+que você compartilha não guarda seus dados em nenhum servidor.
 
-**Apagar seus dados.** Apague um alarme ou uma contagem regressiva no app e ele some do celular.
-Para apagar tudo, desinstale o Calarmi ou limpe o armazenamento dele em Configurações do Android ›
-Apps › Calarmi. O backup do Google é gerenciado na sua Conta do Google.
+**Apagar seus dados.** Apague um alarme ou uma contagem regressiva no app e ele some do celular. Se
+estava compartilhado, apagá-lo ou tocar em "Parar de compartilhar" também o apaga do Firebase (com
+a foto) e anula o convite; "Sair" de algo que compartilharam com você tira você da lista. Desativar
+"Pessoas de confiança" apaga a cópia dos seus alarmes e a lista. Para apagar também seu nome e
+seus identificadores do Firebase, escreva para xmathyu@gmail.com. Para apagar tudo do celular,
+desinstale o Calarmi ou limpe o armazenamento dele em Configurações do Android › Apps › Calarmi. O
+backup do Google é gerenciado na sua Conta do Google.
 
 | Tipo de dado | Uso | Sai do celular | Rastreamento |
 |---|---|---|---|
@@ -277,6 +380,10 @@ Apps › Calarmi. O backup do Google é gerenciado na sua Conta do Google.
 | O que você pede ao assistente | Criar ou mudar alarmes, no celular. | Não | Não |
 | Diagnósticos técnicos do ML Kit | O Google medir e melhorar suas bibliotecas. Nós não os recebemos. | Sim, para o Google | Não |
 | Compras do Calarmi Plus | Saber se você tem o Plus. Processadas pelo Google Play. | Gerenciadas pelo Google Play | Não |
+| Seu nome (se você compartilhar) | Que as pessoas que compartilham com você te reconheçam. | Sim, para o Firebase (Google Cloud) | Não |
+| Alarmes e contagens regressivas que você compartilha, com a foto | Chegar, com cada alteração, a quem você convida. | Sim, para o Firebase (Google Cloud) | Não |
+| Alarmes espelhados para suas pessoas de confiança | Que elas possam gerenciá-los. | Sim, para o Firebase (Google Cloud) | Não |
+| Identificador anônimo, ID de instalação e token de push | Avisar seu celular quando algo compartilhado muda. | Sim, para o Firebase (Google Cloud) | Não |
 
 ---
 
@@ -294,6 +401,11 @@ misma URL de política a todos los idiomas, así que conviene que también la te
 2. **Diagnósticos de ML Kit.** La lista de datos sale de la página de divulgación de ML Kit
    (consultada el 2026-11-23). Si Google la cambia, o si se quita alguna de esas bibliotecas,
    actualizar el párrafo y la tabla, y la sección «Seguridad de los datos» de Play a la vez.
-3. **Auto-zoom del escáner.** ML Kit solo envía datos de la sesión de escaneo si se activa
+3. **Firebase.** Los datos de la sección de compartir salen de `calarmi-firebase/DESIGN.md` y de
+   `app/src/main/java/com/mathyusolutions/calarmi/sharing/`. Si el contrato suma campos (p. ej.
+   fotos en el espejo de personas de confianza), actualizar el párrafo, la tabla y la sección
+   «Seguridad de los datos» de Play a la vez. `pv.tldr4` («Tus alarmas… se quedan en tu teléfono»)
+   necesita «…salvo lo que compartes».
+4. **Auto-zoom del escáner.** ML Kit solo envía datos de la sesión de escaneo si se activa
    `enableAutoZoom()` en `GmsBarcodeScannerOptions`. Si el reto QR lo activa, el párrafo ya lo
    cubre («datos técnicos de diagnóstico y uso»).

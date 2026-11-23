@@ -1,0 +1,97 @@
+name	en	es	pt
+# Compartir: alarmas, cuentas regresivas y personas de confianza (Firebase). Textos de iOS donde existen (lookup.py), con «iPhone» → «teléfono».			
+sharing_section	Share	Compartir	Compartilhar
+sharing_invite	Invite friends	Invitar amigos	Convidar amigos
+sharing_invite_footer	Choose where to send the link (WhatsApp, Messages, Instagram…) so your guests can accept it.	Elige por dónde enviar el link (WhatsApp, Mensajes, Instagram…) para que tus invitados la acepten.	Escolha por onde enviar o link (WhatsApp, Mensagens, Instagram…) para seus convidados aceitarem.
+sharing_people	People	Personas	Pessoas
+sharing_no_one_yet	No one has joined yet.	Aún no se ha unido nadie.	Ninguém entrou ainda.
+sharing_stop	Stop sharing	Dejar de compartir	Parar de compartilhar
+sharing_stop_title	Stop sharing?	¿Dejar de compartir?	Parar de compartilhar?
+sharing_stop_alarm_message	Everyone you shared it with will lose this alarm, and the invitation link will stop working.	Quienes la tienen dejarán de tenerla, y el enlace de invitación dejará de funcionar.	Quem recebeu vai deixar de ter este alarme, e o link do convite vai parar de funcionar.
+sharing_stop_countdown_message	Everyone you shared it with will lose this countdown, and the invitation link will stop working.	Quienes la tienen dejarán de tenerla, y el enlace de invitación dejará de funcionar.	Quem recebeu vai deixar de ter esta contagem regressiva, e o link do convite vai parar de funcionar.
+sharing_remove_person	Remove %1$s?	¿Quitar a %1$s?	Remover %1$s?
+sharing_remove_person_message	They'll stop getting it on their phone.	Dejará de tenerla en su teléfono.	A pessoa vai deixar de ter isso no celular.
+sharing_badge	Shared	Compartido	Compartilhado
+sharing_shared_with_me	Shared with me	Compartidos conmigo	Compartilhados comigo
+sharing_shared_with_you	Shared with you	Compartido contigo	Compartilhado com você
+sharing_shared_with_you_countdown	Shared with you	Compartida contigo	Compartilhada com você
+sharing_shared_this_alarm	Shared this alarm with you	Te compartió esta alarma	Compartilhou este alarme com você
+sharing_shared_this_countdown	Shared this countdown with you	Te compartió esta cuenta regresiva	Compartilhou esta contagem regressiva com você
+sharing_shared_header	Shared	Compartido	Compartilhado
+sharing_read_only	Only the person who shared it can change it.	Solo quien la compartió puede cambiarla.	Só quem compartilhou pode alterar.
+sharing_leave	Leave	Salir	Sair
+sharing_leave_alarm_title	Remove this alarm from your list?	¿Quitar esta alarma de tu lista?	Remover este alarme da sua lista?
+sharing_leave_alarm_message	You'll stop getting its updates. To get it back, ask for it to be shared with you again.	Dejarás de recibir sus cambios. Para volver a tenerla, pide que te la compartan otra vez.	Você deixará de receber as alterações dele. Para tê-lo de volta, peça que o compartilhem com você de novo.
+sharing_leave_countdown_title	Remove this countdown from your list?	¿Quitar esta cuenta regresiva de tu lista?	Remover esta contagem regressiva da sua lista?
+sharing_leave_countdown_message	You'll stop getting its updates. To get it back, ask for it to be shared with you again.	Dejarás de recibir sus cambios. Para volver a tenerla, pide que te la compartan otra vez.	Você deixará de receber as alterações dela. Para tê-la de volta, peça que a compartilhem com você de novo.
+sharing_own_leads_footer	Your alerts are yours only — they don't change the alarm for whoever shared it.	Tus avisos son solo tuyos: no cambian la alarma de quien la compartió.	Seus alertas são só seus: não mudam o alarme de quem o compartilhou.
+sharing_error_title	Sharing error	Error al compartir	Erro ao compartilhar
+sharing_error_offline	Couldn't connect. Check your internet connection and try again.	No se pudo conectar. Revisa tu conexión a internet e inténtalo de nuevo.	Não foi possível conectar. Verifique sua conexão com a internet e tente de novo.
+sharing_error_generic	Something went wrong. Try again in a moment.	Algo salió mal. Inténtalo de nuevo en un momento.	Algo deu errado. Tente de novo daqui a pouco.
+sharing_message_alarm	Join my alarm on Calarmi so it rings on your phone too:	Únete a mi alarma en Calarmi para que también suene en tu teléfono:	Participe do meu alarme no Calarmi para ele tocar também no seu celular:
+sharing_message_countdown	Join my countdown on Calarmi:	Únete a mi cuenta regresiva en Calarmi:	Participe da minha contagem regressiva no Calarmi:
+plural:sharing_message_days	one=%1$d day until %2$s! || other=%1$d days until %2$s!	one=¡Falta %1$d día para %2$s! || other=¡Faltan %1$d días para %2$s!	one=Falta %1$d dia para %2$s! || other=Faltam %1$d dias para %2$s!
+sharing_message_today	%1$s is today!	¡%1$s es hoy!	%1$s é hoje!
+sharing_message_delegation	I'm inviting you to be my trusted helper in Calarmi: you'll be able to see and manage my alarms from your phone.	Te invito a ser mi persona de confianza en Calarmi: podrás ver y administrar mis alarmas desde tu teléfono.	Te convido para ser minha pessoa de confiança no Calarmi: você poderá ver e gerenciar meus alarmes no seu celular.
+sharing_when	%1$s at %2$s	%1$s, %2$s	%1$s, %2$s
+sharing_name_title	What's your name?	¿Cómo te llamas?	Qual é o seu nome?
+sharing_name_message	This is how people who share alarms and countdowns with you will see you. You can change it in Settings.	Así te verán quienes comparten alarmas y cuentas regresivas contigo. Puedes cambiarlo en Ajustes.	É assim que as pessoas que compartilham alarmes e contagens regressivas com você vão te ver. Você pode mudar isso nos Ajustes.
+sharing_name_placeholder	Your name	Tu nombre	Seu nome
+sharing_name_continue	Continue	Continuar	Continuar
+sharing_name_section	Your name	Tu nombre	Seu nome
+sharing_name_footer	This is how the people you share alarms and countdowns with see you.	Así te ven las personas con las que compartes alarmas y cuentas regresivas.	É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem.
+sharing_toast_adding_alarm	Adding the shared alarm…	Agregando la alarma compartida…	Adicionando o alarme compartilhado…
+sharing_toast_adding_countdown	Adding the shared countdown…	Agregando la cuenta regresiva compartida…	Adicionando a contagem regressiva compartilhada…
+sharing_toast_alarm	“%1$s” is now in your alarms	«%1$s» ya está en tus alarmas	“%1$s” já está nos seus alarmes
+sharing_toast_countdown	“%1$s” is now in your countdowns	«%1$s» ya está en tus cuentas regresivas	“%1$s” já está nas suas contagens regressivas
+sharing_toast_delegation	You now manage %1$s's alarms	Ahora administras las alarmas de %1$s	Agora você administra os alarmes de %1$s
+sharing_toast_by	Shared by %1$s	Compartida por %1$s	Compartilhado por %1$s
+sharing_invite_from_alarm	%1$s invited you to an alarm	%1$s te invitó a una alarma	%1$s te convidou para um alarme
+sharing_invite_from_countdown	%1$s invited you to a countdown	%1$s te invitó a una cuenta regresiva	%1$s te convidou para uma contagem regressiva
+sharing_invite_from_delegation	%1$s wants you as their trusted helper	%1$s quiere que seas su persona de confianza	%1$s quer você como pessoa de confiança
+sharing_invite_alarm_detail	It will ring on your phone too. Your alerts stay yours: you can add your own.	También sonará en tu teléfono. Tus avisos son solo tuyos: puedes poner los tuyos.	Ele também vai tocar no seu celular. Seus alertas são só seus: você pode colocar os seus.
+sharing_invite_countdown_detail	You'll see it in your countdowns, with every change.	La verás en tus cuentas regresivas, con cada cambio.	Você vai vê-la nas suas contagens regressivas, com cada alteração.
+sharing_invite_delegation_detail	You'll be able to see, create, edit and delete their alarms. They ring on their phone, not yours.	Podrás ver, crear, editar y borrar sus alarmas. Suenan en su teléfono, no en el tuyo.	Você poderá ver, criar, editar e apagar os alarmes dessa pessoa. Eles tocam no celular dela, não no seu.
+sharing_accept	Accept	Aceptar	Aceitar
+sharing_not_now	Not now	Ahora no	Agora não
+sharing_invite_loading	Loading the invitation…	Cargando la invitación…	Carregando o convite…
+sharing_invite_unavailable	Invitation unavailable	Invitación no disponible	Convite indisponível
+sharing_invite_revoked	This invitation is no longer valid. Ask for a new one.	Esta invitación ya no es válida. Pide una nueva.	Este convite não é mais válido. Peça um novo.
+sharing_invite_missing	This invitation doesn't exist. Check the link.	Esta invitación no existe. Revisa el enlace.	Este convite não existe. Confira o link.
+sharing_accept_error	Couldn't accept the invitation	No se pudo aceptar la invitación	Não foi possível aceitar o convite
+sharing_kind_alarm	Alarm	Alarma	Alarme
+sharing_kind_countdown	Countdown	Cuenta regresiva	Contagem regressiva
+sharing_kind_delegation	Trusted helper	Persona de confianza	Pessoa de confiança
+sharing_channel	Changes to shared alarms	Cambios en alarmas compartidas	Alterações em alarmes compartilhados
+sharing_channel_desc	When someone who shared an alarm with you changes or deletes it.	Cuando alguien que te compartió una alarma la cambia o la borra.	Quando alguém que compartilhou um alarme com você o altera ou apaga.
+sharing_changed_will_ring	%1$s changed the schedule. It'll ring on %2$s	%1$s cambió el horario. Sonará el %2$s	%1$s mudou o horário. Vai tocar em %2$s
+sharing_changed_no_more	%1$s changed the schedule. It won't ring again.	%1$s cambió el horario y ya no volverá a sonar.	%1$s mudou o horário, e o alarme não vai mais tocar.
+sharing_deleted	%1$s deleted it, so it won't ring anymore.	%1$s la borró, así que ya no sonará.	%1$s apagou o alarme, então ele não vai mais tocar.
+sharing_unknown_owner	The person who shared it	Quien te la compartió	Quem compartilhou com você
+sharing_sync_channel	Sync	Sincronización	Sincronização
+sharing_syncing	Updating shared items…	Actualizando lo compartido…	Atualizando o que foi compartilhado…
+sharing_delegation_section	Delegation	Delegación	Delegação
+sharing_delegation_footer	Let trusted helpers manage your alarms, or manage the alarms of someone who invited you.	Deja que personas de confianza administren tus alarmas, o administra las de alguien que te invitó.	Deixe pessoas de confiança gerenciarem seus alarmes ou gerencie os de alguém que convidou você.
+sharing_trusted_people	Trusted helpers	Personas de confianza	Pessoas de confiança
+sharing_managed_lists	Lists I manage	Listas que administro	Listas que administro
+sharing_allow_trusted	Allow trusted helpers	Permitir personas de confianza	Permitir pessoas de confiança
+sharing_allow_trusted_footer	People you invite will be able to see, create, edit, and delete ALL your alarms on your behalf. Whatever they schedule will ring on your phone. You can revoke access at any time.	Las personas que invites podrán ver, crear, editar y borrar TODAS tus alarmas en tu nombre. Lo que ellas programen sonará en tu teléfono. Tú puedes revocar el acceso en cualquier momento.	As pessoas que você convidar poderão ver, criar, editar e apagar TODOS os seus alarmes em seu nome. O que elas agendarem vai tocar no seu celular. Você pode revogar o acesso a qualquer momento.
+sharing_invite_trusted	Invite a trusted helper	Invitar persona de confianza	Convidar pessoa de confiança
+sharing_invite_trusted_footer	Share the link over WhatsApp, Messages or wherever you like. Once they accept, that person will be able to manage your alarms.	Comparte el enlace por WhatsApp, Mensajes o donde prefieras. Al aceptarlo, esa persona podrá administrar tus alarmas.	Compartilhe o link pelo WhatsApp, Mensagens ou onde preferir. Quando a pessoa aceitar, ela poderá gerenciar seus alarmes.
+sharing_people_with_access	People with access	Personas con acceso	Pessoas com acesso
+sharing_no_helpers	You haven't invited anyone yet.	Aún no has invitado a nadie.	Você ainda não convidou ninguém.
+sharing_revoke	Revoke	Revocar	Revogar
+sharing_revoke_title	Revoke %1$s's access?	¿Quitarle el acceso a %1$s?	Revogar o acesso de %1$s?
+sharing_disable_title	Turn off delegation?	¿Desactivar delegación?	Desativar delegação?
+sharing_disable_message	Your trusted helpers will no longer see or manage your alarms. Your alarms stay intact.	Tus personas de confianza dejarán de ver y administrar tus alarmas. Tus alarmas siguen intactas.	Suas pessoas de confiança deixarão de ver e gerenciar seus alarmes. Seus alarmes continuam intactos.
+sharing_disable	Turn off	Desactivar	Desativar
+sharing_no_lists_title	No lists to manage	Sin listas para administrar	Nenhuma lista para administrar
+sharing_no_lists_message	When someone invites you as a trusted helper and you accept the invitation, their alarms will appear here.	Cuando alguien te invite como persona de confianza y aceptes la invitación, sus alarmas aparecerán aquí.	Quando alguém convidar você como pessoa de confiança e você aceitar o convite, os alarmes dessa pessoa vão aparecer aqui.
+sharing_no_alarms_title	No alarms	Sin alarmas	Sem alarmes
+sharing_no_alarms_message	Tap + to create an alarm for %1$s.	Toca + para crear una alarma para %1$s.	Toque em + para criar um alarme para %1$s.
+sharing_new_alarm_for	New alarm for %1$s	Nueva alarma para %1$s	Novo alarme para %1$s
+sharing_delegated_footer	This alarm rings on %1$s's phone, not yours.	Esta alarma suena en el teléfono de %1$s, no en el tuyo.	Este alarme toca no celular de %1$s, não no seu.
+sharing_leave_list	Stop managing this list	Dejar de administrar esta lista	Deixar de administrar esta lista
+sharing_leave_list_title	Stop managing %1$s's alarms?	¿Dejar de administrar las alarmas de %1$s?	Deixar de administrar os alarmes de %1$s?
+sharing_leave_list_message	To manage them again, you'll need a new invitation.	Para volver a administrarlas, necesitarás una invitación nueva.	Para administrá-los de novo, você vai precisar de um novo convite.
+sharing_list_gone	This list is no longer available.	Esta lista ya no está disponible.	Esta lista não está mais disponível.

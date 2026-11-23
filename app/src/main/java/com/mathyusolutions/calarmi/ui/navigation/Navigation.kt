@@ -7,7 +7,15 @@ import com.mathyusolutions.calarmi.model.WakeChallenge
 import kotlinx.serialization.Serializable
 
 @Serializable object HomeRoute
-@Serializable data class ReminderEditorRoute(val id: String? = null, val template: String? = null, val initialDate: Long? = null, val initialTitle: String? = null)
+/** `principal`: una alarma de otra persona (personas de confianza), que se edita en su documento. */
+@Serializable data class ReminderEditorRoute(
+    val id: String? = null,
+    val template: String? = null,
+    val initialDate: Long? = null,
+    val initialTitle: String? = null,
+    val principal: String? = null,
+    val principalName: String? = null,
+)
 @Serializable data class CountdownDetailRoute(val id: String)
 @Serializable data class CountdownEditorRoute(val id: String? = null, val prefillJson: String? = null)
 @Serializable data class PaywallRoute(val highlight: String? = null)
@@ -15,6 +23,9 @@ import kotlinx.serialization.Serializable
 @Serializable object CalendarSelectionRoute
 @Serializable object AppIconsRoute
 @Serializable data class ChallengePracticeRoute(val challengeJson: String, val title: String)
+@Serializable object TrustedPeopleRoute
+@Serializable object ManagedListsRoute
+@Serializable data class PrincipalRoute(val uid: String, val name: String)
 
 enum class HomeTab { ALARMS, CALENDAR, COUNTDOWNS, ASSISTANT, SETTINGS }
 
@@ -36,6 +47,13 @@ interface AppNavigator {
     fun openCalendarSelection()
     fun openAppIcons()
     fun practiceChallenge(challenge: WakeChallenge, title: String)
+    /** Ajustes › Personas de confianza. */
+    fun openTrustedPeople()
+    /** Ajustes › Listas que administro. */
+    fun openManagedLists()
+    fun openPrincipal(uid: String, name: String)
+    fun newDelegatedReminder(principal: String, principalName: String)
+    fun openDelegatedReminder(principal: String, principalName: String, id: String)
 }
 
 val LocalAppNavigator = staticCompositionLocalOf<AppNavigator> { error("Sin AppNavigator") }

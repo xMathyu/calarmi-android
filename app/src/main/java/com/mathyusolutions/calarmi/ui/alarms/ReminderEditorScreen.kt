@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.EditCalendar
 import androidx.compose.material.icons.filled.Extension
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.HourglassBottom
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.NotificationsOff
@@ -78,6 +80,16 @@ import com.mathyusolutions.calarmi.model.ReminderCategory
 import com.mathyusolutions.calarmi.model.ReminderIconKind
 import com.mathyusolutions.calarmi.model.WakeChallenge
 import com.mathyusolutions.calarmi.model.isEmojiIcon
+import com.mathyusolutions.calarmi.model.CustomCategory
+import com.mathyusolutions.calarmi.sharing.ShareMapping
+import com.mathyusolutions.calarmi.sharing.ui.LeaveConfirmDialog
+import com.mathyusolutions.calarmi.sharing.ui.RowProgress
+import com.mathyusolutions.calarmi.sharing.ui.ShareErrorDialog
+import com.mathyusolutions.calarmi.sharing.ui.SharePeopleSection
+import com.mathyusolutions.calarmi.sharing.ui.ShareTexts
+import com.mathyusolutions.calarmi.sharing.ui.SharedBySection
+import com.mathyusolutions.calarmi.sharing.ui.StopSharingRow
+import com.mathyusolutions.calarmi.sharing.ui.rememberNameGate
 import com.mathyusolutions.calarmi.ui.components.CategorySelection
 import com.mathyusolutions.calarmi.ui.components.CategoryStyle
 import com.mathyusolutions.calarmi.ui.components.ReminderIcon
@@ -98,6 +110,7 @@ import java.time.format.FormatStyle
 import java.util.Date
 import java.util.UUID
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 private const val MAX_LEAD_TIMES = 5
@@ -107,6 +120,8 @@ class EditorState : androidx.lifecycle.ViewModel() {
     internal val draft = mutableStateOf<Draft?>(null)
     internal val original = mutableStateOf<Draft?>(null)
     val sheet = mutableStateOf<String?>(null)
+    /** Alarma de otra persona (personas de confianza): su categoría propia, que aquí no existe. */
+    internal val remoteCustom = mutableStateOf<CustomCategory?>(null)
 }
 
 /** El estado que se edita: se guarda como una alarma al cerrar. */
@@ -166,22 +181,40 @@ internal data class Draft(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, initialDate: Long? = null, initialTitle: String? = null) {
+fun ReminderEditorScreen(
+    id: String?,
+    template: String?,
+    onDone: () -> Unit,
+    initialDate: Long? = null,
+    initialTitle: String? = null,
+    /** Alarma de otra persona que esta administra (personas de confianza): se lee y se guarda en su documento. */
+    principal: String? = null,
+    principalName: String? = null,
+) {
     val context = LocalContext.current
     val container = CalarmiApp.container(context)
     val navigator = LocalAppNavigator.current
     val settings by container.settings.state.collectAsStateWithLifecycle()
-    val customs by container.categories.categories.collectAsStateWithLifecycle(initialValue = emptyList())
+    val localCustoms by container.categories.categories.collectAsStateWithLifecycle(initialValue = emptyList())
     val scope = rememberCoroutineScope()
+    val delegated = principal != null
 
     // El borrador vive en un ViewModel de esta entrada de navegación: sobrevive a
     // «Probar reto», al paywall o a girar la pantalla sin perder lo editado.
     val state = androidx.lifecycle.viewmodel.compose.viewModel<EditorState>()
     var draft by state.draft
     var original by state.original
+    // Las categorías propias de ESTA persona no son las de quien delega: ahí solo
+    // las de fábrica, más la que ya traía la alarma.
+    val customs = if (delegated) listOfNotNull(state.remoteCustom.value) else localCustoms
     LaunchedEffect(id, template) {
         if (draft != null) return@LaunchedEffect
         val initial = when {
+            principal != null && id != null -> container.sharing.delegation.fetchDelegated(principal, id)?.let { remote ->
+                state.remoteCustom.value = remote.customCategory
+                Draft.from(remote.reminder)
+            }
+            principal != null -> Draft(leadTimes = listOf(settings.defaultLeadTime))
             id != null -> container.reminders.byId(id)?.let(Draft::from)
             else -> AlarmTemplate.byId(template)?.let { t ->
                 Draft(
@@ -201,6 +234,31 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             original = if (template != null || !initialTitle.isNullOrBlank()) null else initial
         }
     }
+    // Lo guardado (con lo compartido): si la alarma es de otra persona, si está
+    // compartida y con quién. Una recibida se refresca sola si el dueño la cambia.
+    val storedId = draft?.id
+    val stored by remember(storedId, delegated) {
+        if (storedId == null || delegated) flowOf(null) else container.reminders.observe(storedId)
+    }.collectAsStateWithLifecycle(initialValue = null)
+    var sawReceived by remember { mutableStateOf(false) }
+    LaunchedEffect(stored) {
+        val current = stored
+        if (current?.isReceivedShare == true) {
+            sawReceived = true
+            val fresh = Draft.from(current)
+            // El contenido es del dueño; los avisos, de quien la recibió (y quizá los está cambiando).
+            val mine = draft?.leadTimes
+            original = fresh
+            draft = if (mine != null) fresh.copy(leadTimes = mine) else fresh
+        } else if (current == null && sawReceived) {
+            // El dueño la borró o sacó a esta persona mientras miraba.
+            onDone()
+        }
+    }
+    val received = stored?.isReceivedShare == true
+    val sharedByMe = stored?.isSharedByMe == true
+    val readOnly = received
+
     val d = draft ?: return
 
     var showTitleError by rememberSaveable { mutableStateOf(false) }
@@ -228,16 +286,64 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             return
         }
         if (!changed) return onDone()
+        if (principal != null) {
+            // A su documento, sin esperar a la red (sin conexión queda en la cola).
+            val custom = state.remoteCustom.value?.takeIf { (current.category as? CategorySelection.Custom)?.id == it.id }
+            container.sharing.delegation.saveDelegated(principal, current.toReminder(), custom)
+            return onDone()
+        }
         scope.launch {
             container.reminders.save(current.toReminder())
             onDone()
         }
     }
 
+    // --- Compartir (alarmas propias)
+    val gate = rememberNameGate()
+    var sharing by remember { mutableStateOf(false) }
+    var shareError by remember { mutableStateOf<String?>(null) }
+    var confirmLeave by remember { mutableStateOf(false) }
+    val shareState by remember(d.id, sharedByMe) {
+        if (sharedByMe) container.sharing.observeShare(d.id) else flowOf(null)
+    }.collectAsStateWithLifecycle(initialValue = null)
+
+    /** «Invitar amigos»: guarda lo editado, publica la alarma y abre la hoja de compartir. */
+    fun invite() {
+        val current = draft ?: return
+        if (current.title.isBlank()) {
+            showTitleError = true
+            return
+        }
+        gate.require {
+            sharing = true
+            scope.launch {
+                try {
+                    if (current != original) {
+                        // El contenido lo sube «Invitar» mismo: guardar sin avisar evita subirlo dos veces.
+                        container.reminders.save(current.toReminder(), syncRemote = false)
+                        val saved = current.copy(isNew = false)
+                        draft = saved
+                        original = saved
+                    }
+                    val invite = container.sharing.inviteReminder(current.id)
+                    val reminder = container.reminders.byId(current.id) ?: return@launch
+                    ShareTexts.send(context, ShareTexts.alarm(context, reminder, invite.url))
+                } catch (e: Exception) {
+                    shareError = ShareTexts.failure(context, e)
+                } finally {
+                    sharing = false
+                }
+            }
+        }
+    }
+
     BackHandler { close() }
 
     ScreenScaffold(
-        title = stringResource(if (d.isNew) R.string.alarm_new else R.string.alarm_edit),
+        title = when {
+            delegated && d.isNew -> stringResource(R.string.sharing_new_alarm_for, principalName.orEmpty())
+            else -> stringResource(if (d.isNew) R.string.alarm_new else R.string.alarm_edit)
+        },
         onBack = ::close,
         actions = { TextButton(onClick = ::close) { Text(stringResource(R.string.action_done), fontWeight = FontWeight.Bold) } },
     ) {
@@ -245,19 +351,23 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
         SectionCard(
             footer = when {
                 showTitleError -> stringResource(R.string.editor_title_required)
+                readOnly -> stringResource(R.string.sharing_read_only)
+                delegated -> stringResource(R.string.sharing_delegated_footer, principalName.orEmpty())
                 d.title.isBlank() -> stringResource(R.string.editor_title_hint)
                 else -> null
             },
         ) {
             Row(Modifier.padding(DS.md), verticalAlignment = Alignment.Top) {
-                Box(Modifier.clickable { sheet = "icon" }) {
+                Box(if (readOnly) Modifier else Modifier.clickable { sheet = "icon" }) {
                     ReminderIcon(d.iconKind, d.symbol, style.color, photoPath = d.photoPath, fallbackSymbol = fallbackSymbol, size = 56.dp, shape = RoundedCornerShape(DS.radiusMd))
-                    Icon(Icons.Filled.Edit, stringResource(R.string.editor_change_icon), tint = Color.White, modifier = Modifier.align(Alignment.BottomEnd).size(18.dp).padding(2.dp))
+                    if (!readOnly) Icon(Icons.Filled.Edit, stringResource(R.string.editor_change_icon), tint = Color.White, modifier = Modifier.align(Alignment.BottomEnd).size(18.dp).padding(2.dp))
                 }
                 Spacer(Modifier.width(DS.md))
                 Column(verticalArrangement = Arrangement.spacedBy(DS.sm)) {
-                    EditorTextField(d.title, { v -> update { it.copy(title = v) } }, stringResource(R.string.editor_title_placeholder), isError = showTitleError, textStyle = MaterialTheme.typography.titleMedium)
-                    EditorTextField(d.notes, { v -> update { it.copy(notes = v) } }, stringResource(R.string.editor_notes_placeholder), singleLine = false)
+                    EditorTextField(d.title, { v -> update { it.copy(title = v) } }, stringResource(R.string.editor_title_placeholder), isError = showTitleError, textStyle = MaterialTheme.typography.titleMedium, enabled = !readOnly)
+                    if (!readOnly || d.notes.isNotBlank()) {
+                        EditorTextField(d.notes, { v -> update { it.copy(notes = v) } }, stringResource(R.string.editor_notes_placeholder), singleLine = false, enabled = !readOnly)
+                    }
                 }
             }
         }
@@ -269,23 +379,30 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                 date = d.date,
                 recurrence = d.recurrence,
                 openSheet = { sheet = it },
+                enabled = !readOnly,
             )
         }
         d.additional.forEachIndexed { index, schedule ->
             SectionCard(title = stringResource(R.string.editor_schedule_n, index + 2)) {
-                ScheduleRows(key = schedule.id, date = schedule.date, recurrence = schedule.recurrence, openSheet = { sheet = it })
-                SettingRow(
-                    title = stringResource(R.string.editor_remove_schedule),
-                    icon = Icons.Filled.Delete,
-                    iconTint = MaterialTheme.colorScheme.error,
-                    divider = false,
-                    onClick = { update { it.copy(additional = it.additional.filter { s -> s.id != schedule.id }) } },
-                )
+                ScheduleRows(key = schedule.id, date = schedule.date, recurrence = schedule.recurrence, openSheet = { sheet = it }, enabled = !readOnly)
+                if (!readOnly) {
+                    SettingRow(
+                        title = stringResource(R.string.editor_remove_schedule),
+                        icon = Icons.Filled.Delete,
+                        iconTint = MaterialTheme.colorScheme.error,
+                        divider = false,
+                        onClick = { update { it.copy(additional = it.additional.filter { s -> s.id != schedule.id }) } },
+                    )
+                }
             }
         }
         // Avisos y horarios extra
         SectionCard(
-            footer = stringResource(if (d.leadTimes.size > 1) R.string.editor_leads_footer else R.string.editor_schedules_footer),
+            footer = when {
+                // En una recibida los avisos son de quien la recibió: no cambian la del dueño.
+                readOnly -> stringResource(R.string.sharing_own_leads_footer)
+                else -> stringResource(if (d.leadTimes.size > 1) R.string.editor_leads_footer else R.string.editor_schedules_footer)
+            },
         ) {
             d.leadTimes.forEachIndexed { index, lead ->
                 LeadTimeRow(
@@ -300,7 +417,7 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             if (d.leadTimes.size < MAX_LEAD_TIMES) {
                 var adding by remember { mutableStateOf(false) }
                 Box {
-                    SettingRow(title = stringResource(R.string.editor_add_alert), icon = Icons.Filled.AddCircle, onClick = { adding = true })
+                    SettingRow(title = stringResource(R.string.editor_add_alert), icon = Icons.Filled.AddCircle, divider = !readOnly, onClick = { adding = true })
                     DropdownMenu(expanded = adding, onDismissRequest = { adding = false }) {
                         AlarmLeadTime.entries.filter { it !in d.leadTimes }.forEach { option ->
                             DropdownMenuItem(text = { Text(stringResource(option.titleRes)) }, onClick = {
@@ -311,14 +428,16 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                     }
                 }
             }
-            SettingRow(
-                title = stringResource(R.string.editor_add_schedule),
-                icon = Icons.Filled.EditCalendar,
-                divider = false,
-                onClick = {
-                    update { it.copy(additional = it.additional + AlarmSchedule(date = it.date + 24 * 3600 * 1000L, recurrence = it.recurrence)) }
-                },
-            )
+            if (!readOnly) {
+                SettingRow(
+                    title = stringResource(R.string.editor_add_schedule),
+                    icon = Icons.Filled.EditCalendar,
+                    divider = false,
+                    onClick = {
+                        update { it.copy(additional = it.additional + AlarmSchedule(date = it.date + 24 * 3600 * 1000L, recurrence = it.recurrence)) }
+                    },
+                )
+            }
         }
 
         // Sonido
@@ -328,8 +447,9 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                 title = stringResource(R.string.editor_sound),
                 icon = SymbolIcons.of(effectiveTone.symbol),
                 value = toneTitle(context, effectiveTone),
-                showChevron = true,
+                showChevron = !readOnly,
                 divider = false,
+                enabled = !readOnly,
                 onClick = { sheet = "tone" },
             )
         }
@@ -347,8 +467,9 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                 title = stringResource(R.string.editor_challenge),
                 icon = Icons.Filled.Extension,
                 value = challenge?.let { stringResource(it.kind.titleRes) + " · " + stringResource(it.difficulty.titleRes) } ?: stringResource(R.string.editor_challenge_none),
-                showChevron = true,
+                showChevron = !readOnly,
                 divider = false,
+                enabled = !readOnly,
                 onClick = { sheet = "challenge" },
             )
         }
@@ -361,8 +482,9 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                     title = style.title,
                     icon = if (style.iconKind == ReminderIconKind.SYMBOL) SymbolIcons.of(style.iconValue) else Icons.Filled.Sell,
                     iconTint = style.color,
-                    showChevron = true,
+                    showChevron = !readOnly,
                     divider = false,
+                    enabled = !readOnly,
                     onClick = { open = true },
                 )
                 DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
@@ -393,8 +515,10 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                             },
                         )
                     }
-                    HorizontalDivider()
-                    DropdownMenuItem(text = { Text(stringResource(R.string.categories_manage)) }, onClick = { open = false; navigator.openCategories() })
+                    if (!delegated) {
+                        HorizontalDivider()
+                        DropdownMenuItem(text = { Text(stringResource(R.string.categories_manage)) }, onClick = { open = false; navigator.openCategories() })
+                    }
                 }
             }
         }
@@ -406,13 +530,13 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                 icon = if (d.isEnabled) Icons.Filled.Notifications else Icons.Filled.NotificationsOff,
                 iconTint = style.color,
                 divider = false,
-                trailing = { Switch(checked = d.isEnabled, onCheckedChange = { v -> update { it.copy(isEnabled = v) } }) },
+                trailing = { Switch(checked = d.isEnabled, enabled = !readOnly, onCheckedChange = { v -> update { it.copy(isEnabled = v) } }) },
             )
         }
 
         // Cuenta regresiva (una vez, mensual, anual)
         val next = nextRing(d)
-        if (next != null && (next.second is RecurrenceRule.Once || next.second is RecurrenceRule.Monthly || next.second is RecurrenceRule.Yearly)) {
+        if (!delegated && next != null && (next.second is RecurrenceRule.Once || next.second is RecurrenceRule.Monthly || next.second is RecurrenceRule.Yearly)) {
             SectionCard(footer = stringResource(R.string.editor_countdown_footer)) {
                 SettingRow(
                     title = stringResource(R.string.editor_create_countdown),
@@ -420,7 +544,8 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
                     divider = false,
                     onClick = {
                         scope.launch {
-                            val count = container.countdowns.countdowns.first().size
+                            // Las recibidas no cuentan para el límite (son de quien las compartió).
+                            val count = container.countdowns.countdowns.first().count { !it.isReceivedShare }
                             if (count >= PlusStore.FREE_COUNTDOWN_LIMIT && !container.plus.isPlus.value) {
                                 navigator.openPaywall(PlusFeature.UNLIMITED_COUNTDOWNS)
                                 return@launch
@@ -448,7 +573,46 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             }
         }
 
-        if (!d.isNew) {
+        // Compartir: la propia se invita y se ve con quién está; la recibida dice de quién es.
+        if (received) {
+            SharedBySection(stored?.sharedByName, isCountdown = false)
+        } else if (!delegated) {
+            SectionCard(title = stringResource(R.string.sharing_section), footer = stringResource(R.string.sharing_invite_footer)) {
+                SettingRow(
+                    title = stringResource(R.string.sharing_invite),
+                    icon = Icons.Filled.PersonAdd,
+                    divider = sharedByMe,
+                    enabled = !sharing,
+                    onClick = ::invite,
+                    trailing = { if (sharing) RowProgress() },
+                )
+                if (sharedByMe) {
+                    StopSharingRow(isCountdown = false) {
+                        container.scope.launch { container.sharing.unshare(ShareMapping.KIND_ALARM, d.id) }
+                    }
+                }
+            }
+            shareState?.let { state ->
+                SharePeopleSection(state.people) { person ->
+                    container.scope.launch {
+                        runCatching { container.sharing.removeMember(d.id, person.uid) }
+                            .onFailure { shareError = ShareTexts.failure(context, it) }
+                    }
+                }
+            }
+        }
+
+        if (received) {
+            SectionCard {
+                SettingRow(
+                    title = stringResource(R.string.sharing_leave),
+                    icon = Icons.AutoMirrored.Filled.ExitToApp,
+                    iconTint = MaterialTheme.colorScheme.error,
+                    divider = false,
+                    onClick = { confirmLeave = true },
+                )
+            }
+        } else if (!d.isNew) {
             SectionCard {
                 SettingRow(
                     title = stringResource(R.string.alarm_delete),
@@ -471,6 +635,8 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             iconKind = d.iconKind,
             iconValue = d.symbol,
             photoPath = d.photoPath,
+            // La foto de una alarma de otra persona no viaja a su teléfono desde aquí.
+            allowsPhoto = !delegated,
             onDismiss = { sheet = null },
             onChange = { kind, value, photo -> draft = draft?.copy(iconKind = kind, symbol = value, photoPath = photo) },
         )
@@ -511,7 +677,10 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             confirmButton = {
                 TextButton(onClick = {
                     confirmDelete = false
-                    scope.launch {
+                    if (principal != null) {
+                        container.sharing.delegation.deleteDelegated(principal, d.id)
+                        onDone()
+                    } else scope.launch {
                         container.reminders.delete(d.id)
                         onDone()
                     }
@@ -520,6 +689,18 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, ini
             dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.action_cancel)) } },
         )
     }
+    if (confirmLeave) {
+        LeaveConfirmDialog(isCountdown = false, onDismiss = { confirmLeave = false }) {
+            confirmLeave = false
+            sawReceived = false
+            // Borrarla de aquí es salir del share (el repositorio avisa a Firestore).
+            scope.launch {
+                container.reminders.delete(d.id)
+                onDone()
+            }
+        }
+    }
+    ShareErrorDialog(shareError) { shareError = null }
 }
 
 private fun Draft.withDate(key: String, date: Long): Draft =
@@ -536,7 +717,7 @@ fun toneTitle(context: android.content.Context, tone: AlarmTone): String =
     else context.getString(tone.titleRes)
 
 @Composable
-private fun ScheduleRows(key: String, date: Long, recurrence: RecurrenceRule, openSheet: (String) -> Unit) {
+private fun ScheduleRows(key: String, date: Long, recurrence: RecurrenceRule, openSheet: (String) -> Unit, enabled: Boolean = true) {
     val context = LocalContext.current
     val zoned = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault())
     val showsDate = when (recurrence) {
@@ -549,6 +730,7 @@ private fun ScheduleRows(key: String, date: Long, recurrence: RecurrenceRule, op
             title = stringResource(if (recurrence.isRecurring) R.string.editor_from else R.string.editor_date),
             icon = Icons.Filled.CalendarMonth,
             value = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(zoned),
+            enabled = enabled,
             onClick = { openSheet("date:$key") },
         )
     }
@@ -556,6 +738,7 @@ private fun ScheduleRows(key: String, date: Long, recurrence: RecurrenceRule, op
         title = stringResource(R.string.editor_time),
         icon = Icons.Filled.Schedule,
         value = DateFormat.getTimeFormat(context).format(Date(date)),
+        enabled = enabled,
         onClick = { openSheet("time:$key") },
     )
     val never = RecurrenceEngine.nextOccurrences(recurrence, date, 1).isEmpty()
@@ -563,8 +746,9 @@ private fun ScheduleRows(key: String, date: Long, recurrence: RecurrenceRule, op
         title = stringResource(R.string.editor_repeat),
         icon = Icons.Filled.Repeat,
         value = recurrence.summary(context),
-        showChevron = true,
+        showChevron = enabled,
         divider = never,
+        enabled = enabled,
         onClick = { openSheet("repeat:$key") },
     )
     if (never) {

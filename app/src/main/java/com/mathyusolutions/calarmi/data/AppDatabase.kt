@@ -10,6 +10,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.room.Upsert
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.mathyusolutions.calarmi.model.AlarmLeadTime
 import com.mathyusolutions.calarmi.model.AlarmSchedule
 import com.mathyusolutions.calarmi.model.AlarmTone
@@ -74,6 +76,21 @@ interface ReminderDao {
 
     @Query("UPDATE reminders SET customCategoryId = NULL WHERE customCategoryId = :categoryId")
     suspend fun clearCustomCategory(categoryId: String)
+
+    /** Las que compartió otra persona. */
+    @Query("SELECT * FROM reminders WHERE isReceivedShare = 1")
+    suspend fun received(): List<Reminder>
+
+    /** Las propias que están compartidas. */
+    @Query("SELECT * FROM reminders WHERE shareId IS NOT NULL AND isReceivedShare = 0")
+    suspend fun sharedByMe(): List<Reminder>
+
+    /** Las propias (las que se ofrecen a las personas de confianza). */
+    @Query("SELECT * FROM reminders WHERE isReceivedShare = 0")
+    suspend fun own(): List<Reminder>
+
+    @Query("UPDATE reminders SET shareId = :shareId, sharePhotoRevision = :photoRevision WHERE id = :id")
+    suspend fun setShare(id: String, shareId: String?, photoRevision: Long)
 }
 
 @Dao
@@ -106,11 +123,20 @@ interface CountdownDao {
 
     @Query("DELETE FROM countdowns WHERE id = :id")
     suspend fun deleteById(id: String)
+
+    @Query("SELECT * FROM countdowns WHERE isReceivedShare = 1")
+    suspend fun received(): List<CountdownEvent>
+
+    @Query("SELECT * FROM countdowns WHERE shareId IS NOT NULL AND isReceivedShare = 0")
+    suspend fun sharedByMe(): List<CountdownEvent>
+
+    @Query("UPDATE countdowns SET shareId = :shareId, sharePhotoRevision = :photoRevision WHERE id = :id")
+    suspend fun setShare(id: String, shareId: String?, photoRevision: Long)
 }
 
 @Database(
     entities = [Reminder::class, CustomCategory::class, CountdownEvent::class],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(Converters::class)
@@ -126,6 +152,29 @@ abstract class AppDatabase : RoomDatabase() {
          * haya desbloqueado todavía (como el Reloj del sistema).
          */
         fun create(storage: Context): AppDatabase =
-            Room.databaseBuilder(storage, AppDatabase::class.java, "calarmi.db").build()
+            Room.databaseBuilder(storage, AppDatabase::class.java, "calarmi.db")
+                .addMigrations(MIGRATION_1_2)
+                .build()
+
+        /**
+         * v2: lo compartido por Firebase. Columnas nuevas en alarmas y cuentas
+         * regresivas para saber cuáles están compartidas o se recibieron (y de
+         * quién), qué revisión del dueño ya se aplicó y, en las alarmas
+         * recibidas, los avisos propios. Nada se borra: las filas existentes
+         * quedan como propias y sin compartir.
+         */
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                for (table in listOf("reminders", "countdowns")) {
+                    db.execSQL("ALTER TABLE `$table` ADD COLUMN `shareId` TEXT")
+                    db.execSQL("ALTER TABLE `$table` ADD COLUMN `isReceivedShare` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `$table` ADD COLUMN `sharedByName` TEXT")
+                    db.execSQL("ALTER TABLE `$table` ADD COLUMN `shareRevision` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `$table` ADD COLUMN `sharePhotoRevision` INTEGER NOT NULL DEFAULT 0")
+                }
+                db.execSQL("ALTER TABLE `reminders` ADD COLUMN `ownerLeadTimes` TEXT")
+                db.execSQL("ALTER TABLE `reminders` ADD COLUMN `personalLeadTimes` TEXT")
+            }
+        }
     }
 }

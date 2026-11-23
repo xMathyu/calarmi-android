@@ -44,7 +44,27 @@
                 <action android:name="com.mathyusolutions.calarmi.action.NEW_ALARM" />
                 <action android:name="com.mathyusolutions.calarmi.action.OPEN_TAB" />
                 <action android:name="com.mathyusolutions.calarmi.action.OPEN_COUNTDOWN" />
+                <action android:name="com.mathyusolutions.calarmi.action.OPEN_REMINDER" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- Invitaciones (alarma, cuenta regresiva o personas de confianza):
+                 https://calarmi.mathyusolutions.com/s/<token>/ como App Link (la web publica
+                 /.well-known/assetlinks.json; el botón de Android de la página usa
+                 intent://s/<token>/#Intent;scheme=https;package=…, que también llega aquí). -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:host="calarmi.mathyusolutions.com" />
+                <data android:pathPrefix="/s/" />
+            </intent-filter>
+            <!-- Respaldo: calarmi://s/<token> -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="calarmi" android:host="s" />
             </intent-filter>
         </activity>
 
@@ -187,6 +207,18 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <!-- Lo compartido: avisos push de datos de las Cloud Functions (DESIGN.md › Push). -->
+        <service
+            android:name=".sharing.ShareMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- FCM no genera token hasta que la persona comparte algo (lo enciende SharingService). -->
+        <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
+        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
 
         <!-- Idioma por app en Android 12 y anteriores (AppCompat lo guarda solo). -->
         <service

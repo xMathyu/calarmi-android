@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -74,6 +75,8 @@ data class CountdownCardContent(
     val iconKind: ReminderIconKind,
     val iconValue: String,
     val photoPath: String?,
+    /** La compartió otra persona: la fecha lleva el ícono de «compartida contigo». */
+    val isReceivedShare: Boolean = false,
 ) {
     val color: Color get() = parseHex(colorHex) ?: Color(0xFFFF2D55)
 
@@ -94,6 +97,7 @@ fun CountdownEvent.cardContent() = CountdownCardContent(
     iconKind = iconKind,
     iconValue = iconValue,
     photoPath = photoPath,
+    isReceivedShare = isReceivedShare,
 )
 
 /**
@@ -235,6 +239,14 @@ fun CountdownDateLabel(
 ) {
     val context = LocalContext.current
     Row(modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(DS.xs)) {
+        if (content.isReceivedShare) {
+            Icon(
+                Icons.Filled.People,
+                contentDescription = stringResource(R.string.sharing_shared_with_you_countdown),
+                tint = color,
+                modifier = Modifier.size(with(LocalDensity.current) { style.fontSize.toDp() }),
+            )
+        }
         if (content.repeatsYearly) {
             Icon(
                 Icons.Filled.Repeat,

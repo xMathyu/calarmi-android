@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "587317030511",
+    "project_id": "calarmi",
+    "storage_bucket": "calarmi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587317030511:android:bdf48a8c1f1940210a279a",
+        "android_client_info": {
+          "package_name": "com.mathyusolutions.calarmi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMUhMqU5EBGvkWWZYMsH1aQHfNmto2a7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587317030511:android:d9db76a8941d6a290a279a",
+        "android_client_info": {
+          "package_name": "com.mathyusolutions.calarmi.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMUhMqU5EBGvkWWZYMsH1aQHfNmto2a7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

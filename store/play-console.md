@@ -199,8 +199,10 @@ sube un AAB que tenga la biblioteca de Billing** (el permiso `com.android.vendin
       heridos ni sangre). Sexualidad: **No**. Lenguaje ofensivo: **No**. Sustancias controladas:
       **No** (recordar una pastilla no es mostrar consumo de drogas). Apuestas o simulación de
       apuestas: **No**. Humor grosero: **No**.
-- [ ] ¿Los usuarios pueden interactuar o intercambiar contenido entre ellos? **No** (en Android no
-      se comparten alarmas). ¿Comparte la ubicación del usuario con otros? **No**. ¿Permite comprar
+- [ ] ¿Los usuarios pueden interactuar o intercambiar contenido entre ellos? **Sí**: se comparten
+      alarmas y cuentas regresivas (con nombre, notas y foto) con quien acepta una invitación, y las
+      personas de confianza administran las alarmas de otra persona. Solo por enlace de invitación,
+      sin chat ni perfiles públicos. ¿Comparte la ubicación del usuario con otros? **No**. ¿Permite comprar
       bienes digitales? **Sí** (Calarmi Plus). ¿Acceso sin restricciones a internet / navegador?
       **No** (los botones «Unirse» e «Ir» abren otras apps).
 - [ ] Resultado esperado: *Apto para todo público* / PEGI 3 / USK 0 / ClassInd Livre, con el
@@ -225,25 +227,44 @@ lo que se procesa solo en el teléfono no se declara):
 | Pasos (reto «Caminar») | No | Sensor en el teléfono, en memoria, no se guardan. |
 | Lo que se le pide al asistente | No | Gemini Nano / intérprete local, en el teléfono. |
 | Código QR registrado | No | Se guarda en el teléfono. |
+| **Nombre** (el de «¿Cómo te llamas?») | **Sí** | Se guarda en Firebase (`users/{uid}` y en cada share o lista de personas de confianza) para que lo vean las personas con las que se comparte. Solo si la persona comparte o acepta algo. |
+| **Alarmas y cuentas regresivas compartidas** (título, notas, fechas, avisos, ícono…) | **Sí** | Las que la persona comparte y, con «Personas de confianza» activado, una copia de todas sus alarmas: Firestore (`shares/`, `invites/`, `delegations/`). |
+| **Fotos** de lo compartido | **Sí** | La foto de una alarma o cuenta compartida cuyo ícono es una foto (`shares/{id}/photo/current`, ≤ 600 KB) y su miniatura en la invitación (≤ 60 KB). |
+| **IDs**: uid anónimo de Firebase Auth, ID de instalación de Firebase, token de FCM | **Sí** | Para saber de quién es cada cosa y mandar los avisos push de cambios (`users/{uid}.tokens`). Solo tras compartir o aceptar algo (FCM tiene `firebase_messaging_auto_init_enabled=false`). |
 | Compras (historial, datos de pago) | No | Los datos de pago los recoge Google Play directamente (excepción de servicios de pago: la app nunca los ve). La app solo pregunta a Google Play si hay una compra y guarda en el teléfono «tiene Plus». No hay servidor nuestro que reciba el historial. |
 | Copia de seguridad de Google | No | Es la copia del sistema a la cuenta de Google del usuario, bajo las condiciones de Google; la app ni nosotros accedemos a ella, y en Android 9+ con bloqueo de pantalla va cifrada de extremo a extremo. Se explica en la política de privacidad. |
 | **Diagnósticos de ML Kit** (asistente GenAI y escáner de códigos) | **Sí** | Las bibliotecas de Google ML Kit envían a Google información del dispositivo y de la app, métricas de rendimiento, códigos de error e identificadores por instalación, para «diagnósticos y analítica de uso» ([divulgación de datos de ML Kit](https://developers.google.com/ml-kit/android-data-disclosure)). Lo que recoge un SDK dentro de la app cuenta como recogido por la app. |
 
 Respuestas del formulario:
 
-- [ ] ¿Tu app recopila o comparte alguno de los tipos de datos requeridos? **Sí** (por ML Kit).
-- [ ] ¿Todos los datos recopilados se encriptan en tránsito? **Sí** (ML Kit usa HTTPS).
+- [ ] ¿Tu app recopila o comparte alguno de los tipos de datos requeridos? **Sí** (ML Kit y lo
+      compartido en Firebase).
+- [ ] ¿Todos los datos recopilados se encriptan en tránsito? **Sí** (ML Kit y Firebase usan HTTPS/TLS).
 - [ ] ¿Qué métodos de creación de cuenta admite tu app? **Mi app no permite que los usuarios
-      creen una cuenta.**
-- [ ] ¿Ofreces una forma de solicitar que se borren los datos? **No.** (No hay cuenta ni servidor
-      nuestro; lo del teléfono se borra desinstalando, y los diagnósticos de ML Kit los guarda Google
-      sin asociarlos a una persona.)
-- [ ] Tipos de datos a marcar:
-  - **Información y rendimiento de la app › Diagnóstico**: recopilado **sí** · compartido **no** ·
-    procesado de forma efímera **no** · obligatorio (el usuario no puede desactivarlo) · finalidad
-    **Estadísticas**.
-  - **IDs de dispositivo u otros IDs**: recopilado **sí** · compartido **no** · efímero **no** ·
-    obligatorio · finalidad **Estadísticas**.
+      creen una cuenta.** (La sesión de Firebase es anónima: un uid al azar por instalación, sin
+      correo, contraseña ni inicio de sesión. Si algún día se vincula a Google o Apple, esto cambia
+      y Play exige un enlace para borrar la cuenta.)
+- [ ] ¿Ofreces una forma de solicitar que se borren los datos? **Sí**: en la app, borrar o «Dejar de
+      compartir» borra el share, su foto y anula la invitación; «Salir» quita a la persona; apagar
+      «Personas de confianza» borra la lista y el espejo. El nombre y los tokens (`users/{uid}`) se
+      borran a pedido por correo (xmathyu@gmail.com), como dice la política. Si Play pide una URL de
+      borrado, usar la de la política de privacidad.
+- [ ] Tipos de datos a marcar (Firebase actúa como proveedor de servicios: **no** cuenta como
+      «compartido»; que el dato llegue a las personas que la persona invita es una transferencia
+      iniciada por ella, que Google tampoco considera «compartir»):
+  - **Información personal › Nombre**: recopilado **sí** · compartido **no** · efímero **no** ·
+    **opcional** (solo al compartir) · finalidad **Funcionalidad de la app**.
+  - **Fotos y videos › Fotos**: recopilado **sí** · compartido **no** · efímero **no** · opcional ·
+    finalidad **Funcionalidad de la app**.
+  - **Actividad en la app › Otro contenido generado por el usuario** (alarmas y cuentas
+    compartidas): recopilado **sí** · compartido **no** · efímero **no** · opcional · finalidad
+    **Funcionalidad de la app**.
+  - **Información y rendimiento de la app › Diagnóstico** (ML Kit): recopilado **sí** · compartido
+    **no** · procesado de forma efímera **no** · obligatorio (el usuario no puede desactivarlo) ·
+    finalidad **Estadísticas**.
+  - **IDs de dispositivo u otros IDs** (ML Kit; y uid anónimo, ID de instalación de Firebase y
+    token de FCM): recopilado **sí** · compartido **no** · efímero **no** · obligatorio (por ML Kit)
+    · finalidades **Funcionalidad de la app** y **Estadísticas**.
   - Nada más.
 
 Antes de enviar, abrir *Política › Contenido de la app › Seguridad de los datos*: Play Console
@@ -253,6 +274,11 @@ esta tabla en lugar de ignorarlo.
 > Si la sección de Seguridad de los datos marca «recopila datos», la ficha no puede decir «sin
 > analítica de terceros»: por eso las descripciones de `store/listing/` dicen «sin anuncios, sin
 > cuenta, sin servidores nuestros» y no hablan de analítica.
+>
+> Con lo compartido por Firebase, «sin servidores nuestros» deja de ser exacto para lo que se
+> comparte: revisar esa frase de `store/listing/*/full_description.txt` (p. ej. «tus alarmas se
+> quedan en tu teléfono; lo que compartes pasa por Firebase de Google») antes de publicar esta
+> versión.
 
 ### 5.7 ID de publicidad
 - [ ] **No**, la app no usa el ID de publicidad (comprobar antes que el manifiesto final no tenga

@@ -88,12 +88,13 @@ fun CountdownListScreen() {
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { now = System.currentTimeMillis() }
 
     /**
-     * Sin Plus caben `FREE_COUNTDOWN_LIMIT` cuentas. Las que ya había no se
-     * tocan aunque sean más: solo se frena crear otra.
+     * Sin Plus caben `FREE_COUNTDOWN_LIMIT` cuentas propias. Las que ya había no
+     * se tocan aunque sean más: solo se frena crear otra.
      */
     fun startNew() {
         haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-        val count = events?.size ?: 0
+        // Las recibidas no cuentan: son de quien las compartió.
+        val count = events?.count { !it.isReceivedShare } ?: 0
         if (count >= PlusStore.FREE_COUNTDOWN_LIMIT && !isPlus) navigator.openPaywall(PlusFeature.UNLIMITED_COUNTDOWNS)
         else navigator.newCountdown()
     }
@@ -198,13 +199,16 @@ private fun CountdownRow(event: CountdownEvent, now: Long, onOpen: () -> Unit, o
                 },
             )
             DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                // Una recibida no se edita (es de quien la compartió): solo se sale de ella.
+                if (!event.isReceivedShare) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.countdowns_edit)) },
+                        leadingIcon = { Icon(Icons.Filled.Edit, null) },
+                        onClick = { menu = false; onEdit() },
+                    )
+                }
                 DropdownMenuItem(
-                    text = { Text(stringResource(R.string.countdowns_edit)) },
-                    leadingIcon = { Icon(Icons.Filled.Edit, null) },
-                    onClick = { menu = false; onEdit() },
-                )
-                DropdownMenuItem(
-                    text = { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) },
+                    text = { Text(stringResource(if (event.isReceivedShare) R.string.sharing_leave else R.string.action_delete), color = MaterialTheme.colorScheme.error) },
                     leadingIcon = { Icon(Icons.Filled.Delete, null, tint = MaterialTheme.colorScheme.error) },
                     onClick = { menu = false; onDelete() },
                 )

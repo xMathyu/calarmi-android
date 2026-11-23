@@ -9,6 +9,10 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -31,6 +35,13 @@ import com.mathyusolutions.calarmi.countdown.CountdownEditorScreen
 import com.mathyusolutions.calarmi.data.AppJson
 import com.mathyusolutions.calarmi.model.CountdownPrefill
 import com.mathyusolutions.calarmi.model.WakeChallenge
+import com.mathyusolutions.calarmi.sharing.InviteLinks
+import com.mathyusolutions.calarmi.sharing.ShareMapping
+import com.mathyusolutions.calarmi.sharing.ui.IncomingShareToast
+import com.mathyusolutions.calarmi.sharing.ui.InviteSheet
+import com.mathyusolutions.calarmi.sharing.ui.ManagedListsScreen
+import com.mathyusolutions.calarmi.sharing.ui.PrincipalAlarmsScreen
+import com.mathyusolutions.calarmi.sharing.ui.TrustedPeopleScreen
 import com.mathyusolutions.calarmi.ui.HomeScreen
 import com.mathyusolutions.calarmi.ui.alarms.ReminderEditorScreen
 import com.mathyusolutions.calarmi.ui.navigation.AppIconsRoute
@@ -43,8 +54,11 @@ import com.mathyusolutions.calarmi.ui.navigation.CountdownEditorRoute
 import com.mathyusolutions.calarmi.ui.navigation.HomeRoute
 import com.mathyusolutions.calarmi.ui.navigation.HomeTab
 import com.mathyusolutions.calarmi.ui.navigation.LocalAppNavigator
+import com.mathyusolutions.calarmi.ui.navigation.ManagedListsRoute
 import com.mathyusolutions.calarmi.ui.navigation.PaywallRoute
+import com.mathyusolutions.calarmi.ui.navigation.PrincipalRoute
 import com.mathyusolutions.calarmi.ui.navigation.ReminderEditorRoute
+import com.mathyusolutions.calarmi.ui.navigation.TrustedPeopleRoute
 import com.mathyusolutions.calarmi.ui.plus.AppIconsScreen
 import com.mathyusolutions.calarmi.ui.plus.PaywallScreen
 import com.mathyusolutions.calarmi.ui.settings.CategoryManagementScreen
@@ -56,6 +70,9 @@ class MainActivity : AppCompatActivity() {
     private val requestedTab = mutableStateOf<HomeTab?>(null)
     private val requestNewAlarm = mutableStateOf(false)
     private val requestCountdown = mutableStateOf<String?>(null)
+    private val requestReminder = mutableStateOf<String?>(null)
+    /** Token de un enlace de invitación abierto (https://…/s/<token>/ o calarmi://s/<token>). */
+    private val requestInvite = mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -79,8 +96,41 @@ class MainActivity : AppCompatActivity() {
                     tab = HomeTab.COUNTDOWNS
                     navigator.openCountdown(id)
                 }
+                requestReminder.value?.let { id ->
+                    requestReminder.value = null
+                    tab = HomeTab.ALARMS
+                    navigator.openReminder(id)
+                }
+                val incoming by container.sharing.incoming.collectAsStateWithLifecycle()
                 CompositionLocalProvider(LocalAppNavigator provides navigator) {
-                    AppNavHost(nav, tab) { tab = it }
+                    Box(Modifier.fillMaxSize()) {
+                        AppNavHost(nav, tab) { tab = it }
+                        IncomingShareToast(
+                            status = incoming,
+                            onOpen = { added ->
+                                container.sharing.dismissIncoming()
+                                openShared(navigator, added.kind, added.id, added.title) { tab = it }
+                            },
+                            onDismiss = { container.sharing.dismissIncoming() },
+                            modifier = Modifier.align(Alignment.TopCenter),
+                        )
+                    }
+                    requestInvite.value?.let { token ->
+                        // Un enlace nuevo mientras se cierra la hoja anterior: el cierre tardío
+                        // de esa no debe borrar el pedido nuevo.
+                        fun clear() { if (requestInvite.value == token) requestInvite.value = null }
+                        androidx.compose.runtime.key(token) {
+                            InviteSheet(
+                                token = token,
+                                onDismiss = ::clear,
+                                onAccepted = { accepted ->
+                                    clear()
+                                    if (accepted.isMine && accepted.kind == ShareMapping.KIND_DELEGATION) navigator.openTrustedPeople()
+                                    else openShared(navigator, accepted.kind, accepted.id, accepted.title) { tab = it }
+                                },
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -106,6 +156,17 @@ class MainActivity : AppCompatActivity() {
                 HomeTab.entries.firstOrNull { it.name == name }?.let { requestedTab.value = it }
             }
             ACTION_OPEN_COUNTDOWN -> requestCountdown.value = intent.getStringExtra(EXTRA_ID)
+            ACTION_OPEN_REMINDER -> requestReminder.value = intent.getStringExtra(EXTRA_ID)
+            Intent.ACTION_VIEW -> InviteLinks.token(intent.dataString)?.let { requestInvite.value = it }
+        }
+    }
+
+    /** Lleva a lo recién aceptado (o a lo propio, si la invitación era de esta persona). */
+    private fun openShared(navigator: AppNavigator, kind: String, id: String, title: String, selectTab: (HomeTab) -> Unit) {
+        when (kind) {
+            ShareMapping.KIND_COUNTDOWN -> { selectTab(HomeTab.COUNTDOWNS); navigator.openCountdown(id) }
+            ShareMapping.KIND_DELEGATION -> navigator.openPrincipal(id, title)
+            else -> { selectTab(HomeTab.ALARMS); navigator.openReminder(id) }
         }
     }
 
@@ -132,12 +193,20 @@ class MainActivity : AppCompatActivity() {
         override fun practiceChallenge(challenge: WakeChallenge, title: String) = nav.navigate(
             ChallengePracticeRoute(AppJson.encodeToString(WakeChallenge.serializer(), challenge), title),
         )
+        override fun openTrustedPeople() = nav.navigate(TrustedPeopleRoute) { launchSingleTop = true }
+        override fun openManagedLists() = nav.navigate(ManagedListsRoute) { launchSingleTop = true }
+        override fun openPrincipal(uid: String, name: String) = nav.navigate(PrincipalRoute(uid, name)) { launchSingleTop = true }
+        override fun newDelegatedReminder(principal: String, principalName: String) =
+            nav.navigate(ReminderEditorRoute(principal = principal, principalName = principalName))
+        override fun openDelegatedReminder(principal: String, principalName: String, id: String) =
+            nav.navigate(ReminderEditorRoute(id = id, principal = principal, principalName = principalName)) { launchSingleTop = true }
     }
 
     companion object {
         const val ACTION_NEW_ALARM = "com.mathyusolutions.calarmi.action.NEW_ALARM"
         const val ACTION_OPEN_TAB = "com.mathyusolutions.calarmi.action.OPEN_TAB"
         const val ACTION_OPEN_COUNTDOWN = "com.mathyusolutions.calarmi.action.OPEN_COUNTDOWN"
+        const val ACTION_OPEN_REMINDER = "com.mathyusolutions.calarmi.action.OPEN_REMINDER"
         const val EXTRA_TAB = "tab"
         const val EXTRA_ID = "id"
     }
@@ -156,7 +225,15 @@ private fun AppNavHost(nav: NavHostController, tab: HomeTab, onTab: (HomeTab) ->
         composable<HomeRoute> { HomeScreen(tab, onTab) }
         composable<ReminderEditorRoute> {
             val route = it.toRoute<ReminderEditorRoute>()
-            ReminderEditorScreen(id = route.id, template = route.template, initialDate = route.initialDate, initialTitle = route.initialTitle, onDone = { nav.popBackStack() })
+            ReminderEditorScreen(
+                id = route.id,
+                template = route.template,
+                initialDate = route.initialDate,
+                initialTitle = route.initialTitle,
+                principal = route.principal,
+                principalName = route.principalName,
+                onDone = { nav.popBackStack() },
+            )
         }
         composable<CountdownDetailRoute> {
             CountdownDetailScreen(id = it.toRoute<CountdownDetailRoute>().id, onBack = { nav.popBackStack() })
@@ -173,6 +250,12 @@ private fun AppNavHost(nav: NavHostController, tab: HomeTab, onTab: (HomeTab) ->
         composable<CategoriesRoute> { CategoryManagementScreen(onBack = { nav.popBackStack() }) }
         composable<CalendarSelectionRoute> { CalendarSelectionScreen(onBack = { nav.popBackStack() }) }
         composable<AppIconsRoute> { AppIconsScreen(onBack = { nav.popBackStack() }) }
+        composable<TrustedPeopleRoute> { TrustedPeopleScreen(onBack = { nav.popBackStack() }) }
+        composable<ManagedListsRoute> { ManagedListsScreen(onBack = { nav.popBackStack() }) }
+        composable<PrincipalRoute> {
+            val route = it.toRoute<PrincipalRoute>()
+            PrincipalAlarmsScreen(principal = route.uid, name = route.name, onBack = { nav.popBackStack() })
+        }
         composable<ChallengePracticeRoute> {
             val route = it.toRoute<ChallengePracticeRoute>()
             val challenge = runCatching { AppJson.decodeFromString(WakeChallenge.serializer(), route.challengeJson) }.getOrNull()

@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    // Lee app/google-services.json (clientes de release y de debug del proyecto `calarmi`).
+    alias(libs.plugins.google.services)
 }
 
 // Firma de release: `keystore.properties` (fuera de git) apunta al upload key.
@@ -105,6 +107,14 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.mlkit.genai.prompt)
     implementation(libs.coil.compose)
+
+    // Lo compartido (alarmas, cuentas regresivas, personas de confianza): contrato en
+    // calarmi-firebase/DESIGN.md. Solo se usa tras el primer desbloqueo y cuando la persona comparte.
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     testImplementation(libs.junit)
 }

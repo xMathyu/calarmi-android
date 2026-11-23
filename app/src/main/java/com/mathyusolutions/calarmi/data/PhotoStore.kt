@@ -27,6 +27,13 @@ class PhotoStore(storage: Context) {
         name
     }.getOrNull()
 
+    /** Guarda un JPEG que llegó de fuera (la foto de algo compartido). Devuelve el nombre del archivo. */
+    fun save(jpeg: ByteArray): String? = runCatching {
+        val name = "${UUID.randomUUID()}.jpg"
+        file(name).writeBytes(jpeg)
+        name
+    }.getOrNull()
+
     fun delete(name: String) {
         file(name).delete()
     }

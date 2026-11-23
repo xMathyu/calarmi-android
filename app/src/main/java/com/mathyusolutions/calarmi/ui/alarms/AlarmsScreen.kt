@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.EventNote
 import androidx.compose.material.icons.filled.Extension
@@ -168,12 +169,17 @@ fun AlarmsScreen() {
         val list = reminders ?: return@Scaffold
         Column(Modifier.padding(padding).fillMaxSize()) {
             PermissionBanner()
-            val visible = if (filter.isEmpty()) list else list.filter { it.category in filter }
+            // Las que compartió otra persona van aparte, al final («Compartidos conmigo», como en iOS),
+            // y el filtro de categorías mira solo las propias.
+            val own = list.filter { !it.isReceivedShare }
+            val shared = list.filter { it.isReceivedShare }
+            val visible = if (filter.isEmpty()) own else own.filter { it.category in filter }
             when {
                 list.isEmpty() -> StarterAlarms(onPick = { navigator.newReminder(it.id) }, onBlank = { navigator.newReminder() })
-                visible.isEmpty() -> EmptyState(Icons.Filled.SearchOff, stringResource(R.string.alarms_no_results), stringResource(R.string.alarms_no_results_message))
+                visible.isEmpty() && shared.isEmpty() -> EmptyState(Icons.Filled.SearchOff, stringResource(R.string.alarms_no_results), stringResource(R.string.alarms_no_results_message))
                 else -> {
                     val groups = remember(visible, now) { group(context, visible, now) }
+                    val sharedItems = remember(shared, now) { shared.map { it to it.nextOccurrence(now) }.sortedBy { it.second ?: Long.MAX_VALUE } }
                     LazyColumn(contentPadding = PaddingValues(bottom = 96.dp)) {
                         groups.forEach { group ->
                             item(key = "h-" + group.title) {
@@ -192,6 +198,24 @@ fun AlarmsScreen() {
                                 }
                             }
                         }
+                        if (sharedItems.isNotEmpty()) {
+                            item(key = "h-shared") {
+                                SectionHeader(stringResource(R.string.sharing_shared_with_me), sharedItems.size, Icons.Filled.People)
+                            }
+                            // Deslizar una recibida es salir de ella (el repositorio avisa al share).
+                            items(sharedItems, key = { "s-" + it.first.id }) { (reminder, next) ->
+                                SwipeToDelete(onDelete = { scope.launch { container.reminders.delete(reminder.id) } }) {
+                                    ReminderRow(
+                                        reminder = reminder,
+                                        next = next,
+                                        now = now,
+                                        style = CategoryStyle.of(context, reminder, customs),
+                                        onClick = { navigator.openReminder(reminder.id) },
+                                        onToggle = {},
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -200,12 +224,13 @@ fun AlarmsScreen() {
 }
 
 @Composable
-private fun SectionHeader(title: String, count: Int) {
+private fun SectionHeader(title: String, count: Int, icon: androidx.compose.ui.graphics.vector.ImageVector? = null) {
     Row(
         Modifier.padding(start = DS.xxxl, end = DS.lg, top = DS.lg, bottom = DS.xs),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(DS.xs),
     ) {
+        if (icon != null) Icon(icon, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(14.dp))
         Text(title.uppercase(), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(
             count.toString(),
@@ -289,10 +314,11 @@ private fun ReminderRow(
                     Badges(reminder, expired, style.color)
                 }
             }
+            // Una recibida la enciende o la apaga su dueño: aquí el interruptor solo informa.
             Switch(
                 checked = reminder.isEnabled && !expired,
                 onCheckedChange = onToggle,
-                enabled = !expired,
+                enabled = !expired && !reminder.isReceivedShare,
                 colors = SwitchDefaults.colors(checkedTrackColor = style.color, checkedThumbColor = Color.White, checkedBorderColor = style.color),
             )
         }
@@ -308,6 +334,7 @@ private fun Badges(reminder: Reminder, expired: Boolean, tint: Color) {
         if (reminder.recurrence.isRecurring) add(Triple(Icons.Filled.Repeat, reminder.recurrence.summary(context), tint))
         if (reminder.additionalSchedules.isNotEmpty()) add(Triple(Icons.Filled.EventNote, "+${reminder.additionalSchedules.size}", tint))
         if (reminder.readyChallenge != null) add(Triple(Icons.Filled.Extension, stringResource(reminder.readyChallenge!!.kind.titleRes), tint))
+        if (reminder.isReceivedShare) add(Triple(Icons.Filled.People, stringResource(R.string.sharing_badge), MaterialTheme.colorScheme.onSurfaceVariant))
     }
     if (items.isEmpty()) return
     FlowRow(horizontalArrangement = Arrangement.spacedBy(DS.sm)) {

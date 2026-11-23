@@ -59,11 +59,38 @@ la notificación de pantalla completa que abre `RingingActivity` sobre el bloque
 - Probado en el emulador (Android 16): suena a la hora con la pantalla apagada, pospuesto
   vuelve a sonar por la vía de `ALARM_MANAGER_ALARM_CLOCK`, y se reprograma tras reiniciar.
 
+## Compartir (Firebase)
+
+Alarmas y cuentas regresivas compartidas, invitaciones y personas de confianza van por Firebase
+(proyecto `calarmi`), con el mismo contrato que iOS y la web: `../calarmi-firebase/DESIGN.md`
+(colecciones y campos) y `firestore.rules` (quién escribe qué). El código está en `sharing/`.
+
+- **Sesión anónima y perezosa**: Firebase Auth se abre la primera vez que la persona invita,
+  acepta o activa «Personas de confianza», y antes pide el nombre («¿Cómo te llamas?»). Hasta
+  entonces no hay sesión ni token de push. Nada de Firebase se toca antes del primer desbloqueo
+  (`AppContainer.isUserUnlocked`): el motor de alarmas sigue igual en el arranque directo.
+- **Dueño**: «Invitar amigos» crea `shares/{id}` (el id es el de la alarma o la cuenta) y una
+  invitación `invites/{token}` en un lote; cada guardado sube el contenido (`revision` + 1), la
+  foto si cambió y la vista previa. Borrar o «Dejar de compartir» borra el share y revoca la
+  invitación. Los repositorios avisan por `SyncHooks`; lo que llega de Firebase se escribe directo
+  en la base y no rebota.
+- **Invitado**: el enlace `https://calarmi.mathyusolutions.com/s/<token>/` (App Link) o
+  `calarmi://s/<token>` abre la vista previa; «Aceptar» se une con el token. La copia local es de
+  solo lectura salvo los avisos, que son de esa persona (`personalLeadTimes`). Si el dueño cambia
+  la hora, sale un aviso («Ana cambió el horario…»).
+- **Personas de confianza**: el teléfono de quien delega refleja sus alarmas en
+  `delegations/{uid}/reminders` y aplica lo que cambian sus ayudantes (gana el `updatedAt` más
+  nuevo); quien ayuda las edita con el mismo editor, directo en ese documento.
+- **Sincronizar**: con la app a la vista, listeners de Firestore (caché persistente); con la app
+  cerrada, un push de datos de alta prioridad (Cloud Functions) despierta `ShareSyncWorker`, que
+  lee el cambio, reprograma y avisa.
+- Room pasó a la versión 2 (`MIGRATION_1_2`, columnas nuevas; nada se borra). Esquemas en
+  `app/schemas/`.
+- La web tiene que publicar `/.well-known/assetlinks.json` con las huellas SHA-256 de la llave de
+  subida, la de firma de Play y la de debug, o los enlaces se abren en el navegador.
+
 ## Qué no está en la v1 de Android (y por qué)
 
-- **Compartir alarmas y cuentas regresivas, invitaciones, personas de confianza**: en iOS van
-  sobre CloudKit (iCloud), que no existe en Android. Llevarlo a las dos plataformas pide un
-  backend propio, y eso choca con «sin servidores nuestros». Es una decisión pendiente.
 - **Sincronizar entre dispositivos**: en iOS es iCloud. En Android, la copia de seguridad de
   Google guarda las alarmas, las cuentas, los ajustes y las fotos y las restaura al cambiar de
   teléfono, pero no sincroniza en vivo.

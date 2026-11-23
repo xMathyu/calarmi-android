@@ -1,5 +1,6 @@
 package com.mathyusolutions.calarmi.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mathyusolutions.calarmi.domain.CountdownMath
@@ -27,7 +28,16 @@ data class CountdownEvent(
     val photoPath: String? = null,
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis(),
+    // --- Compartir: igual que en `Reminder` (ver ahí).
+    val shareId: String? = null,
+    @ColumnInfo(defaultValue = "0") val isReceivedShare: Boolean = false,
+    val sharedByName: String? = null,
+    @ColumnInfo(defaultValue = "0") val shareRevision: Long = 0,
+    @ColumnInfo(defaultValue = "0") val sharePhotoRevision: Long = 0,
 ) {
+    /** Propia y compartida con otras personas. */
+    val isSharedByMe: Boolean get() = shareId != null && !isReceivedShare
+
     val iconKind: ReminderIconKind get() = ReminderIconKind.fromRaw(iconKindRaw)
 
     fun target(now: Long = System.currentTimeMillis()): Long =

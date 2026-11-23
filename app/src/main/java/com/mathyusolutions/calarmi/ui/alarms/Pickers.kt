@@ -384,12 +384,15 @@ fun EditorTextField(
     isError: Boolean = false,
     singleLine: Boolean = true,
     textStyle: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.bodyLarge,
+    /** `false`: solo se lee (una alarma que compartió otra persona). Sigue legible, no gris. */
+    enabled: Boolean = true,
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         placeholder = { Text(placeholder) },
         modifier = modifier.fillMaxWidth(),
+        readOnly = !enabled,
         isError = isError,
         singleLine = singleLine,
         maxLines = if (singleLine) 1 else 3,

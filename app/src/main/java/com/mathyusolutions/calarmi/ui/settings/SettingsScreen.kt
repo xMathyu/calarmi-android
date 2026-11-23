@@ -34,6 +34,8 @@ import androidx.compose.material.icons.filled.HowToReg
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.ManageAccounts
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PrivacyTip
@@ -67,6 +69,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -183,6 +186,15 @@ fun SettingsScreen() {
             }
             SectionCard(footer = stringResource(R.string.settings_categories_footer)) {
                 SettingRow(title = stringResource(R.string.settings_categories), icon = Icons.Filled.Sell, showChevron = true, divider = false, onClick = { navigator.openCategories() })
+            }
+
+            // Tu nombre (lo que ven quienes comparten contigo) y personas de confianza
+            SectionCard(title = stringResource(R.string.sharing_name_section), footer = stringResource(R.string.sharing_name_footer)) {
+                MyNameField()
+            }
+            SectionCard(title = stringResource(R.string.sharing_delegation_section), footer = stringResource(R.string.sharing_delegation_footer)) {
+                SettingRow(title = stringResource(R.string.sharing_trusted_people), icon = Icons.Filled.Shield, showChevron = true, onClick = { navigator.openTrustedPeople() })
+                SettingRow(title = stringResource(R.string.sharing_managed_lists), icon = Icons.Filled.ManageAccounts, showChevron = true, divider = false, onClick = { navigator.openManagedLists() })
             }
 
             // Idioma
@@ -318,6 +330,36 @@ fun SettingsScreen() {
     if (showTone) {
         TonePickerSheet(settings.alarmTone, fallback = null, onDismiss = { showTone = false }, onSelect = { t -> if (t != null) update { it.copy(alarmTone = t) } })
     }
+}
+
+/**
+ * «Tu nombre»: se guarda al terminar de escribir (Listo o al salir del campo).
+ * Es obligatorio para compartir: borrarlo del todo deja el que había.
+ */
+@Composable
+private fun MyNameField() {
+    val sharing = CalarmiApp.container(LocalContext.current).sharing
+    val saved by sharing.profile.name.collectAsStateWithLifecycle()
+    var text by remember(saved) { mutableStateOf(saved.orEmpty()) }
+    fun commit() {
+        if (text.isBlank()) text = saved.orEmpty() else sharing.rename(text)
+    }
+    androidx.compose.material3.OutlinedTextField(
+        value = text,
+        onValueChange = { text = it.take(com.mathyusolutions.calarmi.sharing.ShareMapping.MAX_NAME) },
+        placeholder = { Text(stringResource(R.string.sharing_name_placeholder)) },
+        singleLine = true,
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(DS.radiusSm),
+        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Words,
+            imeAction = androidx.compose.ui.text.input.ImeAction.Done,
+        ),
+        keyboardActions = androidx.compose.foundation.text.KeyboardActions(onDone = { commit() }),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(DS.md)
+            .onFocusChanged { if (!it.isFocused) commit() },
+    )
 }
 
 /** Fila que abre un menú con opciones. */

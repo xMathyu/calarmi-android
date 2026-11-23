@@ -1,5 +1,6 @@
 package com.mathyusolutions.calarmi.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.UUID
@@ -33,7 +34,29 @@ data class Reminder(
     val isEnabled: Boolean = true,
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis(),
+    // --- Compartir (Firestore, `sharing/`). El editor no los toca: el repositorio
+    // los conserva al guardar y solo los cambia la capa de lo compartido.
+    /**
+     * El `shares/{id}` al que está unida. En una propia es su mismo `id` (está
+     * compartida); en una recibida, el del dueño (que también es su `id` local).
+     */
+    val shareId: String? = null,
+    /** La compartió otra persona: el contenido es suyo y aquí solo se mira. */
+    @ColumnInfo(defaultValue = "0") val isReceivedShare: Boolean = false,
+    /** Recibidas: el nombre de quien la compartió. */
+    val sharedByName: String? = null,
+    /** Recibidas: la `revision` del share que ya se aplicó. */
+    @ColumnInfo(defaultValue = "0") val shareRevision: Long = 0,
+    /** El `photoRevision` de la foto ya subida (propias) o ya bajada (recibidas). */
+    @ColumnInfo(defaultValue = "0") val sharePhotoRevision: Long = 0,
+    /** Recibidas: los avisos del dueño tal como llegaron (segundos separados por comas). */
+    val ownerLeadTimes: String? = null,
+    /** Recibidas: los avisos que puso esta persona; `null` sigue los del dueño. */
+    val personalLeadTimes: String? = null,
 ) {
+    /** Propia y compartida con otras personas. */
+    val isSharedByMe: Boolean get() = shareId != null && !isReceivedShare
+
     val category: ReminderCategory get() = ReminderCategory.fromRaw(categoryRaw)
     val iconKind: ReminderIconKind get() = ReminderIconKind.fromRaw(iconKindRaw)
 

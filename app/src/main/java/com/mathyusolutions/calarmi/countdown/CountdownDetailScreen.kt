@@ -23,6 +23,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -58,11 +60,21 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mathyusolutions.calarmi.CalarmiApp
 import com.mathyusolutions.calarmi.R
 import com.mathyusolutions.calarmi.model.CountdownEvent
+import com.mathyusolutions.calarmi.sharing.ShareMapping
+import com.mathyusolutions.calarmi.sharing.ui.LeaveConfirmDialog
+import com.mathyusolutions.calarmi.sharing.ui.RowProgress
+import com.mathyusolutions.calarmi.sharing.ui.ShareErrorDialog
+import com.mathyusolutions.calarmi.sharing.ui.SharePeopleSection
+import com.mathyusolutions.calarmi.sharing.ui.ShareTexts
+import com.mathyusolutions.calarmi.sharing.ui.SharedBySection
+import com.mathyusolutions.calarmi.sharing.ui.StopSharingRow
+import com.mathyusolutions.calarmi.sharing.ui.rememberNameGate
 import com.mathyusolutions.calarmi.ui.components.SectionCard
 import com.mathyusolutions.calarmi.ui.components.SettingRow
 import com.mathyusolutions.calarmi.ui.navigation.LocalAppNavigator
 import com.mathyusolutions.calarmi.ui.theme.DS
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -98,6 +110,28 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
     }
 
     var confirmDelete by remember { mutableStateOf(false) }
+    // Compartir: la propia se invita; la recibida dice de quién es y solo se puede dejar.
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val gate = rememberNameGate()
+    var inviting by remember { mutableStateOf(false) }
+    var shareError by remember { mutableStateOf<String?>(null) }
+    val shareState by remember(event.id, event.isSharedByMe) {
+        if (event.isSharedByMe) container.sharing.observeShare(event.id) else flowOf(null)
+    }.collectAsStateWithLifecycle(initialValue = null)
+    fun invite() = gate.require {
+        inviting = true
+        scope.launch {
+            try {
+                val invite = container.sharing.inviteCountdown(event.id)
+                val fresh = container.countdowns.byId(event.id) ?: event
+                ShareTexts.send(context, ShareTexts.countdown(context, fresh, invite.url))
+            } catch (e: Exception) {
+                shareError = ShareTexts.failure(context, e)
+            } finally {
+                inviting = false
+            }
+        }
+    }
     val content = event.cardContent()
     val photo by rememberCountdownPhoto(content.backgroundPhoto)
 
@@ -124,6 +158,7 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             Hero(content, photo, now)
             Column(Modifier.padding(top = DS.lg).navigationBarsPadding()) {
+                if (event.isReceivedShare) SharedBySection(event.sharedByName, isCountdown = true)
                 val notes = event.notes
                 if (!notes.isNullOrBlank()) {
                     Surface(
@@ -146,10 +181,35 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
                         )
                     }
                 }
+                if (!event.isReceivedShare) {
+                    SectionCard(title = stringResource(R.string.sharing_section), footer = stringResource(R.string.sharing_invite_footer)) {
+                        SettingRow(
+                            title = stringResource(R.string.sharing_invite),
+                            icon = Icons.Filled.PersonAdd,
+                            divider = event.isSharedByMe,
+                            enabled = !inviting,
+                            onClick = ::invite,
+                            trailing = { if (inviting) RowProgress() },
+                        )
+                        if (event.isSharedByMe) {
+                            StopSharingRow(isCountdown = true) {
+                                container.scope.launch { container.sharing.unshare(ShareMapping.KIND_COUNTDOWN, event.id) }
+                            }
+                        }
+                    }
+                    shareState?.let { state ->
+                        SharePeopleSection(state.people) { person ->
+                            container.scope.launch {
+                                runCatching { container.sharing.removeMember(event.id, person.uid) }
+                                    .onFailure { shareError = ShareTexts.failure(context, it) }
+                            }
+                        }
+                    }
+                }
                 SectionCard {
                     SettingRow(
-                        title = stringResource(R.string.action_delete),
-                        icon = Icons.Filled.Delete,
+                        title = stringResource(if (event.isReceivedShare) R.string.sharing_leave else R.string.action_delete),
+                        icon = if (event.isReceivedShare) Icons.AutoMirrored.Filled.ExitToApp else Icons.Filled.Delete,
                         iconTint = MaterialTheme.colorScheme.error,
                         divider = false,
                         onClick = { confirmDelete = true },
@@ -169,14 +229,27 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
                 colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Black.copy(alpha = 0.22f), contentColor = Color.White),
             ) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.action_back)) }
             Spacer(Modifier.weight(1f))
-            TextButton(
-                onClick = { navigator.editCountdown(event.id) },
-                modifier = Modifier.clip(CircleShape).background(Color.Black.copy(alpha = 0.22f)),
-            ) { Text(stringResource(R.string.countdowns_edit), color = Color.White, fontWeight = FontWeight.SemiBold) }
+            // Una recibida es de quien la compartió: aquí solo se mira.
+            if (!event.isReceivedShare) {
+                TextButton(
+                    onClick = { navigator.editCountdown(event.id) },
+                    modifier = Modifier.clip(CircleShape).background(Color.Black.copy(alpha = 0.22f)),
+                ) { Text(stringResource(R.string.countdowns_edit), color = Color.White, fontWeight = FontWeight.SemiBold) }
+            }
         }
     }
 
-    if (confirmDelete) {
+    if (confirmDelete && event.isReceivedShare) {
+        LeaveConfirmDialog(isCountdown = true, onDismiss = { confirmDelete = false }) {
+            confirmDelete = false
+            leave()
+            // Quitarla de aquí es salir del share (el repositorio avisa a Firestore).
+            container.scope.launch {
+                delay(350)
+                container.countdowns.delete(event.id)
+            }
+        }
+    } else if (confirmDelete) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
             title = { Text(stringResource(R.string.countdowns_delete_confirm)) },
@@ -196,6 +269,7 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
             dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.action_cancel)) } },
         )
     }
+    ShareErrorDialog(shareError) { shareError = null }
 }
 
 @Composable
