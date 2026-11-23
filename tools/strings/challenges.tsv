@@ -60,9 +60,6 @@ challenges_no_motion_sensors	This device has no motion sensors.	Este dispositivo
 challenges_continue	Continue	Continuar	Continuar
 challenges_steps_title	Walk with your phone in your hand.	Camina con el teléfono en la mano.	Caminhe com o celular na mão.
 challenges_steps_unit	steps	pasos	passos
-challenges_steps_note	The counter updates every few seconds.	El contador se actualiza cada pocos segundos.	O contador é atualizado a cada poucos segundos.
-challenges_steps_no_permission	Without the physical activity permission, steps are counted with the motion sensor.	Sin el permiso de actividad física, los pasos se cuentan con el sensor de movimiento.	Sem a permissão de atividade física, os passos são contados com o sensor de movimento.
-challenges_steps_no_detector	This phone has no step counter: steps are counted with the motion sensor.	Este teléfono no tiene podómetro: los pasos se cuentan con el sensor de movimiento.	Este celular não tem contador de passos: os passos são contados com o sensor de movimento.
 challenges_tilt_hint	Tilt your phone to roll the ball to the flag.	Inclina el teléfono para llevar la bola hasta la bandera.	Incline o celular para levar a bola até a bandeira.
 challenges_tilt_drag_hint	No sensors: drag the ball.	Sin sensores: arrastra la bola.	Sem sensores: arraste a bola.
 challenges_reflex_caught_of	Caught %1$d of %2$d	Atrapados %1$d de %2$d	Capturados %1$d de %2$d

@@ -9,7 +9,7 @@ A=$P/com.mathyusolutions.calarmi.LauncherDefault
 shot() { sleep 1.2; $ADB exec-out screencap -p > "$OUT/$1.png"; echo "  $1"; }
 $ADB shell am force-stop $P
 $ADB shell pm clear $P >/dev/null
-for p in POST_NOTIFICATIONS READ_CALENDAR ACTIVITY_RECOGNITION; do $ADB shell pm grant $P android.permission.$p 2>/dev/null; done
+for p in POST_NOTIFICATIONS READ_CALENDAR; do $ADB shell pm grant $P android.permission.$p 2>/dev/null; done
 $ADB shell cmd locale set-app-locales $P --user 0 --locales $TAG
 $ADB shell am start -n $A >/dev/null; sleep 3
 $ADB shell am broadcast -a com.mathyusolutions.calarmi.debug.SEED_DEMO --es lang $LANG_ -p $P >/dev/null; sleep 2

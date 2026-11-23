@@ -371,16 +371,12 @@ predefinido que encaje, elegir *Otro*):
       `scrcpy --record=alarma.mp4` (graba también el audio en Android 11 o posterior). La grabación
       de pantalla del propio teléfono no captura bien la pantalla de bloqueo ni el sonido de alarma.
 
-#### `ACTIVITY_RECOGNITION` (reto «Caminar»)
+#### `ACTIVITY_RECOGNITION`: quitado en versionCode 2
 
-Play Console no tiene formulario para este permiso, pero los revisores a veces preguntan por correo
-o en un rechazo. Se pide solo cuando la persona elige el reto «Caminar», y la app funciona sin él.
-
-> Calarmi requests ACTIVITY_RECOGNITION only when the user picks the optional "Walk" wake-up
-> challenge, which turns the alarm off after the user takes a few real steps. Steps are read from
-> the device's step counter sensor only while the alarm is ringing; they are not stored, not sent
-> off the device and not used for anything else. If the permission is denied, the user can pick
-> any other challenge.
+Con ese permiso en el AAB, Play exige el formulario de *Apps de salud* sin la opción «mi app no
+ofrece funciones de salud» («si no tienes funciones de salud, quita el permiso»). El reto «Caminar»
+cuenta ahora los pasos solo con el acelerómetro (`StepPeakDetector`), sin permisos. No volver a
+añadirlo sin declarar *Actividad y fitness*.
 
 #### `READ_CALENDAR`, `RECEIVE_BOOT_COMPLETED`, `WAKE_LOCK`, `VIBRATE`, `POST_NOTIFICATIONS`
 No tienen formulario en Play. `READ_CALENDAR` es opcional y de solo lectura (alarmas de los eventos

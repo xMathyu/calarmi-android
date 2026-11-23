@@ -313,8 +313,8 @@ object StepsRules {
 }
 
 /**
- * Pasos a partir del acelerómetro, para los teléfonos sin detector de pasos o
- * sin el permiso de actividad física. Al caminar con el teléfono en la mano el
+ * Pasos a partir del acelerómetro (sin permisos: el detector de pasos del
+ * sistema pediría el de actividad física). Al caminar con el teléfono en la mano el
  * módulo de la aceleración sube y baja unas dos veces por segundo: se suaviza
  * para quitar el temblor y cada vez que cruza hacia arriba 1,08 g cuenta un
  * paso; para contar otro tiene que bajar antes de 0,97 g y pasar al menos

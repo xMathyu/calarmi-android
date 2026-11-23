@@ -26,7 +26,8 @@ según el código de `app/`:
 - Copia de seguridad de Google activada en el manifiesto (`allowBackup`, `data_extraction_rules.xml`):
   base de datos, preferencias y archivos (fotos y tonos), menos `alarm_state.xml`.
 - Permisos: notificaciones, alarmas exactas, pantalla completa, servicio en primer plano,
-  arranque, calendario (opcional, solo lectura) y reconocimiento de actividad (reto «Caminar»).
+  arranque y calendario (opcional, solo lectura). El reto «Caminar» cuenta pasos con el
+  acelerómetro, sin el permiso de reconocimiento de actividad (Play lo reserva a apps de salud).
 - Fotos con el selector de fotos de Android (sin permiso de galería) y tonos con el selector de
   archivos (sin permiso de almacenamiento); el reto QR con el escáner de códigos de Google Play
   services (sin permiso de cámara).
@@ -115,8 +116,8 @@ y su [Política de Privacidad](https://policies.google.com/privacy).
   alarma y detectar enlaces de Teams, Zoom o Google Meet y direcciones. No modifica tus eventos y
   no los envía fuera del teléfono. Solo guarda, en el teléfono, los avisos que elijas para cada
   evento.
-- *Actividad física (opcional):* solo para el reto «Caminar», que cuenta tus pasos con el sensor
-  del teléfono mientras suena la alarma. Los pasos no se guardan ni se envían.
+- *Reto «Caminar»:* cuenta tus pasos con el sensor de movimiento del teléfono mientras suena la
+  alarma, sin pedir ningún permiso. Los pasos no se guardan ni se envían.
 - *Fotos y audio:* Calarmi no pide acceso a tu galería ni a tus archivos. Cuando eliges una foto o
   un tono, Android te muestra su propio selector y Calarmi recibe solo lo que elegiste; guarda una
   copia (la foto, reducida) dentro de la app.

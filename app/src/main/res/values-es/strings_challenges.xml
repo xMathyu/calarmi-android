@@ -62,9 +62,6 @@
     <string name="challenges_continue">Continuar</string>
     <string name="challenges_steps_title">Camina con el teléfono en la mano.</string>
     <string name="challenges_steps_unit">pasos</string>
-    <string name="challenges_steps_note">El contador se actualiza cada pocos segundos.</string>
-    <string name="challenges_steps_no_permission">Sin el permiso de actividad física, los pasos se cuentan con el sensor de movimiento.</string>
-    <string name="challenges_steps_no_detector">Este teléfono no tiene podómetro: los pasos se cuentan con el sensor de movimiento.</string>
     <string name="challenges_tilt_hint">Inclina el teléfono para llevar la bola hasta la bandera.</string>
     <string name="challenges_tilt_drag_hint">Sin sensores: arrastra la bola.</string>
     <string name="challenges_reflex_caught_of">Atrapados %1$d de %2$d</string>

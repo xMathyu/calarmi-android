@@ -62,9 +62,6 @@
     <string name="challenges_continue">Continue</string>
     <string name="challenges_steps_title">Walk with your phone in your hand.</string>
     <string name="challenges_steps_unit">steps</string>
-    <string name="challenges_steps_note">The counter updates every few seconds.</string>
-    <string name="challenges_steps_no_permission">Without the physical activity permission, steps are counted with the motion sensor.</string>
-    <string name="challenges_steps_no_detector">This phone has no step counter: steps are counted with the motion sensor.</string>
     <string name="challenges_tilt_hint">Tilt your phone to roll the ball to the flag.</string>
     <string name="challenges_tilt_drag_hint">No sensors: drag the ball.</string>
     <string name="challenges_reflex_caught_of">Caught %1$d of %2$d</string>

@@ -1,9 +1,5 @@
 package com.mathyusolutions.calarmi.challenge
 
-import android.Manifest
-import android.os.Build
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -88,10 +84,6 @@ fun ChallengePickerSheet(
         away = false
         onPauseOrDispose { }
     }
-    // «Caminar» cuenta mejor con el detector de pasos, que pide el permiso de
-    // actividad física: se pide aquí, al elegirlo, y no medio dormido al sonar.
-    val activityPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
-
     fun select(kind: WakeChallenge.Kind?) {
         haptics.selection()
         if (kind == null) {
@@ -107,9 +99,6 @@ fun ChallengePickerSheet(
                 code = if (kind == WakeChallenge.Kind.QR) selection?.code else null,
             ),
         )
-        if (kind == WakeChallenge.Kind.STEPS && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !hasActivityPermission(context)) {
-            runCatching { activityPermission.launch(Manifest.permission.ACTIVITY_RECOGNITION) }
-        }
     }
 
     fun registerCode() {
