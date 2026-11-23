@@ -151,6 +151,31 @@
             </intent-filter>
         </receiver>
 
+        <!-- Widgets (Glance). No son directBootAware: antes del primer desbloqueo
+             no hay nada que pintar; al desbloquear el sistema los actualiza. -->
+        <receiver
+            android:name=".widget.NextAlarmsWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_next_alarm_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_next_alarms_info" />
+        </receiver>
+        <receiver
+            android:name=".widget.CountdownWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_countdown_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_countdown_info" />
+        </receiver>
+
         <!-- Idioma por app en Android 12 y anteriores (AppCompat lo guarda solo). -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

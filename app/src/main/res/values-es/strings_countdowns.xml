@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde countdowns.tsv. No editar a mano. -->
+<resources>
+    <string name="countdowns_new">Nueva cuenta regresiva</string>
+    <string name="countdowns_empty_title">Sin cuentas regresivas</string>
+    <string name="countdowns_empty_message">Cuenta los días que faltan para un concierto, un viaje o un cumpleaños. Ponle un emoji o una foto.</string>
+    <string name="countdowns_past">Pasados</string>
+    <string name="countdowns_edit">Editar</string>
+    <string name="countdowns_new_event">Nuevo evento</string>
+    <string name="countdowns_edit_event">Editar evento</string>
+    <string name="countdowns_create">Crear</string>
+    <string name="countdowns_today">¡Hoy!</string>
+    <plurals name="countdowns_days">
+        <item quantity="one">día</item>
+        <item quantity="many">días</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="countdowns_days_ago">
+        <item quantity="one">día atrás</item>
+        <item quantity="many">días atrás</item>
+        <item quantity="other">días atrás</item>
+    </plurals>
+    <string name="countdowns_unit_days">días</string>
+    <string name="countdowns_unit_hours">horas</string>
+    <string name="countdowns_unit_minutes">min</string>
+    <string name="countdowns_unit_seconds">seg</string>
+    <string name="countdowns_yearly">Cada año</string>
+    <string name="countdowns_delete_confirm">¿Borrar esta cuenta regresiva?</string>
+    <string name="countdowns_delete_event">Borrar evento</string>
+    <string name="countdowns_name_placeholder">Nombre del evento</string>
+    <string name="countdowns_name_hint">Por ejemplo «Concierto de Coldplay» o «Viaje a Japón».</string>
+    <string name="countdowns_at">A las</string>
+    <string name="countdowns_repeat_yearly">Repetir cada año</string>
+    <string name="countdowns_repeat_footer">Para cumpleaños y aniversarios: al llegar el día, la cuenta empieza de nuevo para el año siguiente.</string>
+    <string name="countdowns_time_footer">Con hora, la pantalla del evento cuenta también horas, minutos y segundos.</string>
+    <string name="countdowns_image">Imagen</string>
+    <string name="countdowns_photo_footer">La foto ocupa toda la tarjeta, como fondo.</string>
+    <string name="countdowns_color">Color</string>
+    <string name="countdowns_custom_color">Personalizado</string>
+    <string name="countdowns_hue">Tono</string>
+    <string name="countdowns_saturation">Saturación</string>
+    <string name="countdowns_brightness">Brillo</string>
+    <string name="countdowns_discard_title">¿Descartar los cambios?</string>
+    <string name="countdowns_discard">Descartar</string>
+    <string name="countdowns_keep_editing">Seguir editando</string>
+    <string name="widget_next_alarm_name">Próxima alarma</string>
+    <string name="widget_next_alarm_description">La siguiente alarma que va a sonar, o las tres siguientes.</string>
+    <string name="widget_next_alarms_header">Próximas alarmas</string>
+    <string name="widget_no_alarms">Sin alarmas próximas</string>
+    <string name="widget_alarms_off">Alarmas desactivadas</string>
+    <string name="widget_countdown_name">Cuenta regresiva</string>
+    <string name="widget_countdown_description">Los días que faltan para un evento, con su foto o su emoji.</string>
+    <string name="widget_countdown_empty">Crea una cuenta regresiva en Calarmi</string>
+    <string name="widget_choose_event">Elegir evento</string>
+    <string name="widget_choose_event_footer">Elige qué cuenta regresiva muestra el widget. Sin elegir, muestra la próxima.</string>
+    <string name="widget_choose_automatic">Siempre la próxima</string>
+    <string name="widget_sample_concert">Concierto</string>
+    <string name="widget_sample_wake_up">Despertar</string>
+    <string name="widget_preview_days_value">23</string>
+    <string name="widget_preview_emoji">🎤</string>
+    <string name="widget_preview_time">7:30</string>
+</resources>

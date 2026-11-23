@@ -1,0 +1,51 @@
+name	en	es	pt
+countdowns_new	New countdown	Nueva cuenta regresiva	Nova contagem regressiva
+countdowns_empty_title	No countdowns	Sin cuentas regresivas	Nenhuma contagem regressiva
+countdowns_empty_message	Count the days until a concert, a trip or a birthday. Give it an emoji or a photo.	Cuenta los días que faltan para un concierto, un viaje o un cumpleaños. Ponle un emoji o una foto.	Conte os dias que faltam para um show, uma viagem ou um aniversário. Adicione um emoji ou uma foto.
+countdowns_past	Past	Pasados	Passados
+countdowns_edit	Edit	Editar	Editar
+countdowns_new_event	New event	Nuevo evento	Novo evento
+countdowns_edit_event	Edit event	Editar evento	Editar evento
+countdowns_create	Create	Crear	Criar
+countdowns_today	Today!	¡Hoy!	Hoje!
+plural:countdowns_days	one=day || other=days	one=día || many=días || other=días	one=dia || many=dias || other=dias
+plural:countdowns_days_ago	one=day ago || other=days ago	one=día atrás || many=días atrás || other=días atrás	one=dia atrás || many=dias atrás || other=dias atrás
+countdowns_unit_days	days	días	dias
+countdowns_unit_hours	hours	horas	horas
+countdowns_unit_minutes	min	min	min
+countdowns_unit_seconds	sec	seg	seg
+countdowns_yearly	Yearly	Cada año	Todos os anos
+countdowns_delete_confirm	Delete this countdown?	¿Borrar esta cuenta regresiva?	Apagar esta contagem regressiva?
+countdowns_delete_event	Delete event	Borrar evento	Apagar evento
+countdowns_name_placeholder	Event name	Nombre del evento	Nome do evento
+countdowns_name_hint	For example “Coldplay concert” or “Trip to Japan”.	Por ejemplo «Concierto de Coldplay» o «Viaje a Japón».	Por exemplo, “Show do Coldplay” ou “Viagem ao Japão”.
+countdowns_at	At	A las	Às
+countdowns_repeat_yearly	Repeat every year	Repetir cada año	Repetir todo ano
+countdowns_repeat_footer	For birthdays and anniversaries: once the day arrives, the countdown starts over for the next year.	Para cumpleaños y aniversarios: al llegar el día, la cuenta empieza de nuevo para el año siguiente.	Para aniversários e datas especiais: quando o dia chega, a contagem recomeça para o ano seguinte.
+countdowns_time_footer	With a time, the event screen also counts the hours, minutes and seconds.	Con hora, la pantalla del evento cuenta también horas, minutos y segundos.	Com horário, a tela do evento também conta horas, minutos e segundos.
+countdowns_image	Image	Imagen	Imagem
+countdowns_photo_footer	The photo fills the whole card as its background.	La foto ocupa toda la tarjeta, como fondo.	A foto ocupa o cartão inteiro, como fundo.
+countdowns_color	Color	Color	Cor
+countdowns_custom_color	Custom	Personalizado	Personalizado
+countdowns_hue	Hue	Tono	Matiz
+countdowns_saturation	Saturation	Saturación	Saturação
+countdowns_brightness	Brightness	Brillo	Brilho
+countdowns_discard_title	Discard changes?	¿Descartar los cambios?	Descartar as alterações?
+countdowns_discard	Discard	Descartar	Descartar
+countdowns_keep_editing	Keep editing	Seguir editando	Continuar editando
+widget_next_alarm_name	Next alarm	Próxima alarma	Próximo alarme
+widget_next_alarm_description	The next alarm that will ring, or the next three.	La siguiente alarma que va a sonar, o las tres siguientes.	O próximo alarme que vai tocar, ou os três seguintes.
+widget_next_alarms_header	Upcoming alarms	Próximas alarmas	Próximos alarmes
+widget_no_alarms	No upcoming alarms	Sin alarmas próximas	Nenhum alarme próximo
+widget_alarms_off	Alarms turned off	Alarmas desactivadas	Alarmes desativados
+widget_countdown_name	Countdown	Cuenta regresiva	Contagem regressiva
+widget_countdown_description	The days left until an event, with its photo or emoji.	Los días que faltan para un evento, con su foto o su emoji.	Os dias que faltam para um evento, com foto ou emoji.
+widget_countdown_empty	Create a countdown in Calarmi	Crea una cuenta regresiva en Calarmi	Crie uma contagem regressiva no Calarmi
+widget_choose_event	Choose event	Elegir evento	Escolher evento
+widget_choose_event_footer	Choose which countdown the widget shows. If none is chosen, it shows the next one.	Elige qué cuenta regresiva muestra el widget. Sin elegir, muestra la próxima.	Escolha qual contagem regressiva o widget mostra. Se nenhuma for escolhida, ele mostra a próxima.
+widget_choose_automatic	Always the next one	Siempre la próxima	Sempre a próxima
+widget_sample_concert	Concert	Concierto	Show
+widget_sample_wake_up	Wake up	Despertar	Acordar
+widget_preview_days_value	23	23	23
+widget_preview_emoji	🎤	🎤	🎤
+widget_preview_time	7:30	7:30	7:30
