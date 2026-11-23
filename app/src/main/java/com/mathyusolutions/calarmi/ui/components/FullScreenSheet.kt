@@ -19,6 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -38,6 +39,18 @@ fun FullScreenSheet(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
     ) {
+        // La ventana del diálogo no hereda la de la actividad: sin esto, los íconos de
+        // la barra de estado salen blancos sobre el fondo claro.
+        val view = androidx.compose.ui.platform.LocalView.current
+        val lightBars = MaterialTheme.colorScheme.background.luminance() > 0.5f
+        androidx.compose.runtime.SideEffect {
+            (view.parent as? androidx.compose.ui.window.DialogWindowProvider)?.window?.let { window ->
+                androidx.core.view.WindowCompat.getInsetsController(window, view).apply {
+                    isAppearanceLightStatusBars = lightBars
+                    isAppearanceLightNavigationBars = lightBars
+                }
+            }
+        }
         ScreenScaffold(title = title, onBack = onDismiss, actions = actions, scrollable = scrollable, content = content)
     }
 }

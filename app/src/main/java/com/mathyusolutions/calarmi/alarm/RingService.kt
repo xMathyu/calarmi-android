@@ -68,24 +68,29 @@ class RingService : Service() {
             ACTION_MUTE -> setMuted(true)
             ACTION_UNMUTE -> setMuted(false)
         }
-        refresh()
+        // La notificación solo se vuelve a publicar cuando llega algo nuevo que sonar
+        // (lo exige `startForegroundService`) o cambia lo que suena; si no, aparecería
+        // de nuevo encima del reto cada vez que la pantalla silencia el tono.
+        refresh(repost = intent?.action == ACTION_RING)
         return START_NOT_STICKY
     }
 
     /** Pone en marcha (o actualiza) lo que suena según la cola. */
-    private fun refresh() {
+    private fun refresh(repost: Boolean = false) {
         val current = RingingState.current
         if (current == null) {
             stopEverything()
             return
         }
         val settings = CalarmiApp.container(this).settings.current
-        val notification = AlarmNotifications.ringing(this, current, settings.snooze.seconds / 60)
-        val type = if (Build.VERSION.SDK_INT >= 34) ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED else 0
-        try {
-            ServiceCompat.startForeground(this, AlarmNotifications.ID_RINGING, notification, type)
-        } catch (e: Exception) {
-            Log.e(TAG, "No se pudo pasar a primer plano", e)
+        if (repost || playingKey != current.key) {
+            val notification = AlarmNotifications.ringing(this, current, settings.snooze.seconds / 60)
+            val type = if (Build.VERSION.SDK_INT >= 34) ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED else 0
+            try {
+                ServiceCompat.startForeground(this, AlarmNotifications.ID_RINGING, notification, type)
+            } catch (e: Exception) {
+                Log.e(TAG, "No se pudo pasar a primer plano", e)
+            }
         }
         if (playingKey != current.key) {
             // Con la app abierta, Android enseña un aviso flotante en vez de la
