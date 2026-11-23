@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde countdowns.tsv. No editar a mano. -->
+<resources>
+    <string name="countdowns_new">New countdown</string>
+    <string name="countdowns_empty_title">No countdowns</string>
+    <string name="countdowns_empty_message">Count the days until a concert, a trip or a birthday. Give it an emoji or a photo.</string>
+    <string name="countdowns_past">Past</string>
+    <string name="countdowns_edit">Edit</string>
+    <string name="countdowns_new_event">New event</string>
+    <string name="countdowns_edit_event">Edit event</string>
+    <string name="countdowns_create">Create</string>
+    <string name="countdowns_today">Today!</string>
+    <plurals name="countdowns_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="countdowns_days_ago">
+        <item quantity="one">day ago</item>
+        <item quantity="other">days ago</item>
+    </plurals>
+    <string name="countdowns_unit_days">days</string>
+    <string name="countdowns_unit_hours">hours</string>
+    <string name="countdowns_unit_minutes">min</string>
+    <string name="countdowns_unit_seconds">sec</string>
+    <string name="countdowns_yearly">Yearly</string>
+    <string name="countdowns_delete_confirm">Delete this countdown?</string>
+    <string name="countdowns_delete_event">Delete event</string>
+    <string name="countdowns_name_placeholder">Event name</string>
+    <string name="countdowns_name_hint">For example “Coldplay concert” or “Trip to Japan”.</string>
+    <string name="countdowns_at">At</string>
+    <string name="countdowns_repeat_yearly">Repeat every year</string>
+    <string name="countdowns_repeat_footer">For birthdays and anniversaries: once the day arrives, the countdown starts over for the next year.</string>
+    <string name="countdowns_time_footer">With a time, the event screen also counts the hours, minutes and seconds.</string>
+    <string name="countdowns_image">Image</string>
+    <string name="countdowns_photo_footer">The photo fills the whole card as its background.</string>
+    <string name="countdowns_color">Color</string>
+    <string name="countdowns_custom_color">Custom</string>
+    <string name="countdowns_hue">Hue</string>
+    <string name="countdowns_saturation">Saturation</string>
+    <string name="countdowns_brightness">Brightness</string>
+    <string name="countdowns_discard_title">Discard changes?</string>
+    <string name="countdowns_discard">Discard</string>
+    <string name="countdowns_keep_editing">Keep editing</string>
+    <string name="widget_next_alarm_name">Next alarm</string>
+    <string name="widget_next_alarm_description">The next alarm that will ring, or the next three.</string>
+    <string name="widget_next_alarms_header">Upcoming alarms</string>
+    <string name="widget_no_alarms">No upcoming alarms</string>
+    <string name="widget_alarms_off">Alarms turned off</string>
+    <string name="widget_countdown_name">Countdown</string>
+    <string name="widget_countdown_description">The days left until an event, with its photo or emoji.</string>
+    <string name="widget_countdown_empty">Create a countdown in Calarmi</string>
+    <string name="widget_choose_event">Choose event</string>
+    <string name="widget_choose_event_footer">Choose which countdown the widget shows. If none is chosen, it shows the next one.</string>
+    <string name="widget_choose_automatic">Always the next one</string>
+    <string name="widget_sample_concert">Concert</string>
+    <string name="widget_sample_wake_up">Wake up</string>
+    <string name="widget_preview_days_value">23</string>
+    <string name="widget_preview_emoji">🎤</string>
+    <string name="widget_preview_time">7:30</string>
+</resources>

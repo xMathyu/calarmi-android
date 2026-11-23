@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fondo de la vista previa del widget de cuenta regresiva (el color del ejemplo). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="20dp" />
+    <gradient
+        android:angle="315"
+        android:endColor="#3E3C96"
+        android:startColor="#6967DA" />
+</shape>
