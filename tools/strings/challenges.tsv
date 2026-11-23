@@ -1,0 +1,74 @@
+name	en	es	pt
+challenges_alarm_fallback	Alarm	Alarma	Alarme
+challenges_practice_note	Practice mode: the alarm isn't ringing.	Modo de prueba: la alarma no está sonando.	Modo de teste: o alarme não está tocando.
+challenges_solve_to_stop	Solve the challenge to turn off the alarm	Resuelve el reto para apagar la alarma	Resolva o desafio para desligar o alarme
+challenges_solved	Challenge solved	Reto resuelto	Desafio resolvido
+challenges_section	Challenge	Reto	Desafio
+challenges_footer_none	Without a challenge, the alarm turns off with a tap.	Sin reto, la alarma se apaga con un toque.	Sem desafio, o alarme desliga com um toque.
+challenges_footer_active	The alarm keeps ringing until you solve the challenge, for up to %1$d minutes.	La alarma no deja de sonar hasta que resuelvas el reto, durante %1$d minutos como máximo.	O alarme continua tocando até você resolver o desafio, por no máximo %1$d minutos.
+challenges_arcade_footer	Arcade challenges come with Calarmi Plus. An alarm that already has one keeps it.	Los retos Arcade vienen con Calarmi Plus. Una alarma que ya tiene uno lo conserva.	Os desafios Arcade vêm com o Calarmi Plus. Um alarme que já tem um continua com ele.
+challenges_difficulty	Difficulty	Dificultad	Dificuldade
+challenges_register_code	Register code	Registrar código	Registrar código
+challenges_change_code	Change code	Cambiar código	Alterar código
+challenges_registered_code	Registered code	Código registrado	Código registrado
+challenges_register_hint	Point the camera at the code you'll scan to turn off the alarm.	Apunta la cámara al código que querrás escanear para apagar la alarma.	Aponte a câmera para o código que você vai escanear para desligar o alarme.
+challenges_allow_snooze	Allow snooze	Permitir posponer	Permitir adiar
+challenges_try	Try the challenge	Probar reto	Testar desafio
+challenges_math_problem_of	Problem %1$d of %2$d	Problema %1$d de %2$d	Problema %1$d de %2$d
+challenges_math_wrong	Wrong, try again.	Incorrecto, inténtalo otra vez.	Incorreto, tente de novo.
+challenges_key_check	Check	Comprobar	Verificar
+challenges_round_of	Round %1$d of %2$d	Ronda %1$d de %2$d	Rodada %1$d de %2$d
+challenges_memory_wrong	Wrong sequence, watch it again.	Secuencia incorrecta, mírala otra vez.	Sequência incorreta, observe de novo.
+challenges_memory_watch	Watch the sequence…	Observa la secuencia…	Observe a sequência…
+challenges_memory_repeat	Now repeat it	Ahora repítela	Agora repita
+challenges_order_next	Next: %1$d	Siguiente: %1$d	Próximo: %1$d
+challenges_order_time	Time	Tiempo	Tempo
+challenges_pairs_of	Pairs %1$d of %2$d	Parejas %1$d de %2$d	Pares %1$d de %2$d
+challenges_pairs_face_down	Face-down card	Carta boca abajo	Carta virada para baixo
+challenges_colors_wrong	That is not the ink color.	Ese no es el color de la tinta.	Essa não é a cor da tinta.
+challenges_colors_hint	Tap the ink color, not the word.	Toca el color de la tinta, no la palabra.	Toque na cor da tinta, não na palavra.
+challenges_colors_a11y	Word %1$s, ink %2$s	Palabra %1$s, tinta %2$s	Palavra %1$s, tinta %2$s
+challenges_color_red	Red	Rojo	Vermelho
+challenges_color_green	Green	Verde	Verde
+challenges_color_blue	Blue	Azul	Azul
+challenges_color_yellow	Yellow	Amarillo	Amarelo
+challenges_color_purple	Purple	Morado	Roxo
+challenges_color_orange	Orange	Naranja	Laranja
+challenges_typing_phrase_of	Phrase %1$d of %2$d	Frase %1$d de %2$d	Frase %1$d de %2$d
+challenges_typing_hint	Type it exactly, accents and capitals included.	Escríbela tal cual, con tildes y mayúsculas.	Digite exatamente igual, com acentos e maiúsculas.
+challenges_typing_error	There is a mistake: check what you typed.	Hay un error: revisa lo escrito.	Há um erro: revise o que você digitou.
+challenges_typing_placeholder	Type the phrase here	Escribe aquí la frase	Digite a frase aqui
+challenges_phrase_1	Today is going to be a great day	Hoy va a ser un gran día	Hoje vai ser um ótimo dia
+challenges_phrase_2	Rise up, the world is waiting for you	Arriba, el mundo te espera	De pé, o mundo está esperando por você
+challenges_phrase_3	One step closer to your goals	Un paso más cerca de tus metas	Um passo mais perto das suas metas
+challenges_phrase_4	The coffee will not make itself	El café no se va a hacer solo	O café não vai se fazer sozinho
+challenges_phrase_5	Every morning is a new chance	Cada mañana es una nueva oportunidad	Cada manhã é uma nova oportunidade
+challenges_phrase_6	Take a deep breath and go for it	Respira hondo y a por todas	Respire fundo e vá com tudo
+challenges_phrase_7	The sun is up and so are you	El sol ya salió y tú también	O sol já nasceu e você também
+challenges_phrase_8	The bed can wait, you cannot	La cama puede esperar, tú no	A cama pode esperar, você não
+challenges_phrase_9	Smile, the day is here	Sonríe, ya es de día	Sorria, o dia chegou
+challenges_phrase_10	No one will live your day for you	Nadie va a vivir tu día por ti	Ninguém vai viver o seu dia por você
+challenges_phrase_11	Wake up, life does not wait	Despierta, que la vida no espera	Acorde, que a vida não espera
+challenges_phrase_12	A good day starts when you get up	Un buen día empieza al levantarte	Um bom dia começa quando você se levanta
+challenges_shake_title	Shake your phone hard	Sacude el teléfono con fuerza	Sacuda o celular com força
+challenges_count_of	%1$d / %2$d	%1$d / %2$d	%1$d / %2$d
+challenges_shake_unit	shakes	sacudidas	sacudidas
+challenges_shake_almost	Almost there!	¡Ya casi!	Quase lá!
+challenges_shake_keep_going	Keep going!	¡Sigue!	Continue!
+challenges_shake_go	Come on, shake!	¡Dale, sacude!	Vamos, sacuda!
+challenges_no_motion_sensors	This device has no motion sensors.	Este dispositivo no tiene sensores de movimiento.	Este dispositivo não tem sensores de movimento.
+challenges_continue	Continue	Continuar	Continuar
+challenges_steps_title	Walk with your phone in your hand.	Camina con el teléfono en la mano.	Caminhe com o celular na mão.
+challenges_steps_unit	steps	pasos	passos
+challenges_steps_note	The counter updates every few seconds.	El contador se actualiza cada pocos segundos.	O contador é atualizado a cada poucos segundos.
+challenges_steps_no_permission	Without the physical activity permission, steps are counted with the motion sensor.	Sin el permiso de actividad física, los pasos se cuentan con el sensor de movimiento.	Sem a permissão de atividade física, os passos são contados com o sensor de movimento.
+challenges_steps_no_detector	This phone has no step counter: steps are counted with the motion sensor.	Este teléfono no tiene podómetro: los pasos se cuentan con el sensor de movimiento.	Este celular não tem contador de passos: os passos são contados com o sensor de movimento.
+challenges_tilt_hint	Tilt your phone to roll the ball to the flag.	Inclina el teléfono para llevar la bola hasta la bandera.	Incline o celular para levar a bola até a bandeira.
+challenges_tilt_drag_hint	No sensors: drag the ball.	Sin sensores: arrastra la bola.	Sem sensores: arraste a bola.
+challenges_reflex_caught_of	Caught %1$d of %2$d	Atrapados %1$d de %2$d	Capturados %1$d de %2$d
+challenges_reflex_ready	Get ready…	Atento…	Atenção…
+challenges_qr_point	Point the camera at the registered code	Apunta la cámara al código registrado	Aponte a câmera para o código registrado
+challenges_qr_mismatch	That's not the registered code.	Ese no es el código registrado.	Esse não é o código registrado.
+challenges_qr_unavailable	This device can't scan codes.	Este dispositivo no puede escanear códigos.	Este dispositivo não consegue escanear códigos.
+challenges_qr_scan	Scan code	Escanear código	Escanear código
+challenges_use_shakes	Use shakes	Usar sacudidas	Usar sacudidas
