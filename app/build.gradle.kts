@@ -28,7 +28,7 @@ android {
         targetSdk = 36
         // Mismo número de versión que la app de iOS al salir en Android.
         versionCode = 1
-        versionName = "1.0.19"
+        versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
