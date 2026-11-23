@@ -1,0 +1,6 @@
+Calarmi is here on Android:
+• Alarms that ring at alarm volume even when your phone is on silent, full screen over the lock screen.
+• Repeats your way, several schedules and up to 5 alerts per alarm.
+• Wake-up challenges, alarms for your calendar events, and countdowns with widgets.
+• An assistant that works right on your phone.
+• Calarmi Plus, optional: Arcade challenges, your own tones, unlimited countdowns and colored icons.

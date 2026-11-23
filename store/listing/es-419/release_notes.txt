@@ -1,0 +1,6 @@
+Calarmi llega a Android:
+• Alarmas que suenan al volumen de alarma aunque el teléfono esté en silencio, a pantalla completa sobre la pantalla bloqueada.
+• Repeticiones a tu medida, varios horarios y hasta 5 avisos por alarma.
+• Retos para despertar, alarmas para los eventos de tu calendario y cuentas regresivas con widgets.
+• Un asistente que funciona dentro de tu teléfono.
+• Calarmi Plus, opcional: retos Arcade, tus propios tonos, cuentas regresivas sin límite e íconos de colores.

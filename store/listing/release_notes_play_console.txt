@@ -1,0 +1,31 @@
+<es-419>
+Calarmi llega a Android:
+• Alarmas que suenan al volumen de alarma aunque el teléfono esté en silencio, a pantalla completa sobre la pantalla bloqueada.
+• Repeticiones a tu medida, varios horarios y hasta 5 avisos por alarma.
+• Retos para despertar, alarmas para los eventos de tu calendario y cuentas regresivas con widgets.
+• Un asistente que funciona dentro de tu teléfono.
+• Calarmi Plus, opcional: retos Arcade, tus propios tonos, cuentas regresivas sin límite e íconos de colores.
+</es-419>
+<en-US>
+Calarmi is here on Android:
+• Alarms that ring at alarm volume even when your phone is on silent, full screen over the lock screen.
+• Repeats your way, several schedules and up to 5 alerts per alarm.
+• Wake-up challenges, alarms for your calendar events, and countdowns with widgets.
+• An assistant that works right on your phone.
+• Calarmi Plus, optional: Arcade challenges, your own tones, unlimited countdowns and colored icons.
+</en-US>
+<pt-BR>
+O Calarmi chegou ao Android:
+• Alarmes que tocam no volume de alarme mesmo com o celular no silencioso, em tela cheia por cima da tela bloqueada.
+• Repetições do seu jeito, vários horários e até 5 avisos por alarme.
+• Desafios para acordar, alarmes para os eventos do seu calendário e contagens regressivas com widgets.
+• Calarmi Plus, opcional: desafios Arcade, seus próprios toques, contagens regressivas ilimitadas e ícones coloridos.
+</pt-BR>
+<de-DE>
+Calarmi gibt es jetzt für Android:
+• Wecker, die in Weckerlautstärke klingeln, auch wenn dein Handy lautlos ist, im Vollbild über dem Sperrbildschirm.
+• Wiederholungen nach deinem Plan, mehrere Uhrzeiten und bis zu 5 Erinnerungen pro Wecker.
+• Aufgaben zum Aufwachen, Wecker für deine Kalendertermine und Countdowns mit Widgets.
+• Ein Assistent, der direkt auf deinem Handy arbeitet.
+• Calarmi Plus, optional: Arcade-Aufgaben, eigene Töne, unbegrenzte Countdowns und farbige App-Symbole.
+</de-DE>
