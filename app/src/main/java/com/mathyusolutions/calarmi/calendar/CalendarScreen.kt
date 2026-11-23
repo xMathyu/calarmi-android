@@ -210,7 +210,7 @@ fun CalendarScreen() {
         },
         floatingActionButton = {
             if (!inAgenda) {
-                FloatingActionButton(onClick = { navigator.newReminder() }, containerColor = MaterialTheme.colorScheme.primary) {
+                FloatingActionButton(onClick = { navigator.newReminder(initialDate = newAlarmDate(selectedDay, today)) }, containerColor = MaterialTheme.colorScheme.primary) {
                     Icon(Icons.Filled.Add, stringResource(R.string.alarm_new))
                 }
             }
@@ -257,7 +257,7 @@ fun CalendarScreen() {
                     }
                     if (dayItems.isEmpty()) {
                         item(key = "empty") {
-                            EmptyDay(canAdd = !selectedDay.isBefore(today), onAdd = { navigator.newReminder() })
+                            EmptyDay(canAdd = !selectedDay.isBefore(today), onAdd = { navigator.newReminder(initialDate = newAlarmDate(selectedDay, today)) })
                         }
                     } else {
                         dayRows(dayItems, settings, eventPrefs, customs, onOpenEvent = { openEvent = it })
@@ -576,4 +576,18 @@ private fun healStaleSelection(settings: com.mathyusolutions.calarmi.data.Settin
     if (selection.isEmpty()) return
     val ids = calendars.map { it.id }.toSet()
     if (selection.none { it in ids }) settings.update { it.copy(selectedCalendarIds = null) }
+}
+
+/**
+ * Una alarma nueva creada desde el calendario empieza el día elegido a las 9:00,
+ * como en iOS. Hoy pasadas las 9, la próxima hora en punto; un día pasado, nada
+ * (el editor pone su hora por defecto).
+ */
+private fun newAlarmDate(day: java.time.LocalDate, today: java.time.LocalDate): Long? {
+    if (day.isBefore(today)) return null
+    val zone = java.time.ZoneId.systemDefault()
+    val nine = day.atTime(9, 0).atZone(zone)
+    val now = java.time.ZonedDateTime.now(zone)
+    return if (nine.isAfter(now)) nine.toInstant().toEpochMilli()
+    else now.withMinute(0).withSecond(0).withNano(0).plusHours(1).toInstant().toEpochMilli()
 }

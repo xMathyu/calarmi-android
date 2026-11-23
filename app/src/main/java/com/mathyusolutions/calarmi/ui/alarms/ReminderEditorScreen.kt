@@ -159,7 +159,7 @@ private data class Draft(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit) {
+fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit, initialDate: Long? = null) {
     val context = LocalContext.current
     val container = CalarmiApp.container(context)
     val navigator = LocalAppNavigator.current
@@ -182,7 +182,7 @@ fun ReminderEditorScreen(id: String?, template: String?, onDone: () -> Unit) {
                     symbol = t.symbol,
                     challenge = t.challenge,
                 )
-            } ?: Draft(leadTimes = listOf(settings.defaultLeadTime))
+            } ?: Draft(date = initialDate ?: Draft.defaultDate(), leadTimes = listOf(settings.defaultLeadTime))
         }
         if (initial == null) onDone() else {
             draft = initial
