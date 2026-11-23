@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde calendar.tsv. No editar a mano. -->
+<resources>
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_next_month">Next month</string>
+    <string name="calendar_event_list">Event list</string>
+    <string name="calendar_month_view">Month view</string>
+    <string name="calendar_refresh">Refresh</string>
+    <string name="calendar_nothing_this_day">Nothing on this day</string>
+    <string name="calendar_has_items">Has alarms or events</string>
+    <string name="calendar_connect_title">Connect your calendar</string>
+    <string name="calendar_connect_message">Your phone\'s calendar events will show up here next to your alarms.</string>
+    <string name="calendar_no_access_title">No calendar access</string>
+    <string name="calendar_denied_message">Calarmi can\'t read your events. Tap Open settings, then under Permissions › Calendar choose Allow.</string>
+    <string name="calendar_allow">Allow</string>
+    <string name="calendar_allow_access">Allow access</string>
+    <string name="calendar_enable">Enable</string>
+    <string name="calendar_open_settings">Open settings</string>
+    <string name="calendar_permission_message">Calarmi needs permission to read your events and set alarms for them.</string>
+    <string name="calendar_off_message">Turn on calendar alarms so your events show up here with their alarm.</string>
+    <string name="calendar_no_upcoming">No upcoming events</string>
+    <string name="calendar_no_upcoming_message">When you have events in your phone\'s calendar they will appear here with their alarms.</string>
+    <string name="calendar_join_in">Join in %1$s</string>
+    <plurals name="calendar_n_alerts">
+        <item quantity="one">%1$d alert</item>
+        <item quantity="other">%1$d alerts</item>
+    </plurals>
+    <string name="calendar_no_alarm">No alarm</string>
+    <string name="calendar_event">Event</string>
+    <string name="calendar_start">Start</string>
+    <string name="calendar_until">until %1$s</string>
+    <string name="calendar_organizer">Organizer</string>
+    <string name="calendar_location">Location</string>
+    <string name="calendar_not_attending">No alarm: you\'re not part of this event</string>
+    <string name="calendar_not_attending_footer">You declined it or it belongs to someone else, and in Settings you asked for only the events you attend. If you save alerts here, this event rings anyway.</string>
+    <string name="calendar_enabled_footer">When off, this alarm will not ring even if you have alerts configured.</string>
+    <string name="calendar_no_alerts">No alerts. This alarm will not ring.</string>
+    <string name="calendar_alerts_max">Alerts (max %1$d)</string>
+    <string name="calendar_alerts_footer">The alarm will ring at each of these moments before the event starts. If the event has a location, the alarm shows a Go button that stops it and opens the map with directions.</string>
+    <string name="calendar_reset_default">Reset to default</string>
+    <string name="calendar_when_to_ring">When to ring</string>
+    <string name="calendar_all_calendars">All calendars</string>
+    <string name="calendar_all_footer">Calarmi watches every one of your calendars, including any you add later.</string>
+    <string name="calendar_some_footer">Only events from the checked calendars ring.</string>
+    <string name="calendar_none_found">I found no calendars on this phone.</string>
+    <string name="calendar_other_account">Other</string>
+</resources>
