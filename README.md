@@ -5,7 +5,7 @@ Port de Calarmi (iOS, `../Calarm`) a Android: Kotlin + Jetpack Compose + Materia
 | | |
 |---|---|
 | Paquete | `com.mathyusolutions.calarmi` (debug: `…calarmi.debug`) |
-| Versión | `versionName` 1.0.19 (la misma que iOS), `versionCode` 1 |
+| Versión | `versionName` 1.1, `versionCode` 3 |
 | SDK | min 26 (Android 8.0) · compile 37.2 · target 36 |
 | Idiomas | inglés (por defecto), español, portugués de Brasil |
 

@@ -8,12 +8,27 @@ es el idioma en que revisan; debajo de cada uno hay una versión en español par
 |---|---|
 | Nombre en Play | Calarmi |
 | Paquete (`applicationId`) | `com.mathyusolutions.calarmi` (no se puede cambiar después de subir el primer AAB) |
-| Versión | `versionName` 1.0.19 · `versionCode` 1 (cada AAB que subas necesita un `versionCode` mayor) |
+| Versión | `versionName` 1.1 · `versionCode` 3 (cada AAB que subas necesita un `versionCode` mayor) |
 | Android | `minSdk` 26 (Android 8.0) · `targetSdk` 36 |
 | Tipo | App gratuita con compras dentro de la app (Calarmi Plus) |
 | Productos | `plus_yearly` (suscripción anual con 1 semana gratis) · `plus_lifetime` (pago único) |
 | Web | https://calarmi.mathyusolutions.com |
 | Contacto | xmathyu@gmail.com |
+
+## Estado (23 nov 2026)
+
+- App creada (ID 4975790279101536661). Ficha en en-US (predeterminada), es-419, es-ES, es-US,
+  pt-BR y de-DE, con gráfico de funciones y capturas por idioma (de-DE usa las capturas en inglés).
+- Contenido de la app completo: privacidad, anuncios, acceso, público, seguridad de los datos,
+  salud («sin funciones de salud»), pantalla completa y alarmas exactas («Despertador»),
+  clasificación IARC (ESRB Everyone, PEGI 3, USK 0; ClassInd de Brasil 14+ por «Users interact»).
+- Prueba cerrada «Alpha»: versión **3 (1.1)**, 178 países, lista «Testers Sinchi - prueba
+  cerrada» (2 personas), comentarios a xmathyu@gmail.com. **Enviada a revisión.**
+- Pendiente: perfil de pagos (cuenta de comerciante) → productos de Plus (sección 7); 12 testers
+  × 14 días → acceso a producción (8.3); subir los `dist/Calarmi-1.1-N-mapping.txt` (pesan
+  ~100 MB: por la API de Play o comprimiendo no se puede desde el navegador).
+- Los AAB para subir por el navegador son `dist/Calarmi-1.1-N-upload.aab` (sin el mapa de R8,
+  vueltos a firmar con la llave de subida), porque el navegador limita a 10 MB.
 
 ---
 
