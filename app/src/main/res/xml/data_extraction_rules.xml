@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copia de seguridad de Google: alarmas, cuentas, ajustes y fotos (guardados en el
+     almacenamiento protegido por dispositivo). Al cambiar de teléfono, vuelven. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="device_database" path="." />
+        <include domain="device_sharedpref" path="." />
+        <include domain="device_file" path="." />
+        <exclude domain="device_sharedpref" path="alarm_state.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="device_database" path="." />
+        <include domain="device_sharedpref" path="." />
+        <include domain="device_file" path="." />
+        <exclude domain="device_sharedpref" path="alarm_state.xml" />
+    </device-transfer>
+</data-extraction-rules>

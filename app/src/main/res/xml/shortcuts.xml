@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="new_alarm"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_add"
+        android:shortcutShortLabel="@string/alarm_new">
+        <intent
+            android:action="com.mathyusolutions.calarmi.action.NEW_ALARM"
+            android:targetPackage="com.mathyusolutions.calarmi"
+            android:targetClass="com.mathyusolutions.calarmi.MainActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="assistant"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_assistant"
+        android:shortcutShortLabel="@string/tab_assistant">
+        <intent
+            android:action="com.mathyusolutions.calarmi.action.OPEN_TAB"
+            android:targetPackage="com.mathyusolutions.calarmi"
+            android:targetClass="com.mathyusolutions.calarmi.MainActivity">
+            <extra android:name="tab" android:value="ASSISTANT" />
+        </intent>
+    </shortcut>
+</shortcuts>

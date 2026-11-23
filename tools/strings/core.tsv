@@ -1,0 +1,325 @@
+name	en	es	pt
+app_name	Calarmi	Calarmi	Calarmi
+tab_alarms	Alarms	Alarmas	Alarmes
+tab_calendar	Calendar	Calendario	Calendário
+tab_countdowns	Countdown	Cuenta regresiva	Contagem regressiva
+tab_assistant	Assistant	Asistente	Assistente
+tab_settings	Settings	Ajustes	Ajustes
+action_back	Back	Atrás	Voltar
+action_cancel	Cancel	Cancelar	Cancelar
+action_close	Close	Cerrar	Fechar
+action_delete	Delete	Borrar	Apagar
+action_done	Done	Listo	OK
+action_ok	OK	OK	OK
+action_remove	Remove	Quitar	Remover
+action_retry	Retry	Reintentar	Tentar de novo
+action_save	Save	Guardar	Salvar
+recurrence_once	Once	Una vez	Uma vez
+recurrence_daily	Daily	Cada día	Todos os dias
+recurrence_weekly	Weekly	Cada semana	Todas as semanas
+recurrence_monthly	Monthly	Cada mes	Todos os meses
+recurrence_yearly	Yearly	Cada año	Todos os anos
+plural:recurrence_every_n_days	one=Every %1$d day || other=Every %1$d days	one=Cada %1$d día || many=Cada %1$d días || other=Cada %1$d días	one=A cada %1$d dia || many=A cada %1$d dias || other=A cada %1$d dias
+plural:recurrence_every_n_weeks	one=Every %1$d week || other=Every %1$d weeks	one=Cada %1$d semana || many=Cada %1$d semanas || other=Cada %1$d semanas	one=A cada %1$d semana || many=A cada %1$d semanas || other=A cada %1$d semanas
+plural:recurrence_every_n_months	one=Every %1$d month || other=Every %1$d months	one=Cada %1$d mes || many=Cada %1$d meses || other=Cada %1$d meses	one=A cada %1$d mês || many=A cada %1$d meses || other=A cada %1$d meses
+plural:recurrence_every_n_years	one=Every %1$d year || other=Every %1$d years	one=Cada %1$d año || many=Cada %1$d años || other=Cada %1$d años	one=A cada %1$d ano || many=A cada %1$d anos || other=A cada %1$d anos
+recurrence_kind_once	Never	Nunca	Nunca
+recurrence_kind_daily	Daily	Diaria	Diária
+recurrence_kind_weekly	Weekly	Semanal	Semanal
+recurrence_kind_monthly	Monthly	Mensual	Mensal
+recurrence_kind_yearly	Yearly	Anual	Anual
+recurrence_every	Every	Cada	A cada
+recurrence_on_days	On these days	Los días	Nos dias
+weekday_short_sun	Sun	Dom	Dom
+weekday_short_mon	Mon	Lun	Seg
+weekday_short_tue	Tue	Mar	Ter
+weekday_short_wed	Wed	Mié	Qua
+weekday_short_thu	Thu	Jue	Qui
+weekday_short_fri	Fri	Vie	Sex
+weekday_short_sat	Sat	Sáb	Sáb
+lead_at_start	On time	Al momento	Na hora
+lead_5m	5 minutes before	5 minutos antes	5 minutos antes
+lead_10m	10 minutes before	10 minutos antes	10 minutos antes
+lead_15m	15 minutes before	15 minutos antes	15 minutos antes
+lead_30m	30 minutes before	30 minutos antes	30 minutos antes
+lead_45m	45 minutes before	45 minutos antes	45 minutos antes
+lead_1h	1 hour before	1 hora antes	1 hora antes
+lead_2h	2 hours before	2 horas antes	2 horas antes
+lead_3h	3 hours before	3 horas antes	3 horas antes
+lead_6h	6 hours before	6 horas antes	6 horas antes
+lead_12h	12 hours before	12 horas antes	12 horas antes
+lead_1d	1 day before	1 día antes	1 dia antes
+lead_2d	2 days before	2 días antes	2 dias antes
+lead_1w	1 week before	1 semana antes	1 semana antes
+lead_short_at_start	At start	Al inicio	No início
+lead_short_5m	5 min	5 min	5 min
+lead_short_10m	10 min	10 min	10 min
+lead_short_15m	15 min	15 min	15 min
+lead_short_30m	30 min	30 min	30 min
+lead_short_45m	45 min	45 min	45 min
+lead_short_1h	1 h	1 h	1 h
+lead_short_2h	2 h	2 h	2 h
+lead_short_3h	3 h	3 h	3 h
+lead_short_6h	6 h	6 h	6 h
+lead_short_12h	12 h	12 h	12 h
+lead_short_1d	1 day	1 día	1 dia
+lead_short_2d	2 days	2 días	2 dias
+lead_short_1w	1 wk	1 sem	1 sem
+snooze_1m	1 minute	1 minuto	1 minuto
+snooze_5m	5 minutes	5 minutos	5 minutos
+snooze_9m	9 minutes	9 minutos	9 minutos
+snooze_10m	10 minutes	10 minutos	10 minutos
+countdown_off	No countdown	Sin cuenta regresiva	Sem contagem regressiva
+countdown_1m	1 minute before	1 minuto antes	1 minuto antes
+countdown_2m	2 minutes before	2 minutos antes	2 minutos antes
+countdown_5m	5 minutes before	5 minutos antes	5 minutos antes
+countdown_10m	10 minutes before	10 minutos antes	10 minutos antes
+countdown_15m	15 minutes before	15 minutos antes	15 minutos antes
+appearance_system	Automatic	Automático	Automático
+appearance_light	Light	Claro	Claro
+appearance_dark	Dark	Oscuro	Escuro
+language_system	Automatic	Automático	Automático
+language_spanish	Spanish	Español	Espanhol
+language_english	English	Inglés	Inglês
+language_portuguese	Portuguese	Portugués	Português
+category_birthday	Birthday	Cumpleaños	Aniversário
+category_anniversary	Anniversary	Aniversario	Data especial
+category_event	Event	Evento	Evento
+category_reminder	Reminder	Recordatorio	Lembrete
+category_other	Other	Otro	Outro
+categories_builtin	Built-in	De fábrica	Padrão
+categories_custom	Yours	Tuyas	Suas
+categories_new	New category	Nueva categoría	Nova categoria
+categories_edit	Edit category	Editar categoría	Editar categoria
+categories_manage	Manage categories…	Gestionar categorías…	Gerenciar categorias…
+categories_name_placeholder	Name	Nombre	Nome
+challenge_group_mind	Mind	Mente	Mente
+challenge_group_arcade	Arcade	Arcade	Arcade
+challenge_group_body	Body	Cuerpo	Corpo
+challenge_group_get_up	Get up	Levantarte	Levantar
+challenge_math	Math	Cálculo	Cálculo
+challenge_memory	Memory	Memoria	Memória
+challenge_order	Number order	Ordenar números	Ordenar números
+challenge_pairs	Pairs	Parejas	Pares
+challenge_colors	Colors	Colores	Cores
+challenge_odd	Odd one out	El distinto	O diferente
+challenge_typing	Typing	Escribir	Digitar
+challenge_flap	Flight	Vuelo	Voo
+challenge_hurdles	Sheep	Ovejas	Ovelhas
+challenge_cannon	Cannon	Cañón	Canhão
+challenge_sling	Slingshot	Tirachinas	Estilingue
+challenge_shake	Shake	Sacudir	Sacudir
+challenge_steps	Walk	Caminar	Caminhar
+challenge_tilt	Maze	Laberinto	Labirinto
+challenge_reflex	Catch	Atrapa	Capture
+challenge_qr	QR code	Código QR	Código QR
+challenge_math_desc	Solve arithmetic problems on a number pad.	Resuelve operaciones con el teclado numérico.	Resolva contas no teclado numérico.
+challenge_memory_desc	Repeat the sequence of tiles that lights up.	Repite la secuencia de casillas que se ilumina.	Repita a sequência de quadrados que se acendem.
+challenge_order_desc	Tap the numbers in order, from 1 to the last, on a shuffled grid.	Toca los números en orden, del 1 al último, en una cuadrícula revuelta.	Toque nos números em ordem, do 1 ao último, em uma grade embaralhada.
+challenge_pairs_desc	Flip the cards and find every emoji pair.	Da la vuelta a las cartas y encuentra todas las parejas de emojis.	Vire as cartas e encontre todos os pares de emojis.
+challenge_colors_desc	Tap the ink color, not the word you read.	Toca el color de la tinta, no la palabra que lees.	Toque na cor da tinta, não na palavra que você lê.
+challenge_odd_desc	Find the emoji that isn't like the others.	Encuentra el emoji que no es como los demás.	Encontre o emoji que não é igual aos outros.
+challenge_typing_desc	Copy a sentence letter by letter, with no autocorrect.	Copia una frase letra por letra, sin autocorrector.	Copie uma frase letra por letra, sem corretor automático.
+challenge_flap_desc	Tap to lift the bee and fly it through the gaps without crashing.	Toca para que la abeja suba y pásala por los huecos sin chocar.	Toque para a abelha subir e faça ela passar pelos vãos sem bater.
+challenge_hurdles_desc	Make the sheep jump the fences: press and hold for the tall ones.	Haz que la oveja salte las vallas: mantén pulsado para las altas.	Faça a ovelha pular as cercas: toque e segure para as altas.
+challenge_cannon_desc	Aim, charge and fire at the alarm clock; mind the wind.	Apunta, carga y dispara al despertador; cuidado con el viento.	Mire, carregue e atire no despertador; cuidado com o vento.
+challenge_sling_desc	Pull back the band and launch to knock the alarm clocks off their towers.	Estira la goma y lanza para derribar los despertadores de las torres.	Estique o elástico e lance para derrubar os despertadores das torres.
+challenge_shake_desc	Shake the phone hard until the bar fills up.	Sacude el teléfono con ganas hasta llenar la barra.	Sacuda o celular com vontade até encher a barra.
+challenge_steps_desc	Take a few steps with the phone in hand: it counts real steps.	Da unos pasos con el teléfono en la mano: cuenta los pasos de verdad.	Dê alguns passos com o celular na mão: os passos são contados de verdade.
+challenge_tilt_desc	Tilt the phone to roll the ball to the exit.	Inclina el teléfono para llevar la bola hasta la salida.	Incline o celular para levar a bola até a saída.
+challenge_reflex_desc	Tap the targets as they pop up, before they vanish.	Toca los objetivos que aparecen antes de que desaparezcan.	Toque nos alvos que aparecem antes que eles sumam.
+challenge_qr_desc	Scan a QR code or barcode you register, such as the one on your toothpaste.	Escanea un código QR o de barras que registres, por ejemplo el de la pasta de dientes.	Escaneie um código QR ou de barras que você registrar, como o da pasta de dente.
+difficulty_easy	Easy	Fácil	Fácil
+difficulty_medium	Medium	Media	Médio
+difficulty_hard	Hard	Difícil	Difícil
+tone_system	System tone	Tono del sistema	Toque do sistema
+tone_chime	Chime	Campana	Sino
+tone_marimba	Marimba	Marimba	Marimba
+tone_radar	Radar	Radar	Radar
+tone_arpeggio	Arpeggio	Arpegio	Arpejo
+tone_pulse	Pulse	Pulso	Pulso
+tone_harp	Harp	Arpa	Harpa
+tone_imported	Imported tone	Tono importado	Toque importado
+tone_follow_default	Default	Predeterminado	Padrão
+tone_follow_default_footer	Follows the default tone from Settings.	Sigue el tono predeterminado de Ajustes.	Segue o toque padrão dos Ajustes.
+tone_section_builtin	Calarmi tones	Tonos de Calarmi	Toques do Calarmi
+tone_section_imported	Your tones	Tus tonos	Seus toques
+tone_import	Import audio…	Importar audio…	Importar áudio…
+tone_import_footer	Any audio file on your phone. It's copied into Calarmi, so it keeps ringing even if you delete the original.	Cualquier audio de tu teléfono. Se copia a Calarmi, así que sigue sonando aunque borres el original.	Qualquer áudio do seu celular. Ele é copiado para o Calarmi, então continua tocando mesmo se você apagar o original.
+alarm_new	New alarm	Nueva alarma	Novo alarme
+alarm_edit	Edit alarm	Editar alarma	Editar alarme
+alarm_delete	Delete alarm	Borrar alarma	Apagar alarme
+alarm_delete_confirm_title	Delete this alarm?	¿Borrar esta alarma?	Apagar este alarme?
+alarm_expired	Expired	Vencida	Vencido
+alarms_filter	Filter	Filtrar	Filtrar
+alarms_clear_filters	Clear filters	Limpiar filtros	Limpar filtros
+alarms_no_results	No results	Sin resultados	Nenhum resultado
+alarms_no_results_message	No reminder matches your filters.	Ningún recordatorio coincide con tus filtros.	Nenhum lembrete corresponde aos seus filtros.
+group_today	Today	Hoy	Hoje
+group_tomorrow	Tomorrow	Mañana	Amanhã
+group_this_week	This week	Esta semana	Esta semana
+group_later	Later	Más adelante	Mais tarde
+group_expired	Expired	Vencidas	Vencidos
+day_today_lower	today	hoy	hoje
+day_tomorrow_lower	tomorrow	mañana	amanhã
+starter_title	Your first alarm	Tu primera alarma	Seu primeiro alarme
+starter_message	Pick one to start. It's saved when you close the editor, and you can change it anytime.	Elige una para empezar. Se crea al cerrar el editor y la cambias cuando quieras.	Escolha um para começar. Ele é criado ao fechar o editor, e você pode alterá-lo quando quiser.
+starter_blank	Start from scratch	Empezar de cero	Começar do zero
+template_wake	Wake up	Despertador	Despertador
+template_weekdays	Weekdays	De lunes a viernes	Dias úteis
+template_wake_challenge	Wake up with a challenge	Despertador con reto	Despertador com desafio
+template_wake_challenge_detail	Solve a game to turn it off	Resuelve un juego para apagarla	Resolva um jogo para desligá-lo
+template_pill	Pill	Pastilla	Remédio
+template_every_day	Every day	Todos los días	Todos os dias
+template_birthday_detail	Repeats every year, with their photo	Se repite cada año, con su foto	Repete todo ano, com a foto da pessoa
+permission_notifications	Notifications	Notificaciones	Notificações
+permission_exact	Alarms & reminders	Alarmas y recordatorios	Alarmes e lembretes
+permission_fullscreen	Full-screen alarms	Alarmas a pantalla completa	Alarmes em tela cheia
+permission_granted	Allowed	Permitido	Permitido
+permission_missing	Not allowed	Sin permiso	Sem permissão
+permission_fix	Fix	Arreglar	Corrigir
+permission_notifications_banner	Calarmi can't show alarms without notifications. Allow them so your alarms ring.	Calarmi no puede mostrar alarmas sin notificaciones. Permítelas para que tus alarmas suenen.	O Calarmi não consegue mostrar alarmes sem notificações. Permita para que seus alarmes toquem.
+permission_exact_banner	Allow "Alarms & reminders" so your alarms ring exactly on time.	Permite «Alarmas y recordatorios» para que tus alarmas suenen a la hora exacta.	Permita "Alarmes e lembretes" para que seus alarmes toquem na hora exata.
+permission_fullscreen_banner	Allow full-screen alarms so the alarm appears over the lock screen.	Permite las alarmas a pantalla completa para que la alarma aparezca sobre la pantalla bloqueada.	Permita os alarmes em tela cheia para que o alarme apareça sobre a tela bloqueada.
+editor_title_placeholder	Title	Título	Título
+editor_notes_placeholder	Notes (optional)	Notas (opcional)	Notas (opcional)
+editor_title_required	Give the alarm a name so it can be saved.	Ponle un nombre a la alarma para poder guardarla.	Dê um nome ao alarme para poder salvá-lo.
+editor_title_hint	Give it a name you'll recognize, for example “Take pill”.	Ponle un nombre para reconocerla, por ejemplo «Tomar pastilla».	Dê um nome para reconhecê-lo, por exemplo “Tomar remédio”.
+editor_change_icon	Change icon	Cambiar icono	Alterar ícone
+editor_icon	Icon	Icono	Ícone
+editor_when	When	Cuándo	Quando
+editor_schedule_n	Schedule %1$d	Horario %1$d	Horário %1$d
+editor_remove_schedule	Remove schedule	Quitar horario	Remover horário
+editor_add_schedule	Add schedule	Agregar horario	Adicionar horário
+editor_leads_footer	The alarm will ring once for each configured alert.	La alarma sonará una vez por cada aviso configurado.	O alarme vai tocar uma vez para cada alerta configurado.
+editor_schedules_footer	Add different days and times for the same alarm (e.g. Monday and Saturday).	Agrega días y horas distintos para la misma alarma (p. ej. lunes y sábado).	Adicione dias e horários diferentes para o mesmo alarme (ex.: segunda e sábado).
+editor_time	Time	Hora	Hora
+editor_repeat	Repeat	Repetir	Repetir
+editor_date	Date	Fecha	Data
+editor_from	Starts	Desde	A partir de
+editor_past_warning	That date and time have already passed: the alarm won't ring.	Esa fecha y hora ya pasaron: la alarma no sonará.	Essa data e hora já passaram: o alarme não vai tocar.
+editor_alert	Alert	Aviso	Alerta
+editor_alert_n	Alert %1$d	Aviso %1$d	Alerta %1$d
+editor_add_alert	Add alert	Agregar aviso	Adicionar alerta
+editor_sound	Sound	Sonido	Som
+editor_tone_default_footer	Follows the default tone from Settings.	Sigue el tono predeterminado de Ajustes.	Segue o toque padrão dos Ajustes.
+editor_challenge	Wake-up challenge	Reto para apagar	Desafio para desligar
+editor_challenge_none	None	Ninguno	Nenhum
+editor_challenge_missing_code	No code registered yet: without one the alarm turns off as usual.	Falta registrar el código: sin él la alarma se apaga como siempre.	Falta registrar o código: sem ele, o alarme desliga normalmente.
+editor_challenge_footer	The alarm keeps ringing until you solve the challenge.	La alarma no deja de sonar hasta que resuelvas el reto.	O alarme continua tocando até você resolver o desafio.
+editor_category	Category	Categoría	Categoria
+editor_enabled	Alarm enabled	Alarma activa	Alarme ativado
+editor_enabled_footer_on	The alarm will ring according to the schedules and alerts above.	La alarma sonará según los horarios y avisos de arriba.	O alarme vai tocar de acordo com os horários e alertas acima.
+editor_enabled_footer_off	The alarm is off: it won't ring until you turn it on.	La alarma está apagada: no sonará hasta que la enciendas.	O alarme está desativado: ele não vai tocar até você ativá-lo.
+editor_create_countdown	Create countdown	Crear cuenta regresiva	Criar contagem regressiva
+editor_countdown_footer	Counts down the days until it next rings, in the Countdown tab.	Cuenta los días que faltan para la próxima vez que suene, en la pestaña Cuenta regresiva.	Conta os dias que faltam para a próxima vez que tocar, na aba Contagem regressiva.
+icon_kind_symbol	Symbol	Símbolo	Símbolo
+icon_kind_emoji	Emoji	Emoji	Emoji
+icon_kind_photo	Photo	Foto	Foto
+icon_choose_photo	Choose photo	Elegir foto	Escolher foto
+icon_change_photo	Change photo	Cambiar foto	Alterar foto
+icon_remove_photo	Remove photo	Quitar foto	Remover foto
+ring_stop	Stop	Detener	Parar
+ring_snooze_minutes	Snooze %1$d min	Posponer %1$d min	Adiar %1$d min
+ring_solve_challenge	Solve challenge	Resolver reto	Resolver desafio
+ring_join	Join	Unirse	Entrar
+ring_go	Go	Ir	Ir
+plural:in_minutes	one=In %1$d minute || other=In %1$d minutes	one=En %1$d minuto || many=En %1$d minutos || other=En %1$d minutos	one=Em %1$d minuto || many=Em %1$d minutos || other=Em %1$d minutos
+plural:in_hours	one=In %1$d hour || other=In %1$d hours	one=En %1$d hora || many=En %1$d horas || other=En %1$d horas	one=Em %1$d hora || many=Em %1$d horas || other=Em %1$d horas
+plural:in_days	one=In %1$d day || other=In %1$d days	one=En %1$d día || many=En %1$d días || other=En %1$d días	one=Em %1$d dia || many=Em %1$d dias || other=Em %1$d dias
+upcoming_rings_at	Rings at %1$s	Suena a las %1$s	Toca às %1$s
+upcoming_skip	Skip this time	Saltar esta vez	Pular desta vez
+missed_title	Missed alarm	Alarma perdida	Alarme perdido
+missed_text	%1$s rang at %2$s and nobody turned it off.	%1$s sonó a las %2$s y nadie la apagó.	%1$s tocou às %2$s e ninguém o desligou.
+channel_ringing	Ringing alarms	Alarmas sonando	Alarmes tocando
+channel_ringing_desc	The alarm on screen while it rings.	La alarma en pantalla mientras suena.	O alarme na tela enquanto toca.
+channel_upcoming	Upcoming alarm	Próxima alarma	Próximo alarme
+channel_upcoming_desc	The countdown shown before an alarm rings.	La cuenta regresiva antes de que suene una alarma.	A contagem regressiva antes de um alarme tocar.
+channel_missed	Missed alarms	Alarmas perdidas	Alarmes perdidos
+channel_missed_desc	Alarms that rang until the limit without being turned off.	Alarmas que sonaron hasta el límite sin que nadie las apagara.	Alarmes que tocaram até o limite sem ninguém desligar.
+calendar_untitled_event	Untitled event	Evento sin título	Evento sem título
+onboarding_1_title	Alarms you can't miss	Alarmas que no te puedes perder	Alarmes que você não pode perder
+onboarding_1_detail	They ring loud even when your phone is silent, locked or on Do Not Disturb.	Suenan fuerte aunque el teléfono esté en silencio, bloqueado o en No molestar.	Tocam alto mesmo com o celular no silencioso, bloqueado ou em Não perturbe.
+onboarding_2_title	Birthdays that repeat on their own	Cumpleaños que se repiten solos	Aniversários que se repetem sozinhos
+onboarding_2_detail	Add the person's photo and it repeats every year. Every 2 weeks, Mondays and Wednesdays, every 21 days — whatever recurrence you need.	Ponle la foto de la persona y se repite cada año. Cada 2 semanas, los lunes y miércoles, cada 21 días: la recurrencia que necesites.	Adicione a foto da pessoa e ele se repete todo ano. A cada 2 semanas, às segundas e quartas, a cada 21 dias: a recorrência que você precisar.
+onboarding_3_title	Your events ring too	Tus eventos también suenan	Seus eventos também tocam
+onboarding_3_detail	Calarmi reads your calendar and gives each event up to 3 alerts. If it's a Teams, Zoom or Meet call, a Join button appears.	Calarmi lee tu calendario y le pone hasta 3 avisos a cada evento. Si es una reunión de Teams, Zoom o Meet, aparece el botón para unirte.	O Calarmi lê seu calendário e coloca até 3 alertas em cada evento. Se for uma reunião do Teams, Zoom ou Meet, aparece o botão para entrar.
+onboarding_4_title	Just say it	Díselo y listo	É só falar
+onboarding_4_detail	“Remind me to take my pill every day at 9.” The assistant schedules it for you.	«Recuérdame la pastilla todos los días a las 9». El asistente la programa por ti.	“Me lembre do remédio todos os dias às 9”. O assistente agenda para você.
+onboarding_5_title	One permission and you're set	Un permiso y ya está	Uma permissão e pronto
+onboarding_5_detail	Android needs your permission for Calarmi to show alarms over the lock screen.	Android necesita tu permiso para que Calarmi muestre las alarmas sobre la pantalla bloqueada.	O Android precisa da sua permissão para que o Calarmi mostre os alarmes sobre a tela bloqueada.
+onboarding_skip	Skip	Omitir	Pular
+onboarding_next	Continue	Continuar	Continuar
+onboarding_allow	Allow and start	Permitir y empezar	Permitir e começar
+settings_alarms_enabled	Alarms enabled	Alarmas activas	Alarmes ativados
+settings_alarms_enabled_footer	Master switch. When off, no alarm will ring.	Interruptor general. Cuando esté apagado, no sonará ninguna alarma.	Interruptor geral. Quando estiver desativado, nenhum alarme vai tocar.
+settings_app_icon	App icon	Ícono de la app	Ícone do app
+settings_appearance	Appearance	Apariencia	Aparência
+settings_appearance_footer	Choose the theme. "Automatic" follows the system setting.	Elige el tema. "Automático" sigue la configuración del sistema.	Escolha o tema. "Automático" segue a configuração do sistema.
+settings_accent	Accent color	Color de acento	Cor de destaque
+settings_categories	Categories	Categorías	Categorias
+settings_categories_footer	Create your own categories with their color and emoji or icon.	Crea categorías propias con su color y emoji o ícono.	Crie suas próprias categorias com cor e emoji ou ícone.
+settings_language	Language	Idioma	Idioma
+settings_language_footer	App language. "Automatic" follows your phone's language.	El idioma de la app. "Automático" sigue el idioma de tu teléfono.	O idioma do app. "Automático" segue o idioma do seu celular.
+settings_sound_section	Sound	Sonido	Som
+settings_alarm_sound	Alarm sound	Sonido de las alarmas	Som dos alarmes
+settings_vibrate	Vibrate	Vibrar	Vibrar
+settings_sound_footer	The tone used by new alarms and by any alarm without its own. Each alarm can pick a different one in its editor.	El tono con el que suenan las alarmas nuevas y las que no tienen uno propio. Cada alarma puede elegir el suyo desde su editor.	O toque dos alarmes novos e dos que não têm um próprio. Cada alarme pode escolher o seu no editor.
+settings_default_lead	Default alert	Aviso por defecto	Alerta padrão
+settings_default_lead_footer	How far ahead of its time a new alarm rings, and every calendar event that has no alerts of its own. Alarms that already exist don't change.	Con cuánta anticipación suena una alarma nueva y cada evento del calendario que no tenga sus propios avisos. Las alarmas que ya existen no cambian.	Com quanta antecedência toca um alarme novo e cada evento do calendário sem alertas. Os alarmes que já existem não mudam.
+settings_countdown	Countdown	Cuenta regresiva	Contagem regressiva
+settings_countdown_footer	Shows a countdown notification during the minutes before each alarm, with the option to skip it. The alarm still rings at its time.	Muestra una notificación con la cuenta atrás durante los minutos previos a cada alarma, con la opción de saltarla. La alarma sigue sonando a su hora.	Mostra uma notificação com a contagem regressiva nos minutos antes de cada alarme, com a opção de pular. O alarme continua tocando no horário marcado.
+settings_snooze	Snooze interval	Intervalo de snooze	Intervalo de adiamento
+settings_snooze_footer	Time between repeats when you snooze an alarm.	Tiempo entre repeticiones cuando pospones una alarma.	Tempo entre repetições quando você adia um alarme.
+settings_calendar_section	Calendar	Calendario	Calendário
+settings_calendar_alarms	Schedule alarms for calendar events	Programar alarmas para eventos del calendario	Agendar alarmes para eventos do calendário
+settings_calendars	Calendars	Calendarios	Calendários
+settings_only_attending	Only events I'm attending	Solo eventos a los que asisto	Só eventos dos quais participo
+settings_meeting_links	Join button for Teams, Zoom and Meet	Botón para unirte en Teams, Zoom y Meet	Botão para entrar no Teams, Zoom e Meet
+settings_calendar_footer	When on, Calarmi reads the events in your phone's calendar and gives each one an alarm at the default alert time. Each event can change its own from the Calendar tab.\n\n"Only events I'm attending" leaves without an alarm the ones you declined and the ones that belong to someone else, such as those on a shared calendar.	Cuando esté activo, Calarmi leerá los eventos del calendario de tu teléfono y le programará una alarma a cada uno con el aviso por defecto. Cada evento puede cambiar el suyo desde la pestaña Calendario.\n\n"Solo eventos a los que asisto" deja sin alarma los que rechazaste y los que son de otra persona, como los de un calendario compartido.	Quando estiver ativado, o Calarmi lê os eventos do calendário do seu celular e programa um alarme para cada um com a antecedência padrão. Cada evento pode mudar isso na aba Calendário.\n\n"Só eventos dos quais participo" deixa sem alarme os que você recusou e os que são de outra pessoa, como os de um calendário compartilhado.
+settings_permissions	Permissions	Permisos	Permissões
+settings_permissions_footer	What Calarmi needs so an alarm rings on time and over the lock screen. Tap one to open its setting.	Lo que necesita Calarmi para que una alarma suene a su hora y sobre la pantalla bloqueada. Toca uno para abrir su ajuste.	O que o Calarmi precisa para que um alarme toque na hora e sobre a tela bloqueada. Toque em um para abrir o ajuste.
+settings_about	About	Acerca de	Sobre
+settings_about_footer	Calarmi is an alarm app for personal events: birthdays, anniversaries, reminders, and more.	Calarmi es una app de alarmas para eventos personales: cumpleaños, aniversarios, recordatorios y más.	O Calarmi é um app de alarmes para eventos pessoais: aniversários, datas especiais, lembretes e mais.
+settings_version	Version	Versión	Versão
+settings_help	Help	Ayuda	Ajuda
+settings_privacy	Privacy policy	Política de privacidad	Política de privacidade
+settings_rate	Rate Calarmi	Calificar Calarmi	Avaliar o Calarmi
+settings_share	Share Calarmi	Compartir Calarmi	Compartilhar Calarmi
+share_app_text	Alarms that ring even when your phone is silent: birthdays, meds, appointments and more.	Alarmas que suenan aunque el teléfono esté en silencio: cumpleaños, medicamentos, citas y más.	Alarmes que tocam mesmo com o celular no silencioso: aniversários, remédios, consultas e mais.
+app_icon_default	Orange	Naranja	Laranja
+app_icon_blue	Blue	Azul	Azul
+app_icon_purple	Purple	Morado	Roxo
+app_icon_green	Green	Verde	Verde
+app_icon_pink	Pink	Rosa	Rosa
+app_icon_footer	Some launchers take a few seconds to show the new icon.	Algunos lanzadores tardan unos segundos en mostrar el ícono nuevo.	Alguns launchers levam alguns segundos para mostrar o novo ícone.
+plus_name	Calarmi Plus	Calarmi Plus	Calarmi Plus
+plus_badge	Plus	Plus	Plus
+plus_active	Active. Thanks for supporting Calarmi!	Activo. ¡Gracias por apoyar Calarmi!	Ativo. Obrigado por apoiar o Calarmi!
+plus_pitch_short	Arcade challenges, your own tones, unlimited countdowns and colored icons.	Retos Arcade, tus propios tonos, cuentas regresivas sin límite e íconos de colores.	Desafios Arcade, seus próprios toques, contagens regressivas ilimitadas e ícones coloridos.
+plus_restore	Restore purchases	Restaurar compras	Restaurar compras
+plus_intro	The essentials stay free. Plus adds extras and helps Calarmi keep getting better.	Lo esencial sigue siendo gratis. Plus suma extras y ayuda a que Calarmi siga mejorando.	O essencial continua grátis. O Plus adiciona extras e ajuda o Calarmi a continuar melhorando.
+plus_always_free	Always free: alarms, repeats, calendar, challenges and the assistant.	Siempre gratis: alarmas, repeticiones, calendario, retos y el asistente.	Sempre grátis: alarmes, repetições, calendário, desafios e o assistente.
+plus_feature_arcade	Arcade challenges	Retos Arcade	Desafios Arcade
+plus_feature_arcade_desc	Flight, Sheep, Cannon and Slingshot: games that turn the alarm off once you're wide awake.	Vuelo, Ovejas, Cañón y Tirachinas: juegos para apagar la alarma ya bien despierto.	Voo, Ovelhas, Canhão e Estilingue: jogos para desligar o alarme já bem acordado.
+plus_feature_tones	Your own tones	Tus propios tonos	Seus próprios toques
+plus_feature_tones_desc	Import any audio from your phone and wake up to it.	Importa cualquier audio de tu teléfono y despierta con él.	Importe qualquer áudio do seu celular e acorde com ele.
+plus_feature_countdowns	Unlimited countdowns	Cuentas regresivas sin límite	Contagens regressivas ilimitadas
+plus_feature_countdowns_desc	Without Plus you can have up to %1$d countdowns.	Sin Plus puedes tener hasta %1$d cuentas regresivas.	Sem o Plus, você pode ter até %1$d contagens regressivas.
+plus_feature_icons	Colored icons	Íconos de colores	Ícones coloridos
+plus_feature_icons_desc	Change the color of the icon on your home screen.	Cambia el color del ícono en tu pantalla de inicio.	Mude a cor do ícone na sua tela inicial.
+plus_yearly	Yearly	Anual	Anual
+plus_lifetime	Lifetime	De por vida	Vitalício
+plus_per_year	per year	al año	por ano
+plus_one_time	one-time	pago único	pagamento único
+plus_trial_badge	1 week free	1 semana gratis	1 semana grátis
+plus_cta_trial	Start free trial	Empezar la prueba gratis	Começar teste grátis
+plus_cta_buy	Continue	Continuar	Continuar
+plus_legal_yearly	The subscription renews automatically every year until you cancel it in Google Play › Subscriptions. If you cancel during the trial, you won't be charged.	La suscripción se renueva sola cada año hasta que la canceles en Google Play › Suscripciones. Si la cancelas durante la prueba, no se cobra nada.	A assinatura é renovada automaticamente todo ano até você cancelá-la no Google Play › Assinaturas. Se cancelar durante o teste, nada é cobrado.
+plus_legal_lifetime	One-time payment. Plus stays on every device signed in to the same Google account.	Pago único. Plus queda en todos tus dispositivos con la misma cuenta de Google.	Pagamento único. O Plus fica em todos os seus dispositivos com a mesma conta do Google.
+plus_owned	You have Calarmi Plus	Tienes Calarmi Plus	Você tem o Calarmi Plus
+plus_thanks	Thanks for supporting Calarmi!	¡Gracias por apoyar Calarmi!	Obrigado por apoiar o Calarmi!
+plus_manage_subscription	Manage subscription	Gestionar suscripción	Gerenciar assinatura
+plus_store_unavailable	Couldn't connect to Google Play.	No se pudo conectar con Google Play.	Não foi possível conectar ao Google Play.
+plus_loading	Loading prices…	Cargando precios…	Carregando preços…
+plus_purchase_failed	The purchase couldn't be completed.	No se pudo completar la compra.	Não foi possível concluir a compra.
