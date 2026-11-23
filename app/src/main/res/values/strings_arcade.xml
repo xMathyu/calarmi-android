@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde arcade.tsv. No editar a mano. -->
+<resources>
+    <string name="arcade_success">You did it!</string>
+    <string name="arcade_flap_progress">Gaps %1$d of %2$d</string>
+    <string name="arcade_flap_start">Tap to fly</string>
+    <string name="arcade_flap_crash">Crash! Tap to keep going</string>
+    <string name="arcade_hurdles_progress">Fences %1$d of %2$d</string>
+    <string name="arcade_hurdles_start">Tap to jump; press and hold to jump higher</string>
+    <string name="arcade_hurdles_crash">Oops! Tap to keep going</string>
+    <string name="arcade_cannon_progress">Hits %1$d of %2$d</string>
+    <string name="arcade_cannon_aim">Drag across the field to aim</string>
+    <string name="arcade_cannon_power">Power</string>
+    <string name="arcade_cannon_hold">Press and hold to charge</string>
+    <string name="arcade_cannon_release">Release to fire</string>
+    <string name="arcade_cannon_wind">Wind %1$d</string>
+    <string name="arcade_sling_progress">Knocked down %1$d of %2$d</string>
+    <string name="arcade_sling_shots">Shots: %1$d</string>
+    <string name="arcade_sling_aim">Pull back from the left side and let go</string>
+    <string name="arcade_sling_cleared">Tower cleared!</string>
+    <string name="arcade_sling_out">Out of shots: new tower</string>
+</resources>
