@@ -31,6 +31,21 @@ una copia en un lugar seguro** (gestor de contraseñas). Google Play firma la ap
 llave (Play App Signing); si la de subida se pierde, se puede pedir un reseteo en Play Console,
 pero tarda días.
 
+## CI/CD (GitHub Actions)
+
+Repo privado `xMathyu/calarmi-android`.
+
+- **CI** (`.github/workflows/ci.yml`): cada push a `main` y cada pull request corren las pruebas
+  unitarias y arman el APK de debug (queda como artefacto). No necesita secretos.
+- **CD** (`.github/workflows/publicar.yml`): un tag `v*` (`git tag v1.1.1 && git push origin
+  v1.1.1`) o «Run workflow» compila el AAB firmado y lo publica en Google Play (por defecto en la
+  prueba cerrada, `alpha`, enviado a revisión). `versionCode` = 100 + número de corrida; el
+  `versionName` sale del tag. El mapa de R8 va dentro del AAB y Play lo toma solo.
+- Publicar no usa llaves de Google: Workload Identity Federation cambia el token de GitHub por uno
+  de la cuenta de servicio `calarmi-play-publisher@calarmi.iam.gserviceaccount.com`, invitada en
+  Play Console. Preparación (una vez): `tools/ci/configurar-gcp.sh` (Google Cloud + variables del
+  repo) y `tools/ci/configurar-secretos.sh` (la llave de subida, en los secretos del repo).
+
 ## Textos
 
 No hay textos escritos a mano en el código. Cada módulo tiene su tabla en `tools/strings/*.tsv`

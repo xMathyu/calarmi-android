@@ -26,9 +26,11 @@ android {
         applicationId = "com.mathyusolutions.calarmi"
         minSdk = 26
         targetSdk = 36
-        // Mismo número de versión que la app de iOS al salir en Android.
-        versionCode = 4
-        versionName = "1.1"
+        // Mismo número de versión que la app de iOS al salir en Android. El CD de GitHub
+        // (`.github/workflows/publicar.yml`) los pisa con `-Pcalarmi.versionCode` y
+        // `-Pcalarmi.versionName`: cada corrida sube un número nuevo sin tocar este archivo.
+        versionCode = (project.findProperty("calarmi.versionCode") as? String)?.toInt() ?: 4
+        versionName = (project.findProperty("calarmi.versionName") as? String) ?: "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Firebase Local Emulator Suite: vacío = el proyecto real. Ver `debug` abajo.
         buildConfigField("String", "FIREBASE_EMULATOR_HOST", "\"\"")

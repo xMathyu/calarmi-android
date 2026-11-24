@@ -1,0 +1,50 @@
+name: CI
+
+# Cada push a main y cada pull request: las pruebas unitarias y el APK de debug.
+# No necesita ningún secreto (el build de debug no se firma con la llave de subida).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  # Un push nuevo cancela el anterior de la misma rama.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Caché de Gradle y de sus dependencias entre corridas.
+      - uses: gradle/actions/setup-gradle@v4
+
+      # compileSdk 37.2 no viene en la imagen del runner: Gradle lo baja solo
+      # (las licencias del SDK ya están aceptadas en ubuntu-latest).
+      - name: Pruebas unitarias y APK de debug
+        run: ./gradlew --no-daemon :app:testDebugUnitTest :app:assembleDebug
+
+      - name: Reporte de pruebas
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-pruebas
+          path: app/build/reports/tests/
+          retention-days: 7
+
+      - name: APK de debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: calarmi-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 14
