@@ -243,3 +243,40 @@ fun PlusBadge(modifier: Modifier = Modifier) {
         fontWeight = FontWeight.Bold,
     )
 }
+
+/**
+ * El ícono de la app (o una de sus variantes de color) como imagen. Los íconos son
+ * adaptativos (`<adaptive-icon>`), que `painterResource` no sabe dibujar: se pintan
+ * aquí sus dos capas a sangre completa, como en el lanzador, y se recortan con
+ * esquinas redondeadas.
+ */
+@Composable
+fun AppIconImage(res: Int, size: Dp, modifier: Modifier = Modifier, corner: Dp = size * 0.225f) {
+    val context = LocalContext.current
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    val px = with(density) { size.roundToPx() }.coerceAtLeast(1)
+    val bitmap = remember(res, px) {
+        runCatching {
+            val drawable = androidx.core.content.ContextCompat.getDrawable(context, res) ?: return@runCatching null
+            val out = android.graphics.Bitmap.createBitmap(px, px, android.graphics.Bitmap.Config.ARGB_8888)
+            val canvas = android.graphics.Canvas(out)
+            if (drawable is android.graphics.drawable.AdaptiveIconDrawable) {
+                // Cada capa mide 108 dp de los que se ven 72: un 25 % de sobra por lado.
+                val extra = px / 4
+                listOfNotNull(drawable.background, drawable.foreground).forEach { layer ->
+                    layer.setBounds(-extra, -extra, px + extra, px + extra)
+                    layer.draw(canvas)
+                }
+            } else {
+                drawable.setBounds(0, 0, px, px)
+                drawable.draw(canvas)
+            }
+            out.asImageBitmap()
+        }.getOrNull()
+    }
+    if (bitmap != null) {
+        Image(bitmap, contentDescription = null, contentScale = ContentScale.Fit, modifier = modifier.size(size).clip(RoundedCornerShape(corner)))
+    } else {
+        Box(modifier.size(size).clip(RoundedCornerShape(corner)).background(LocalAccent.current))
+    }
+}
