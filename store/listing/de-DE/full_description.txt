@@ -1,4 +1,4 @@
-Die Wecker der Uhr-App sind fürs Aufstehen da. Calarmi klingelt genauso laut für alles andere: die Tablette um 8, Mamas Geburtstag, der Zahnarzttermin um 16 Uhr, die Rechnung am 3.
+Die Wecker der Uhr-App sind fürs Aufstehen da. Calarmi klingelt genauso laut für alles andere: das Training um 7, Mamas Geburtstag, der Zahnarzttermin um 16 Uhr, die Rechnung am 3.
 
 KLINGELT, WENN ES DRAUF ANKOMMT
 • In Weckerlautstärke, auch wenn dein Handy lautlos oder auf Vibration gestellt ist.
@@ -6,7 +6,7 @@ KLINGELT, WENN ES DRAUF ANKOMMT
 • Nach einem Neustart, sogar bevor du das Handy entsperrst.
 
 MEHR ALS EIN WECKER
-• Medikamente und Termine: jeden Tag, montags und mittwochs, oder alle 21 Tage. Und mehrere Uhrzeiten in einem einzigen Wecker, für alles, was dreimal täglich ansteht.
+• Gewohnheiten und Termine: jeden Tag, montags und mittwochs, oder alle 21 Tage. Und mehrere Uhrzeiten in einem einzigen Wecker, für alles, was dreimal täglich ansteht.
 • Geburtstage und Jahrestage: Foto der Person hinzufügen, und der Wecker wiederholt sich jedes Jahr von selbst.
 • Rechnungen und Fristen: am 3. jedes Monats, ohne Ausnahme.
 • Schichten und Routinen: montags um 17 Uhr und samstags um 11 Uhr, im selben Wecker.
@@ -22,7 +22,7 @@ COUNTDOWNS
 Zähle die Tage bis zu einer Reise, einem Konzert oder einem Geburtstag, mit Foto oder Emoji, und hol dir den Countdown als Widget auf den Startbildschirm. Ein weiteres Widget zeigt deine nächsten Wecker.
 
 SAG ES EINFACH
-„Remind me to take my pill every day at 9.“ Der Assistent legt den Wecker für dich an, und deine Anfrage verlässt dein Handy nicht. Auf unterstützten Geräten nutzt er Gemini Nano, die KI von Google, die direkt auf dem Gerät läuft; auf allen anderen einen einfacheren Assistenten, der ebenfalls offline funktioniert.
+„Remind me to water the plants every day at 9.“ Der Assistent legt den Wecker für dich an, und deine Anfrage verlässt dein Handy nicht. Auf unterstützten Geräten nutzt er Gemini Nano, die KI von Google, die direkt auf dem Gerät läuft; auf allen anderen einen einfacheren Assistenten, der ebenfalls offline funktioniert.
 
 WÄHLE, WIE ER KLINGT
 Sechs eigene Töne oder der Weckton deines Handys. Jeder Wecker kann seinen eigenen haben.

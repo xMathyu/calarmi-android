@@ -309,6 +309,11 @@ esta tabla en lugar de ignorarlo.
 
 ### 5.10 Apps de salud (formulario obligatorio para todas las apps)
 - [ ] Respuesta pedida: **Mi app no ofrece funciones de salud.**
+- **23 nov 2026: Google rechazó la versión 3** («Play Console Requirements»: ciertas apps solo
+  las publican cuentas de organización) porque estaba marcada *Gestión de medicamentos y
+  tratamientos*. Con una cuenta personal: **«sin funciones de salud»** y la ficha sin
+  medicamentos ni pastillas (se cambiaron por hábitos, gimnasio, plantas). No volver a marcarla
+  salvo que la app pase a una cuenta de organización.
 - [ ] **A decidir:** la lista de Google incluye *Gestión de medicamentos y tratamientos*, descrita
       como «puede incluir identificadores de pastillas, **recordatorios de medicamentos** y gestión
       de recetas», y la ficha anuncia «Medicamentos y citas» y «la pastilla de las 8». Si el revisor

@@ -1,4 +1,4 @@
-The Clock app's alarms are for waking up. Calarmi rings just as loud for everything else: the 8 a.m. pill, your mom's birthday, the dentist at 4, the bill due on the 3rd.
+The Clock app's alarms are for waking up. Calarmi rings just as loud for everything else: the 7 a.m. gym class, your mom's birthday, the dentist at 4, the bill due on the 3rd.
 
 RINGS WHEN IT HAS TO
 • At alarm volume, even when your phone is on silent or vibrate.
@@ -6,7 +6,7 @@ RINGS WHEN IT HAS TO
 • After your phone restarts, even before you unlock it.
 
 MORE THAN A WAKE-UP ALARM
-• Meds and appointments: every day, Mondays and Wednesdays, or every 21 days. And several times in a single alarm, for the ones you take three times a day.
+• Habits and appointments: every day, Mondays and Wednesdays, or every 21 days. And several times in a single alarm, for things you do three times a day.
 • Birthdays and anniversaries: add the person's photo and it repeats every year on its own.
 • Bills and due dates: the 3rd of every month, no exceptions.
 • Shifts and routines: Monday at 5 p.m. and Saturday at 11 a.m., in the same alarm.
@@ -22,7 +22,7 @@ COUNTDOWNS
 Count the days until a trip, a concert or a birthday, with a photo or an emoji, and put it on your home screen with a widget. Another widget shows your next alarms.
 
 JUST SAY IT
-"Remind me to take my pill every day at 9." The assistant schedules it for you, and what you ask never leaves your phone. On supported phones it uses Gemini Nano, Google's on-device AI; on the rest, a simpler parser that also works offline.
+"Remind me to water the plants every day at 9." The assistant schedules it for you, and what you ask never leaves your phone. On supported phones it uses Gemini Nano, Google's on-device AI; on the rest, a simpler parser that also works offline.
 
 CHOOSE HOW IT SOUNDS
 Six tones (Chime, Marimba, Radar, Arpeggio, Pulse and Harp) or your phone's own alarm sound. Every alarm can have its own.

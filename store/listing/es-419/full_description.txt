@@ -1,4 +1,4 @@
-Las alarmas del reloj sirven para despertarte. Calarmi suena igual de fuerte para todo lo demás: la pastilla de las 8, el cumpleaños de tu mamá, la cita del dentista, el pago que vence el 3.
+Las alarmas del reloj sirven para despertarte. Calarmi suena igual de fuerte para todo lo demás: el gimnasio de las 7, el cumpleaños de tu mamá, la cita del dentista, el pago que vence el 3.
 
 SUENA CUANDO TIENE QUE SONAR
 • Al volumen de alarma, aunque el teléfono esté en silencio o en vibración.
@@ -6,7 +6,7 @@ SUENA CUANDO TIENE QUE SONAR
 • Después de reiniciar el teléfono, incluso antes de desbloquearlo.
 
 MÁS QUE UN DESPERTADOR
-• Medicamentos y citas: cada día, los lunes y miércoles, o cada 21 días. Y varios horarios en una sola alarma, para las que se toman tres veces al día.
+• Hábitos y citas: cada día, los lunes y miércoles, o cada 21 días. Y varios horarios en una sola alarma, para lo que se repite tres veces al día.
 • Cumpleaños y aniversarios: ponle la foto de la persona y se repite cada año sin que la toques.
 • Pagos y vencimientos: el 3 de cada mes, sin falta.
 • Turnos y rutinas: lunes a las 5 p. m. y sábado a las 11 a. m., en la misma alarma.
@@ -22,7 +22,7 @@ CUENTA REGRESIVA
 Cuenta los días que faltan para un viaje, un concierto o un cumpleaños, con foto o emoji, y llévala a tu pantalla de inicio con un widget. Otro widget te muestra tus próximas alarmas.
 
 DÍSELO Y LISTO
-«Recuérdame la pastilla todos los días a las 9.» El asistente la programa por ti, y lo que le pides no sale de tu teléfono. En los teléfonos compatibles usa Gemini Nano, la IA de Google que funciona en el propio dispositivo; en los demás, un intérprete más sencillo que también funciona sin conexión.
+«Recuérdame regar las plantas todos los días a las 9.» El asistente la programa por ti, y lo que le pides no sale de tu teléfono. En los teléfonos compatibles usa Gemini Nano, la IA de Google que funciona en el propio dispositivo; en los demás, un intérprete más sencillo que también funciona sin conexión.
 
 ELIGE CÓMO SUENA
 Seis tonos (Campana, Marimba, Radar, Arpegio, Pulso y Arpa) o el tono de alarma de tu teléfono. Cada alarma puede tener el suyo.
