@@ -27,7 +27,7 @@ android {
         minSdk = 26
         targetSdk = 36
         // Mismo número de versión que la app de iOS al salir en Android.
-        versionCode = 3
+        versionCode = 4
         versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Firebase Local Emulator Suite: vacío = el proyecto real. Ver `debug` abajo.
