@@ -22,7 +22,7 @@ CUENTA REGRESIVA
 Cuenta los días que faltan para un viaje, un concierto o un cumpleaños, con foto o emoji, y llévala a tu pantalla de inicio con un widget. Otro widget te muestra tus próximas alarmas.
 
 DÍSELO Y LISTO
-«Recuérdame regar las plantas todos los días a las 9.» El asistente la programa por ti, y lo que le pides no sale de tu teléfono. En los teléfonos compatibles usa Gemini Nano, la IA de Google que funciona en el propio dispositivo; en los demás, un intérprete más sencillo que también funciona sin conexión.
+«Recuérdame regar las plantas todos los días a las 9.» El asistente lo programa por ti, y lo que le pides no sale de tu teléfono. En los teléfonos compatibles usa Gemini Nano, la IA de Google que funciona en el propio dispositivo; en los demás, un intérprete más sencillo que también funciona sin conexión.
 
 ELIGE CÓMO SUENA
 Seis tonos (Campana, Marimba, Radar, Arpegio, Pulso y Arpa) o el tono de alarma de tu teléfono. Cada alarma puede tener el suyo.
