@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Solo Debug: los emuladores de Firebase (Auth, Firestore, Functions) hablan HTTP sin TLS
+     desde el emulador de Android (10.0.2.2 es el Mac). Todo lo demás sigue exigiendo HTTPS. -->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>

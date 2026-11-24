@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Solo en Debug: datos de demostración para las capturas de la ficha. -->
+<!-- Solo en Debug: datos de demostración para las capturas de la ficha y HTTP sin TLS
+     hacia los emuladores de Firebase (`-Pcalarmi.firebaseEmulator`). -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application>
+    <application android:networkSecurityConfig="@xml/network_security_debug">
         <receiver android:name=".DemoSeedReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="com.mathyusolutions.calarmi.debug.SEED_DEMO" />

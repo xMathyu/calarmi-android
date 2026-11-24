@@ -30,6 +30,8 @@ android {
         versionCode = 3
         versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Firebase Local Emulator Suite: vacío = el proyecto real. Ver `debug` abajo.
+        buildConfigField("String", "FIREBASE_EMULATOR_HOST", "\"\"")
     }
 
     signingConfigs {
@@ -52,6 +54,11 @@ android {
         }
         debug {
             applicationIdSuffix = ".debug"
+            // Solo Debug y apagado por defecto: `-Pcalarmi.firebaseEmulator=10.0.2.2` apunta Auth,
+            // Firestore y Functions a los emuladores de `calarmi-firebase` (`firebase emulators:start`),
+            // para probar cuentas sin tocar el proyecto real.
+            val emulatorHost = (project.findProperty("calarmi.firebaseEmulator") as? String).orEmpty()
+            buildConfigField("String", "FIREBASE_EMULATOR_HOST", "\"$emulatorHost\"")
         }
     }
 
@@ -114,7 +121,12 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.functions)
     implementation(libs.kotlinx.coroutines.play.services)
+    // Cuenta obligatoria: Google por Credential Manager (y correo y contraseña de Firebase Auth).
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     testImplementation(libs.junit)
 }
