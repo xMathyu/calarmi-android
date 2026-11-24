@@ -65,10 +65,20 @@ Alarmas y cuentas regresivas compartidas, invitaciones y personas de confianza v
 (proyecto `calarmi`), con el mismo contrato que iOS y la web: `../calarmi-firebase/DESIGN.md`
 (colecciones y campos) y `firestore.rules` (quién escribe qué). El código está en `sharing/`.
 
-- **Sesión anónima y perezosa**: Firebase Auth se abre la primera vez que la persona invita,
-  acepta o activa «Personas de confianza», y antes pide el nombre («¿Cómo te llamas?»). Hasta
-  entonces no hay sesión ni token de push. Nada de Firebase se toca antes del primer desbloqueo
-  (`AppContainer.isUserUnlocked`): el motor de alarmas sigue igual en el arranque directo.
+- **Cuenta obligatoria** (`account/`, DESIGN.md › Identidad): la primera pantalla, antes de la
+  bienvenida, es iniciar sesión con **Google** (Credential Manager, `default_web_client_id` de
+  `google-services.json`) o **correo y contraseña** («Crear cuenta», «Iniciar sesión»,
+  «¿Olvidaste tu contraseña?»). El nombre que ven los demás sale de la cuenta (proveedor →
+  `displayName` → el guardado → el correo → «Usuario de Calarmi») y se guarda en Firebase Auth,
+  `users/{uid}` y la copia local `SharingProfile.name`. Ajustes › Cuenta: nombre y correo,
+  editar el nombre, «Cerrar sesión» y «Borrar cuenta» (función `deleteAccount`). Una sesión
+  anónima de versiones anteriores se **vincula** al entrar (conserva el `uid` y lo compartido);
+  si entra otra cuenta (`lastUid` distinto), se borran las copias de lo que otros compartieron y
+  lo de personas de confianza, y lo propio compartido queda como propio.
+- **El motor de alarmas no depende de la sesión**: `RingingActivity`, los receptores,
+  `RingService`, los widgets y el planificador suenan sin cuenta, sin red y en el arranque
+  directo. Nada de Firebase se toca antes del primer desbloqueo (`AppContainer.isUserUnlocked`);
+  antes de eso la app solo pide desbloquear.
 - **Dueño**: «Invitar amigos» crea `shares/{id}` (el id es el de la alarma o la cuenta) y una
   invitación `invites/{token}` en un lote; cada guardado sube el contenido (`revision` + 1), la
   foto si cambió y la vista previa. Borrar o «Dejar de compartir» borra el share y revoca la
@@ -86,6 +96,12 @@ Alarmas y cuentas regresivas compartidas, invitaciones y personas de confianza v
   lee el cambio, reprograma y avisa.
 - Room pasó a la versión 2 (`MIGRATION_1_2`, columnas nuevas; nada se borra). Esquemas en
   `app/schemas/`.
+- **Probar cuentas sin tocar el proyecto real**: con los emuladores de Firebase corriendo en
+  `../calarmi-firebase` (`npm --prefix functions run build` y luego
+  `JAVA_HOME=/opt/homebrew/opt/openjdk firebase emulators:start --only auth,firestore,functions --project calarmi`),
+  `tools/ws-build.sh :app:assembleDebug -Pcalarmi.firebaseEmulator=10.0.2.2` hace un Debug que
+  usa esos emuladores (Auth 9099, Firestore 8080, Functions 5001). Sin la propiedad, y siempre en
+  Release, va al proyecto real. Google no se puede probar así (pide una cuenta de Google real).
 - La web tiene que publicar `/.well-known/assetlinks.json` con las huellas SHA-256 de la llave de
   subida, la de firma de Play y la de debug, o los enlaces se abren en el navegador.
 
