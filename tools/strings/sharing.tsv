@@ -34,12 +34,6 @@ plural:sharing_message_days	one=%1$d day until %2$s! || other=%1$d days until %2
 sharing_message_today	%1$s is today!	¡%1$s es hoy!	%1$s é hoje!
 sharing_message_delegation	I'm inviting you to be my trusted helper in Calarmi: you'll be able to see and manage my alarms from your phone.	Te invito a ser mi persona de confianza en Calarmi: podrás ver y administrar mis alarmas desde tu teléfono.	Te convido para ser minha pessoa de confiança no Calarmi: você poderá ver e gerenciar meus alarmes no seu celular.
 sharing_when	%1$s at %2$s	%1$s, %2$s	%1$s, %2$s
-sharing_name_title	What's your name?	¿Cómo te llamas?	Qual é o seu nome?
-sharing_name_message	This is how people who share alarms and countdowns with you will see you. You can change it in Settings.	Así te verán quienes comparten alarmas y cuentas regresivas contigo. Puedes cambiarlo en Ajustes.	É assim que as pessoas que compartilham alarmes e contagens regressivas com você vão te ver. Você pode mudar isso nos Ajustes.
-sharing_name_placeholder	Your name	Tu nombre	Seu nome
-sharing_name_continue	Continue	Continuar	Continuar
-sharing_name_section	Your name	Tu nombre	Seu nome
-sharing_name_footer	This is how the people you share alarms and countdowns with see you.	Así te ven las personas con las que compartes alarmas y cuentas regresivas.	É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem.
 sharing_toast_adding_alarm	Adding the shared alarm…	Agregando la alarma compartida…	Adicionando o alarme compartilhado…
 sharing_toast_adding_countdown	Adding the shared countdown…	Agregando la cuenta regresiva compartida…	Adicionando a contagem regressiva compartilhada…
 sharing_toast_alarm	“%1$s” is now in your alarms	«%1$s» ya está en tus alarmas	“%1$s” já está nos seus alarmes

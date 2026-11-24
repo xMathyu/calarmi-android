@@ -100,73 +100,6 @@ import java.util.Date
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-// ------------------------------------------------------------------- Nombre
-
-/**
- * Lo que pide el nombre antes de compartir o aceptar: «¿Cómo te llamas?». Quien
- * comparte o se une tiene que poder verse en «Personas» del otro lado.
- */
-@Stable
-class NameGate internal constructor(private val sharing: SharingService) {
-    internal var pending by mutableStateOf<(() -> Unit)?>(null)
-
-    /** Corre `action` ya, o después de que la persona escriba su nombre. */
-    fun require(action: () -> Unit) {
-        if (sharing.profile.name.value != null) action() else pending = action
-    }
-}
-
-@Composable
-fun rememberNameGate(): NameGate {
-    val sharing = CalarmiApp.container(LocalContext.current).sharing
-    val gate = remember(sharing) { NameGate(sharing) }
-    gate.pending?.let { action ->
-        NameEntryDialog(
-            onDone = { name ->
-                sharing.rename(name)
-                gate.pending = null
-                action()
-            },
-            onDismiss = { gate.pending = null },
-        )
-    }
-    return gate
-}
-
-/** «¿Cómo te llamas?» (el `NameEntryView` de iOS, sin «Continuar con Apple»). */
-@Composable
-fun NameEntryDialog(onDone: (String) -> Unit, onDismiss: () -> Unit) {
-    val sharing = CalarmiApp.container(LocalContext.current).sharing
-    var name by remember { mutableStateOf(sharing.profile.name.value.orEmpty()) }
-    val trimmed = name.trim()
-    val focus = remember { FocusRequester() }
-    LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        icon = { HeroIcon(Icons.Filled.Person, size = DS.avatarLg) },
-        title = { Text(stringResource(R.string.sharing_name_title), textAlign = TextAlign.Center) },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(DS.md)) {
-                Text(stringResource(R.string.sharing_name_message), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it.take(ShareMapping.MAX_NAME) },
-                    placeholder = { Text(stringResource(R.string.sharing_name_placeholder)) },
-                    singleLine = true,
-                    shape = RoundedCornerShape(50),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { if (trimmed.isNotEmpty()) onDone(trimmed) }),
-                    modifier = Modifier.fillMaxWidth().focusRequester(focus),
-                )
-            }
-        },
-        confirmButton = {
-            Button(onClick = { onDone(trimmed) }, enabled = trimmed.isNotEmpty()) { Text(stringResource(R.string.sharing_name_continue)) }
-        },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
-    )
-}
-
 // ---------------------------------------------------------- Textos y enviar
 
 /** El texto de una invitación, como en iOS (`InviteMessage`): la noticia primero, luego la llamada y el enlace. */
@@ -458,7 +391,7 @@ private sealed interface InviteLoad {
 /**
  * Lo que se ve al abrir un enlace de invitación: qué es, de quién y cuándo, con
  * «Aceptar» y «Ahora no». La invitación se lee sin sesión (el token es la
- * llave); la sesión y el nombre se piden recién al aceptar.
+ * llave); al aceptar se entra con la cuenta, que ya existe (es obligatoria).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -466,7 +399,6 @@ fun InviteSheet(token: String, onDismiss: () -> Unit, onAccepted: (SharingServic
     val context = LocalContext.current
     val sharing = CalarmiApp.container(context).sharing
     val scope = rememberCoroutineScope()
-    val gate = rememberNameGate()
     var load by remember(token) { mutableStateOf<InviteLoad>(InviteLoad.Loading) }
     var accepting by remember { mutableStateOf(false) }
     var acceptError by remember { mutableStateOf<String?>(null) }
@@ -541,16 +473,14 @@ fun InviteSheet(token: String, onDismiss: () -> Unit, onAccepted: (SharingServic
                     Spacer(Modifier.size(DS.sm))
                     Button(
                         onClick = {
-                            gate.require {
-                                accepting = true
-                                scope.launch {
-                                    try {
-                                        onAccepted(sharing.accept(info))
-                                    } catch (e: Exception) {
-                                        acceptError = ShareTexts.failure(context, e)
-                                    } finally {
-                                        accepting = false
-                                    }
+                            accepting = true
+                            scope.launch {
+                                try {
+                                    onAccepted(sharing.accept(info))
+                                } catch (e: Exception) {
+                                    acceptError = ShareTexts.failure(context, e)
+                                } finally {
+                                    accepting = false
                                 }
                             }
                         },

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde account.tsv. No editar a mano. -->
+<resources>
+    <string name="account_default_name">Calarmi user</string>
+    <string name="signin_subtitle">Sign in to start. Your account keeps your name and what you share; your alarms stay on this phone.</string>
+    <string name="signin_google">Continue with Google</string>
+    <string name="signin_email">Continue with email</string>
+    <string name="signin_or">or</string>
+    <string name="signin_mode_create">Create account</string>
+    <string name="signin_mode_signin">Sign in</string>
+    <string name="signin_name">Name</string>
+    <string name="signin_email_field">Email</string>
+    <string name="signin_password">Password</string>
+    <string name="signin_password_hint">At least %1$d characters</string>
+    <string name="signin_show_password">Show password</string>
+    <string name="signin_hide_password">Hide password</string>
+    <string name="signin_forgot">Forgot your password?</string>
+    <string name="signin_forgot_need_email">Type your email above, then tap “Forgot your password?” again.</string>
+    <string name="signin_reset_sent_title">Check your email</string>
+    <string name="signin_reset_sent_message">If there\'s an account with %1$s, you\'ll get a link to create a new password.</string>
+    <string name="signin_locked">Unlock your phone to continue.</string>
+    <string name="signin_error_name_required">Type your name.</string>
+    <string name="signin_error_password_short">The password needs at least %1$d characters.</string>
+    <string name="auth_error_invalid_credentials">Incorrect email or password.</string>
+    <string name="auth_error_email_in_use">There\'s already an account with this email. Sign in instead.</string>
+    <string name="auth_error_weak_password">That password is too weak. Use at least 8 characters, with letters and numbers.</string>
+    <string name="auth_error_invalid_email">That email isn\'t valid.</string>
+    <string name="auth_error_other_provider">This email already has a Calarmi account with another sign-in method (like Apple on an iPhone). Use Google or a different email.</string>
+    <string name="auth_error_disabled">This account has been disabled.</string>
+    <string name="auth_error_too_many">Too many attempts. Wait a moment and try again.</string>
+    <string name="auth_error_no_google_account">There\'s no Google account on this phone. Add one in the phone\'s Settings › Accounts, or use your email.</string>
+    <string name="auth_error_google_unavailable">Signing in with Google isn\'t available on this phone. Use your email and a password.</string>
+    <string name="account_section">Account</string>
+    <string name="account_footer">This is how the people you share alarms and countdowns with see you. Your email is never shown to anyone.</string>
+    <string name="account_edit_name">Edit name</string>
+    <string name="account_name_title">Your name</string>
+    <string name="account_name_message">This is how the people you share alarms and countdowns with see you.</string>
+    <string name="account_name_placeholder">Your name</string>
+    <string name="account_sign_out">Sign out</string>
+    <string name="account_sign_out_title">Sign out?</string>
+    <string name="account_sign_out_message">Your alarms stay on this phone and keep ringing. To use Calarmi again, you\'ll need to sign in.</string>
+    <string name="account_signing_out">Signing out…</string>
+    <string name="account_delete">Delete account</string>
+    <string name="account_delete_title">Delete your account?</string>
+    <string name="account_delete_message">Your account and what you share are deleted: your shared alarms and countdowns stop being shared, and you leave what others shared with you and their trusted-people lists. The alarms on this phone stay. This can\'t be undone.</string>
+    <string name="account_deleting">Deleting your account…</string>
+    <string name="account_delete_error_title">Couldn\'t delete the account</string>
+    <string name="account_delete_error">Try again in a moment. If it keeps failing, you can also ask for it from the privacy policy page.</string>
+</resources>

@@ -38,12 +38,6 @@
     <string name="sharing_message_today">%1$s is today!</string>
     <string name="sharing_message_delegation">I\'m inviting you to be my trusted helper in Calarmi: you\'ll be able to see and manage my alarms from your phone.</string>
     <string name="sharing_when">%1$s at %2$s</string>
-    <string name="sharing_name_title">What\'s your name?</string>
-    <string name="sharing_name_message">This is how people who share alarms and countdowns with you will see you. You can change it in Settings.</string>
-    <string name="sharing_name_placeholder">Your name</string>
-    <string name="sharing_name_continue">Continue</string>
-    <string name="sharing_name_section">Your name</string>
-    <string name="sharing_name_footer">This is how the people you share alarms and countdowns with see you.</string>
     <string name="sharing_toast_adding_alarm">Adding the shared alarm…</string>
     <string name="sharing_toast_adding_countdown">Adding the shared countdown…</string>
     <string name="sharing_toast_alarm">“%1$s” is now in your alarms</string>

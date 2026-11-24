@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.SetOptions
@@ -36,6 +37,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Alarmas y cuentas regresivas compartidas por Firestore (contrato en
@@ -50,8 +52,10 @@ import kotlinx.coroutines.withContext
  * - Todos: mientras la app está a la vista se escuchan los shares de los que se
  *   es miembro; con la app cerrada, un push de datos despierta `ShareSyncWorker`.
  *
- * Firebase solo se toca tras el primer desbloqueo, y la sesión anónima se abre
- * la primera vez que la persona comparte, acepta o abre «Personas de confianza».
+ * Firebase solo se toca tras el primer desbloqueo. La cuenta es obligatoria
+ * (`account/AccountService`): sin una sesión no anónima no se escucha ni se sube
+ * nada, y una sesión anónima de versiones anteriores cuenta como «sin sesión»
+ * hasta que se vincula al iniciar sesión.
  */
 class SharingService(private val container: AppContainer) {
     val profile = SharingProfile(container.storage)
@@ -78,8 +82,9 @@ class SharingService(private val container: AppContainer) {
     /** Firebase se puede usar: tras el primer desbloqueo. */
     val available: Boolean get() = container.isUserUnlocked
 
+    /** El `uid` de la cuenta. Una sesión anónima vieja no cuenta (las reglas ya no la aceptan). */
     val uid: String?
-        get() = if (!available) null else runCatching { Cloud.auth().currentUser?.uid }.getOrNull()
+        get() = if (!available) null else runCatching { Cloud.auth().currentUser?.takeIf { !it.isAnonymous }?.uid }.getOrNull()
             .also { _signedIn.value = it != null }
 
     // ---------------------------------------------------------------- Sesión
@@ -87,45 +92,142 @@ class SharingService(private val container: AppContainer) {
     private var uploadedProfile: String? = null
 
     /**
-     * Marca de «este teléfono abrió sesión», en el almacenamiento NORMAL (que la
-     * copia de seguridad no se lleva, igual que la sesión de Firebase). Si falta y
-     * la base trae cosas compartidas, vienen de una copia restaurada en otro teléfono.
+     * El último `uid` que entró en este teléfono (DESIGN.md › Cambio de cuenta), en el
+     * almacenamiento NORMAL: la copia de seguridad no se lo lleva, igual que la sesión de
+     * Firebase. Las versiones anteriores ya guardaban aquí el de la sesión anónima.
      */
     private val sessionMarker by lazy { app.getSharedPreferences("sharing_session", android.content.Context.MODE_PRIVATE) }
 
+    internal var lastUid: String?
+        get() = sessionMarker.getString("uid", null)
+        set(value) {
+            sessionMarker.edit().apply { if (value == null) remove("uid") else putString("uid", value) }.commit()
+        }
+
     /**
-     * La sesión anónima (se crea la primera vez), el perfil en `users/{uid}` y el
-     * token de push. Exige nombre: quien comparte o acepta tiene que poder verse.
+     * El nombre que ven los demás: el de la cuenta, copiado aquí al iniciar sesión
+     * (`SharingProfile.name`), o el de Firebase Auth, o «Usuario de Calarmi».
+     */
+    fun myName(): String = profile.name.value
+        ?: runCatching { Cloud.auth().currentUser?.displayName }.getOrNull()?.let(ShareMapping::validName)
+        ?: app.getString(com.mathyusolutions.calarmi.R.string.account_default_name)
+
+    /**
+     * La sesión de la cuenta (la pantalla de inicio de sesión garantiza que exista),
+     * el perfil en `users/{uid}` y el token de push.
      */
     suspend fun ensureSignedIn(): String {
-        if (!available) throw ShareException(ShareFailure.OTHER)
-        val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
-        val auth = Cloud.auth()
-        val user = auth.currentUser ?: try {
-            auth.signInAnonymously().await().user?.also { Cloud.restartAfterSignIn() }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            throw ShareException(e.shareFailure().takeIf { it == ShareFailure.OFFLINE } ?: ShareFailure.OTHER, e)
-        } ?: throw ShareException(ShareFailure.OTHER)
-        _signedIn.value = true
-        sessionMarker.edit().putString("uid", user.uid).apply()
-        val key = "${user.uid}|$name|${language()}"
-        if (uploadedProfile != key) {
-            Cloud.user(user.uid).set(
-                mapOf(
-                    "name" to name,
-                    "language" to language(),
-                    "platform" to "android",
-                    "updatedAt" to FieldValue.serverTimestamp(),
-                ),
-                SetOptions.merge(),
-            ).await()
-            uploadedProfile = key
-            // Primera vez con sesión: ya hay a quién avisar y qué escuchar.
+        val uid = uid ?: throw ShareException(ShareFailure.OTHER)
+        if (uploadedProfile != profileKey(uid)) {
+            try {
+                uploadProfile(uid)
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+                throw ShareException(e.shareFailure(), e)
+            }
             scope.launch { registerPushToken() }
-            if (isForeground) startListening()
+            if (isForeground && listening == null) startListening()
         }
-        return user.uid
+        return uid
+    }
+
+    private fun profileKey(uid: String) = "$uid|${myName()}|${language()}"
+
+    /** `users/{uid}`: el nombre que leen las funciones y los demás, el idioma y la plataforma. */
+    private suspend fun uploadProfile(uid: String) {
+        val key = profileKey(uid)
+        Cloud.user(uid).set(
+            mapOf(
+                "name" to myName(),
+                "language" to language(),
+                "platform" to "android",
+                "updatedAt" to FieldValue.serverTimestamp(),
+            ),
+            SetOptions.merge(),
+        ).await()
+        uploadedProfile = key
+    }
+
+    /**
+     * Recién iniciada la sesión (ya con el nombre de la cuenta en `profile`): sube el
+     * perfil y el token de push y, si la app está a la vista, empieza a escuchar. Sin
+     * red, Firestore lo deja en su cola y sale al volver.
+     */
+    fun onSignedIn() {
+        val uid = uid ?: return
+        uploadedProfile = null
+        scope.launch {
+            runCatching { uploadProfile(uid) }.onFailure { Log.w(TAG, "No se pudo subir el perfil", it) }
+            registerPushToken()
+        }
+        if (isForeground) startListening()
+    }
+
+    /**
+     * Antes de cerrar la sesión (DESIGN.md › Cerrar sesión): deja de escuchar y quita el
+     * token de push de `users/{uid}.tokens`, para que no lleguen avisos de esta cuenta.
+     * Sin red no espera más de unos segundos (el borrado queda en la cola de Firestore).
+     */
+    suspend fun prepareSignOut() {
+        stopListening()
+        val uid = uid
+        val token = profile.registeredPushToken
+        if (uid != null && token != null && profile.registeredPushUid == uid) {
+            withTimeoutOrNull(5_000) {
+                runCatching {
+                    Cloud.user(uid).update(FieldPath.of("tokens", token), FieldValue.delete(), FieldPath.of("updatedAt"), FieldValue.serverTimestamp()).await()
+                }.onFailure { Log.w(TAG, "No se pudo quitar el token de push", it) }
+            }
+        }
+        forgetSession()
+    }
+
+    /** Lo que este teléfono recuerda de la sesión que se va (no los datos: eso es `clearAccountData`). */
+    internal fun forgetSession() {
+        uploadedProfile = null
+        profile.registeredPushUid = null
+        _signedIn.value = false
+    }
+
+    /** ¿Hay en el teléfono algo que dependa de una cuenta? (copias recibidas, compartidas propias, espejo). */
+    internal suspend fun hasLocalSharedData(): Boolean {
+        val reminders = container.database.reminders()
+        val countdowns = container.database.countdowns()
+        return reminders.received().isNotEmpty() || reminders.sharedByMe().isNotEmpty() ||
+            countdowns.received().isNotEmpty() || countdowns.sharedByMe().isNotEmpty() ||
+            profile.delegationEnabled.value
+    }
+
+    /**
+     * «Cambio de cuenta» (y después de borrar la cuenta): se borran las copias de lo que
+     * otros compartieron, lo de personas de confianza (el espejo y su invitación) y el
+     * nombre guardado; las alarmas y cuentas propias que estaban compartidas se quedan como
+     * propias sin compartir. El share en Firestore no se toca: sigue siendo de la otra cuenta.
+     */
+    internal suspend fun clearAccountData() {
+        stopListening()
+        applyLock.withLock {
+            val reminders = container.database.reminders()
+            val countdowns = container.database.countdowns()
+            for (r in reminders.received()) {
+                reminders.deleteById(r.id)
+                r.photoPath?.let(container.photos::delete)
+            }
+            for (c in countdowns.received()) {
+                countdowns.deleteById(c.id)
+                c.photoPath?.let(container.photos::delete)
+            }
+            reminders.sharedByMe().forEach {
+                reminders.upsert(it.copy(shareId = null, sharedByName = null, shareRevision = 0, sharePhotoRevision = 0, ownerLeadTimes = null, personalLeadTimes = null))
+            }
+            countdowns.sharedByMe().forEach {
+                countdowns.upsert(it.copy(shareId = null, sharedByName = null, shareRevision = 0, sharePhotoRevision = 0))
+            }
+        }
+        profile.setDelegationEnabled(false)
+        profile.clearName()
+        forgetSession()
+        container.onDataChanged()
     }
 
     /** "es", "pt" o "en": el de la app (Ajustes › Idioma) o el del teléfono. */
@@ -172,18 +274,24 @@ class SharingService(private val container: AppContainer) {
     /** La app está a la vista: escuchar lo compartido (lo primero que llega del servidor es una sincronización). */
     fun onForeground() {
         isForeground = true
-        if (!available) return
-        if (uid == null) {
-            scope.launch { detachOrphans() }
-            return
-        }
+        if (!available || uid == null) return
         startListening()
     }
 
     fun onBackground() {
         isForeground = false
+        stopListening()
+    }
+
+    /** Deja de escuchar (al pasar a segundo plano, al cerrar sesión o antes de borrar la cuenta). */
+    fun stopListening() {
         listening?.cancel()
         listening = null
+    }
+
+    /** Vuelve a escuchar si la app está a la vista (p. ej. si borrar la cuenta falló). */
+    fun resumeListening() {
+        if (isForeground) onForeground()
     }
 
     private fun startListening() {
@@ -217,24 +325,6 @@ class SharingService(private val container: AppContainer) {
                 wait = (wait * 2).coerceAtMost(5 * 60_000L)
             }
         }
-    }
-
-    /**
-     * Una copia de seguridad restaurada en otro teléfono trae lo compartido pero
-     * no la sesión (vive en el almacenamiento normal): sin sesión esas alarmas ya
-     * no se pueden sincronizar, así que pasan a ser propias y sin compartir.
-     */
-    private suspend fun detachOrphans() {
-        // Hubo sesión en ESTE teléfono: que ahora no se lea es un problema pasajero, no una copia restaurada.
-        if (sessionMarker.contains("uid")) return
-        val reminders = container.database.reminders()
-        val countdowns = container.database.countdowns()
-        val stale = reminders.received() + reminders.sharedByMe()
-        val staleCountdowns = countdowns.received() + countdowns.sharedByMe()
-        if (stale.isEmpty() && staleCountdowns.isEmpty()) return
-        stale.forEach { reminders.upsert(it.copy(shareId = null, isReceivedShare = false, sharedByName = null, shareRevision = 0, sharePhotoRevision = 0, ownerLeadTimes = null, personalLeadTimes = null)) }
-        staleCountdowns.forEach { countdowns.upsert(it.copy(shareId = null, isReceivedShare = false, sharedByName = null, shareRevision = 0, sharePhotoRevision = 0)) }
-        container.onDataChanged()
     }
 
     // ----------------------------------------------------------- Dueño: invitar
@@ -341,7 +431,7 @@ class SharingService(private val container: AppContainer) {
      * reglas de la invitación y de la foto miran el share «después» del lote.
      */
     private suspend fun publish(content: Content, uid: String): Invite {
-        val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
+        val name = myName()
         val shareRef = Cloud.share(content.id)
         val existing = try {
             shareRef.get(Source.SERVER).await().takeIf { it.exists() }
@@ -457,7 +547,7 @@ class SharingService(private val container: AppContainer) {
      */
     private suspend fun pushContent(content: Content) {
         val uid = uid ?: return
-        val name = profile.name.value ?: return
+        val name = myName()
         val photoChanged = content.photoRevision != content.uploadedPhotoRevision
         val photo = if (content.photoPath != null && photoChanged) photoBytes(content.photoPath, ShareImages.SHARE_MAX_SIDE, ShareImages.SHARE_MAX_BYTES) else null
         val hasPhoto = content.photoPath != null && (photo != null || !photoChanged)
@@ -622,7 +712,7 @@ class SharingService(private val container: AppContainer) {
             val isMember = (current?.get("memberUids") as? List<String>)?.contains(uid) == true
             if (!isMember) {
                 if (info.revoked) throw ShareException(ShareFailure.INVITE_REVOKED)
-                val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
+                val name = myName()
                 recentlyJoined[info.targetId] = System.currentTimeMillis()
                 try {
                     ref.update(
@@ -895,12 +985,18 @@ class SharingService(private val container: AppContainer) {
 
     /**
      * Cambiar el nombre: aquí al instante y, si hay sesión, en `users/{uid}` y en
-     * cada sitio donde aparece (shares, invitaciones y listas de confianza).
+     * cada sitio donde aparece (shares, invitaciones y listas de confianza). El
+     * perfil de Firebase Auth lo cambia `AccountService.rename`.
      */
     fun rename(newName: String) {
         val clean = ShareMapping.validName(newName) ?: return
         if (clean == profile.name.value) return
         profile.setName(clean)
+        propagateName(clean)
+    }
+
+    /** El nombre (ya guardado en `profile`) en `users/{uid}` y en todo lo compartido. */
+    internal fun propagateName(clean: String) {
         val uid = uid ?: return
         scope.launch {
             try {

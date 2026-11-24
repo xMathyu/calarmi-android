@@ -9,8 +9,9 @@ import org.json.JSONObject
 
 /**
  * Lo que este teléfono recuerda de lo compartido, aparte de la base: el nombre
- * con el que la persona aparece ante los demás, si deja que la ayuden personas
- * de confianza y la contabilidad del espejo de sus alarmas.
+ * con el que la persona aparece ante los demás (copia del de su cuenta, que es la
+ * fuente de verdad: DESIGN.md › Identidad), si deja que la ayuden personas de
+ * confianza y la contabilidad del espejo de sus alarmas.
  *
  * En el almacenamiento protegido por dispositivo, como los ajustes: la copia de
  * seguridad de Google se lleva el nombre al cambiar de teléfono.
@@ -19,13 +20,19 @@ class SharingProfile(storage: Context) {
     private val prefs: SharedPreferences = storage.getSharedPreferences("sharing", Context.MODE_PRIVATE)
 
     private val _name = MutableStateFlow(prefs.getString(K.NAME, null)?.let(ShareMapping::validName))
-    /** El nombre que ven los demás; `null` hasta que la persona pone uno. */
+    /** El nombre que ven los demás (el de la cuenta); `null` antes de iniciar sesión. */
     val name: StateFlow<String?> = _name.asStateFlow()
 
     fun setName(value: String) {
         val clean = ShareMapping.validName(value) ?: return
         prefs.edit().putString(K.NAME, clean).apply()
         _name.value = clean
+    }
+
+    /** Al cambiar de cuenta o borrarla: el nombre era de la cuenta que se fue. */
+    fun clearName() {
+        prefs.edit().remove(K.NAME).apply()
+        _name.value = null
     }
 
     private val _delegationEnabled = MutableStateFlow(prefs.getBoolean(K.DELEGATION, false))

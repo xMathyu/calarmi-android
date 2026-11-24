@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por tools/strings/gen_strings.py desde account.tsv. No editar a mano. -->
+<resources>
+    <string name="account_default_name">Usuário do Calarmi</string>
+    <string name="signin_subtitle">Entre para começar. Sua conta guarda seu nome e o que você compartilha; seus alarmes ficam neste celular.</string>
+    <string name="signin_google">Continuar com o Google</string>
+    <string name="signin_email">Continuar com e-mail</string>
+    <string name="signin_or">ou</string>
+    <string name="signin_mode_create">Criar conta</string>
+    <string name="signin_mode_signin">Entrar</string>
+    <string name="signin_name">Nome</string>
+    <string name="signin_email_field">E-mail</string>
+    <string name="signin_password">Senha</string>
+    <string name="signin_password_hint">Pelo menos %1$d caracteres</string>
+    <string name="signin_show_password">Mostrar senha</string>
+    <string name="signin_hide_password">Ocultar senha</string>
+    <string name="signin_forgot">Esqueceu sua senha?</string>
+    <string name="signin_forgot_need_email">Digite seu e-mail acima e toque de novo em “Esqueceu sua senha?”.</string>
+    <string name="signin_reset_sent_title">Confira seu e-mail</string>
+    <string name="signin_reset_sent_message">Se houver uma conta com %1$s, você vai receber um link para criar uma nova senha.</string>
+    <string name="signin_locked">Desbloqueie o celular para continuar.</string>
+    <string name="signin_error_name_required">Digite seu nome.</string>
+    <string name="signin_error_password_short">A senha precisa ter pelo menos %1$d caracteres.</string>
+    <string name="auth_error_invalid_credentials">E-mail ou senha incorretos.</string>
+    <string name="auth_error_email_in_use">Já existe uma conta com este e-mail. Entre com ela.</string>
+    <string name="auth_error_weak_password">Essa senha é muito fraca. Use pelo menos 8 caracteres, com letras e números.</string>
+    <string name="auth_error_invalid_email">Esse e-mail não é válido.</string>
+    <string name="auth_error_other_provider">Este e-mail já tem uma conta do Calarmi com outro método (como a Apple no iPhone). Use o Google ou outro e-mail.</string>
+    <string name="auth_error_disabled">Esta conta está desativada.</string>
+    <string name="auth_error_too_many">Muitas tentativas. Espere um pouco e tente de novo.</string>
+    <string name="auth_error_no_google_account">Não há nenhuma conta do Google neste celular. Adicione uma em Configurações do celular › Contas, ou use seu e-mail.</string>
+    <string name="auth_error_google_unavailable">Entrar com o Google não está disponível neste celular. Use seu e-mail e uma senha.</string>
+    <string name="account_section">Conta</string>
+    <string name="account_footer">É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem. Seu e-mail não é mostrado a ninguém.</string>
+    <string name="account_edit_name">Editar nome</string>
+    <string name="account_name_title">Seu nome</string>
+    <string name="account_name_message">É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem.</string>
+    <string name="account_name_placeholder">Seu nome</string>
+    <string name="account_sign_out">Sair</string>
+    <string name="account_sign_out_title">Sair da conta?</string>
+    <string name="account_sign_out_message">Seus alarmes ficam neste celular e continuam tocando. Para usar o Calarmi de novo, você vai precisar entrar.</string>
+    <string name="account_signing_out">Saindo…</string>
+    <string name="account_delete">Apagar conta</string>
+    <string name="account_delete_title">Apagar sua conta?</string>
+    <string name="account_delete_message">Sua conta e o que você compartilha são apagados: seus alarmes e contagens regressivas compartilhados deixam de ser compartilhados, e você sai do que outras pessoas compartilharam com você e das listas de pessoas de confiança delas. Os alarmes deste celular ficam. Não dá para desfazer.</string>
+    <string name="account_deleting">Apagando sua conta…</string>
+    <string name="account_delete_error_title">Não foi possível apagar a conta</string>
+    <string name="account_delete_error">Tente de novo daqui a pouco. Se continuar falhando, você também pode pedir pela página da política de privacidade.</string>
+</resources>

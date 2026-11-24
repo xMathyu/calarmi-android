@@ -12,6 +12,8 @@ import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.PersistentCacheSettings
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.functions.FirebaseFunctions
+import com.mathyusolutions.calarmi.BuildConfig
 import java.io.ByteArrayOutputStream
 import java.io.File
 import kotlin.math.max
@@ -29,7 +31,38 @@ import kotlinx.coroutines.tasks.await
 object Cloud {
     @Volatile private var configured = false
 
-    fun auth(): FirebaseAuth = FirebaseAuth.getInstance()
+    /**
+     * Solo en Debug con `-Pcalarmi.firebaseEmulator=<host>`: Auth, Firestore y Functions van
+     * a los emuladores de `calarmi-firebase` en vez del proyecto real. En Release es siempre `null`.
+     */
+    private val emulatorHost: String? = BuildConfig.FIREBASE_EMULATOR_HOST.takeIf { BuildConfig.DEBUG && it.isNotEmpty() }
+    @Volatile private var authReady = false
+    @Volatile private var functionsReady = false
+
+    fun auth(): FirebaseAuth {
+        val auth = FirebaseAuth.getInstance()
+        if (!authReady) synchronized(this) {
+            if (!authReady) {
+                emulatorHost?.let { host -> runCatching { auth.useEmulator(host, 9099) } }
+                authReady = true
+            }
+        }
+        return auth
+    }
+
+    /** Las funciones invocables (`deleteAccount`), en `us-central1` como dice DESIGN.md. */
+    fun functions(): FirebaseFunctions {
+        val functions = FirebaseFunctions.getInstance(REGION)
+        if (!functionsReady) synchronized(this) {
+            if (!functionsReady) {
+                emulatorHost?.let { host -> runCatching { functions.useEmulator(host, 5001) } }
+                functionsReady = true
+            }
+        }
+        return functions
+    }
+
+    private const val REGION = "us-central1"
 
     /**
      * Firestore con la caché persistente encendida (es la de por defecto, pero
@@ -56,11 +89,27 @@ object Cloud {
         }
     }
 
+    /**
+     * Tras borrar la cuenta: cierra Firestore y vacía su caché (lo de esa cuenta ya no
+     * existe en el servidor y no debe quedar en el teléfono). La próxima vez se abre de nuevo.
+     */
+    suspend fun clearCache() {
+        val db = FirebaseFirestore.getInstance()
+        runCatching { db.terminate().await() }
+        runCatching { db.clearPersistence().await() }
+        synchronized(this) {
+            configured = false
+            used = false
+        }
+    }
+
     fun firestore(): FirebaseFirestore {
         used = true
         val db = FirebaseFirestore.getInstance()
         if (!configured) synchronized(this) {
             if (!configured) {
+                // Antes que cualquier otra llamada a esta instancia (también tras `terminate`).
+                emulatorHost?.let { host -> runCatching { db.useEmulator(host, 8080) } }
                 runCatching {
                     db.firestoreSettings = FirebaseFirestoreSettings.Builder()
                         .setLocalCacheSettings(PersistentCacheSettings.newBuilder().build())
@@ -83,7 +132,7 @@ object Cloud {
 }
 
 /** Por qué falló algo compartido, en lo que la interfaz sabe explicar. */
-enum class ShareFailure { NO_NAME, OFFLINE, INVITE_MISSING, INVITE_REVOKED, DENIED, OTHER }
+enum class ShareFailure { OFFLINE, INVITE_MISSING, INVITE_REVOKED, DENIED, OTHER }
 
 class ShareException(val failure: ShareFailure, cause: Throwable? = null) : Exception(failure.name, cause)
 

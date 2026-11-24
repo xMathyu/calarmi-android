@@ -68,7 +68,6 @@ import com.mathyusolutions.calarmi.sharing.ui.SharePeopleSection
 import com.mathyusolutions.calarmi.sharing.ui.ShareTexts
 import com.mathyusolutions.calarmi.sharing.ui.SharedBySection
 import com.mathyusolutions.calarmi.sharing.ui.StopSharingRow
-import com.mathyusolutions.calarmi.sharing.ui.rememberNameGate
 import com.mathyusolutions.calarmi.ui.components.SectionCard
 import com.mathyusolutions.calarmi.ui.components.SettingRow
 import com.mathyusolutions.calarmi.ui.navigation.LocalAppNavigator
@@ -112,13 +111,12 @@ fun CountdownDetailScreen(id: String, onBack: () -> Unit) {
     var confirmDelete by remember { mutableStateOf(false) }
     // Compartir: la propia se invita; la recibida dice de quién es y solo se puede dejar.
     val scope = androidx.compose.runtime.rememberCoroutineScope()
-    val gate = rememberNameGate()
     var inviting by remember { mutableStateOf(false) }
     var shareError by remember { mutableStateOf<String?>(null) }
     val shareState by remember(event.id, event.isSharedByMe) {
         if (event.isSharedByMe) container.sharing.observeShare(event.id) else flowOf(null)
     }.collectAsStateWithLifecycle(initialValue = null)
-    fun invite() = gate.require {
+    fun invite() {
         inviting = true
         scope.launch {
             try {

@@ -38,12 +38,6 @@
     <string name="sharing_message_today">%1$s é hoje!</string>
     <string name="sharing_message_delegation">Te convido para ser minha pessoa de confiança no Calarmi: você poderá ver e gerenciar meus alarmes no seu celular.</string>
     <string name="sharing_when">%1$s, %2$s</string>
-    <string name="sharing_name_title">Qual é o seu nome?</string>
-    <string name="sharing_name_message">É assim que as pessoas que compartilham alarmes e contagens regressivas com você vão te ver. Você pode mudar isso nos Ajustes.</string>
-    <string name="sharing_name_placeholder">Seu nome</string>
-    <string name="sharing_name_continue">Continuar</string>
-    <string name="sharing_name_section">Seu nome</string>
-    <string name="sharing_name_footer">É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem.</string>
     <string name="sharing_toast_adding_alarm">Adicionando o alarme compartilhado…</string>
     <string name="sharing_toast_adding_countdown">Adicionando a contagem regressiva compartilhada…</string>
     <string name="sharing_toast_alarm">“%1$s” já está nos seus alarmes</string>

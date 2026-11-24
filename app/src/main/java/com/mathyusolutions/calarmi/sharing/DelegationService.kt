@@ -39,7 +39,7 @@ class DelegationService(private val container: AppContainer, private val sharing
     /** «Permitir personas de confianza»: crea la lista (sin nadie todavía) y sube las alarmas. */
     suspend fun enable() {
         val uid = sharing.ensureSignedIn()
-        val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
+        val name = sharing.myName()
         ensureDelegationDoc(uid, name)
         profile.setDelegationEnabled(true)
         // Sin red a medias: lo que falte se sube la próxima vez que la app vuelva a la vista.
@@ -98,7 +98,7 @@ class DelegationService(private val container: AppContainer, private val sharing
     /** La invitación de personas de confianza (una sola; se reutiliza mientras siga vigente). */
     suspend fun invite(): SharingService.Invite {
         val uid = sharing.ensureSignedIn()
-        val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
+        val name = sharing.myName()
         if (!profile.delegationEnabled.value) enable()
         val preview = ShareMapping.previewMap(
             title = name,
@@ -317,7 +317,7 @@ class DelegationService(private val container: AppContainer, private val sharing
             val isHelper = (current?.get("helperUids") as? List<String>)?.contains(uid) == true
             if (!isHelper) {
                 if (info.revoked) throw ShareException(ShareFailure.INVITE_REVOKED)
-                val name = profile.name.value ?: throw ShareException(ShareFailure.NO_NAME)
+                val name = sharing.myName()
                 try {
                     ref.update(
                         mapOf(

@@ -75,7 +75,6 @@ fun TrustedPeopleScreen(onBack: () -> Unit) {
     val signedIn by sharing.signedIn.collectAsStateWithLifecycle()
     val helpers by remember(enabled, signedIn) { delegation.observeHelpers() }.collectAsStateWithLifecycle(initialValue = null)
     val scope = rememberCoroutineScope()
-    val gate = rememberNameGate()
     var working by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
     var confirmDisable by remember { mutableStateOf(false) }
@@ -105,7 +104,7 @@ fun TrustedPeopleScreen(onBack: () -> Unit) {
                     else Switch(
                         checked = enabled,
                         enabled = !working,
-                        onCheckedChange = { on -> if (on) gate.require { run { delegation.enable() } } else confirmDisable = true },
+                        onCheckedChange = { on -> if (on) run { delegation.enable() } else confirmDisable = true },
                     )
                 },
             )
@@ -118,11 +117,9 @@ fun TrustedPeopleScreen(onBack: () -> Unit) {
                     divider = false,
                     enabled = !working,
                     onClick = {
-                        gate.require {
-                            run {
-                                val invite = delegation.invite()
-                                ShareTexts.send(context, ShareTexts.delegation(context, invite.url))
-                            }
+                        run {
+                            val invite = delegation.invite()
+                            ShareTexts.send(context, ShareTexts.delegation(context, invite.url))
                         }
                     },
                     trailing = { if (working) RowProgress() },

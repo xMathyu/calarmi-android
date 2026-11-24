@@ -5,12 +5,15 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
@@ -27,6 +30,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.mathyusolutions.calarmi.account.AccountState
+import com.mathyusolutions.calarmi.account.ui.AccountLockedScreen
+import com.mathyusolutions.calarmi.account.ui.SignInScreen
 import com.mathyusolutions.calarmi.billing.PlusFeature
 import com.mathyusolutions.calarmi.calendar.CalendarSelectionScreen
 import com.mathyusolutions.calarmi.challenge.ChallengeScreen
@@ -80,57 +86,85 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         handle(intent)
         val container = CalarmiApp.container(this)
+        // La sesión se mira antes del primer cuadro (tras el desbloqueo; antes, `Locked`).
+        container.account.refresh()
         setContent {
             val settings by container.settings.state.collectAsStateWithLifecycle()
             CalarmiTheme(settings) {
-                val nav = rememberNavController()
-                val navigator = remember(nav) { navigator(nav) }
-                var tab by remember { mutableStateOf(HomeTab.ALARMS) }
-                requestedTab.value?.let { tab = it; requestedTab.value = null }
-                if (requestNewAlarm.value) {
-                    requestNewAlarm.value = false
-                    navigator.newReminder()
+                // Sin una cuenta no hay app (DESIGN.md › Identidad): iniciar sesión va antes
+                // que la bienvenida. Lo pedido desde fuera (widget, atajo, enlace) espera aquí.
+                val account by container.account.state.collectAsStateWithLifecycle()
+                val gate = when (account) {
+                    AccountState.Locked -> Gate.LOCKED
+                    AccountState.SignedOut -> Gate.SIGN_IN
+                    is AccountState.SignedIn -> Gate.APP
                 }
-                requestCountdown.value?.let { id ->
-                    requestCountdown.value = null
-                    tab = HomeTab.COUNTDOWNS
-                    navigator.openCountdown(id)
-                }
-                requestReminder.value?.let { id ->
-                    requestReminder.value = null
-                    tab = HomeTab.ALARMS
-                    navigator.openReminder(id)
-                }
-                val incoming by container.sharing.incoming.collectAsStateWithLifecycle()
-                CompositionLocalProvider(LocalAppNavigator provides navigator) {
-                    Box(Modifier.fillMaxSize()) {
-                        AppNavHost(nav, tab) { tab = it }
-                        IncomingShareToast(
-                            status = incoming,
-                            onOpen = { added ->
-                                container.sharing.dismissIncoming()
-                                openShared(navigator, added.kind, added.id, added.title) { tab = it }
-                            },
-                            onDismiss = { container.sharing.dismissIncoming() },
-                            modifier = Modifier.align(Alignment.TopCenter),
-                        )
-                    }
-                    requestInvite.value?.let { token ->
-                        // Un enlace nuevo mientras se cierra la hoja anterior: el cierre tardío
-                        // de esa no debe borrar el pedido nuevo.
-                        fun clear() { if (requestInvite.value == token) requestInvite.value = null }
-                        androidx.compose.runtime.key(token) {
-                            InviteSheet(
-                                token = token,
-                                onDismiss = ::clear,
-                                onAccepted = { accepted ->
-                                    clear()
-                                    if (accepted.isMine && accepted.kind == ShareMapping.KIND_DELEGATION) navigator.openTrustedPeople()
-                                    else openShared(navigator, accepted.kind, accepted.id, accepted.title) { tab = it }
-                                },
-                            )
+                // Lo que no va dentro de un Scaffold o Surface (iniciar sesión, la bienvenida)
+                // escribe con el color del fondo, no en negro (se perdía en modo oscuro).
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
+                    Crossfade(targetState = gate, label = "account") { shown ->
+                        when (shown) {
+                            Gate.LOCKED -> AccountLockedScreen()
+                            Gate.SIGN_IN -> SignInScreen()
+                            Gate.APP -> AppContent(container)
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private enum class Gate { LOCKED, SIGN_IN, APP }
+
+    /** La app con sesión: pestañas, navegación, el aviso de lo compartido y las invitaciones. */
+    @Composable
+    private fun AppContent(container: AppContainer) {
+        val nav = rememberNavController()
+        val navigator = remember(nav) { navigator(nav) }
+        var tab by remember { mutableStateOf(HomeTab.ALARMS) }
+        requestedTab.value?.let { tab = it; requestedTab.value = null }
+        if (requestNewAlarm.value) {
+            requestNewAlarm.value = false
+            navigator.newReminder()
+        }
+        requestCountdown.value?.let { id ->
+            requestCountdown.value = null
+            tab = HomeTab.COUNTDOWNS
+            navigator.openCountdown(id)
+        }
+        requestReminder.value?.let { id ->
+            requestReminder.value = null
+            tab = HomeTab.ALARMS
+            navigator.openReminder(id)
+        }
+        val incoming by container.sharing.incoming.collectAsStateWithLifecycle()
+        CompositionLocalProvider(LocalAppNavigator provides navigator) {
+            Box(Modifier.fillMaxSize()) {
+                AppNavHost(nav, tab) { tab = it }
+                IncomingShareToast(
+                    status = incoming,
+                    onOpen = { added ->
+                        container.sharing.dismissIncoming()
+                        openShared(navigator, added.kind, added.id, added.title) { tab = it }
+                    },
+                    onDismiss = { container.sharing.dismissIncoming() },
+                    modifier = Modifier.align(Alignment.TopCenter),
+                )
+            }
+            requestInvite.value?.let { token ->
+                // Un enlace nuevo mientras se cierra la hoja anterior: el cierre tardío
+                // de esa no debe borrar el pedido nuevo.
+                fun clear() { if (requestInvite.value == token) requestInvite.value = null }
+                androidx.compose.runtime.key(token) {
+                    InviteSheet(
+                        token = token,
+                        onDismiss = ::clear,
+                        onAccepted = { accepted ->
+                            clear()
+                            if (accepted.isMine && accepted.kind == ShareMapping.KIND_DELEGATION) navigator.openTrustedPeople()
+                            else openShared(navigator, accepted.kind, accepted.id, accepted.title) { tab = it }
+                        },
+                    )
                 }
             }
         }
@@ -147,6 +181,8 @@ class MainActivity : AppCompatActivity() {
         val container = CalarmiApp.container(this)
         lifecycleScope.launch { container.onDataChanged() }
         container.plus.refresh()
+        // Tras desbloquear, o si la sesión cambió mientras la app no estaba a la vista.
+        container.account.refresh()
     }
 
     private fun handle(intent: Intent?) {

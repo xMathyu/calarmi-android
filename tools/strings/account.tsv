@@ -1,0 +1,47 @@
+name	en	es	pt
+# Cuenta obligatoria (DESIGN.md › Identidad): iniciar sesión con Google o correo, y Ajustes › Cuenta.
+account_default_name	Calarmi user	Usuario de Calarmi	Usuário do Calarmi
+signin_subtitle	Sign in to start. Your account keeps your name and what you share; your alarms stay on this phone.	Inicia sesión para empezar. Tu cuenta guarda tu nombre y lo que compartes; tus alarmas se quedan en este teléfono.	Entre para começar. Sua conta guarda seu nome e o que você compartilha; seus alarmes ficam neste celular.
+signin_google	Continue with Google	Continuar con Google	Continuar com o Google
+signin_email	Continue with email	Continuar con correo	Continuar com e-mail
+signin_or	or	o	ou
+signin_mode_create	Create account	Crear cuenta	Criar conta
+signin_mode_signin	Sign in	Iniciar sesión	Entrar
+signin_name	Name	Nombre	Nome
+signin_email_field	Email	Correo	E-mail
+signin_password	Password	Contraseña	Senha
+signin_password_hint	At least %1$d characters	Al menos %1$d caracteres	Pelo menos %1$d caracteres
+signin_show_password	Show password	Mostrar contraseña	Mostrar senha
+signin_hide_password	Hide password	Ocultar contraseña	Ocultar senha
+signin_forgot	Forgot your password?	¿Olvidaste tu contraseña?	Esqueceu sua senha?
+signin_forgot_need_email	Type your email above, then tap “Forgot your password?” again.	Escribe tu correo arriba y vuelve a tocar «¿Olvidaste tu contraseña?».	Digite seu e-mail acima e toque de novo em “Esqueceu sua senha?”.
+signin_reset_sent_title	Check your email	Revisa tu correo	Confira seu e-mail
+signin_reset_sent_message	If there's an account with %1$s, you'll get a link to create a new password.	Si hay una cuenta con %1$s, te llegará un enlace para crear una contraseña nueva.	Se houver uma conta com %1$s, você vai receber um link para criar uma nova senha.
+signin_locked	Unlock your phone to continue.	Desbloquea el teléfono para continuar.	Desbloqueie o celular para continuar.
+signin_error_name_required	Type your name.	Escribe tu nombre.	Digite seu nome.
+signin_error_password_short	The password needs at least %1$d characters.	La contraseña necesita al menos %1$d caracteres.	A senha precisa ter pelo menos %1$d caracteres.
+auth_error_invalid_credentials	Incorrect email or password.	Correo o contraseña incorrectos.	E-mail ou senha incorretos.
+auth_error_email_in_use	There's already an account with this email. Sign in instead.	Ya hay una cuenta con este correo. Inicia sesión.	Já existe uma conta com este e-mail. Entre com ela.
+auth_error_weak_password	That password is too weak. Use at least 8 characters, with letters and numbers.	Esa contraseña es muy débil. Usa al menos 8 caracteres, con letras y números.	Essa senha é muito fraca. Use pelo menos 8 caracteres, com letras e números.
+auth_error_invalid_email	That email isn't valid.	Ese correo no es válido.	Esse e-mail não é válido.
+auth_error_other_provider	This email already has a Calarmi account with another sign-in method (like Apple on an iPhone). Use Google or a different email.	Este correo ya tiene una cuenta de Calarmi con otro método (como Apple en un iPhone). Usa Google u otro correo.	Este e-mail já tem uma conta do Calarmi com outro método (como a Apple no iPhone). Use o Google ou outro e-mail.
+auth_error_disabled	This account has been disabled.	Esta cuenta está desactivada.	Esta conta está desativada.
+auth_error_too_many	Too many attempts. Wait a moment and try again.	Demasiados intentos. Espera un momento y vuelve a intentarlo.	Muitas tentativas. Espere um pouco e tente de novo.
+auth_error_no_google_account	There's no Google account on this phone. Add one in the phone's Settings › Accounts, or use your email.	No hay ninguna cuenta de Google en este teléfono. Agrega una en Ajustes del teléfono › Cuentas, o usa tu correo.	Não há nenhuma conta do Google neste celular. Adicione uma em Configurações do celular › Contas, ou use seu e-mail.
+auth_error_google_unavailable	Signing in with Google isn't available on this phone. Use your email and a password.	Iniciar sesión con Google no está disponible en este teléfono. Usa tu correo y una contraseña.	Entrar com o Google não está disponível neste celular. Use seu e-mail e uma senha.
+account_section	Account	Cuenta	Conta
+account_footer	This is how the people you share alarms and countdowns with see you. Your email is never shown to anyone.	Así te ven las personas con las que compartes alarmas y cuentas regresivas. Tu correo no se muestra a nadie.	É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem. Seu e-mail não é mostrado a ninguém.
+account_edit_name	Edit name	Editar nombre	Editar nome
+account_name_title	Your name	Tu nombre	Seu nome
+account_name_message	This is how the people you share alarms and countdowns with see you.	Así te ven las personas con las que compartes alarmas y cuentas regresivas.	É assim que as pessoas com quem você compartilha alarmes e contagens regressivas te veem.
+account_name_placeholder	Your name	Tu nombre	Seu nome
+account_sign_out	Sign out	Cerrar sesión	Sair
+account_sign_out_title	Sign out?	¿Cerrar sesión?	Sair da conta?
+account_sign_out_message	Your alarms stay on this phone and keep ringing. To use Calarmi again, you'll need to sign in.	Tus alarmas se quedan en este teléfono y siguen sonando. Para volver a usar Calarmi tendrás que iniciar sesión.	Seus alarmes ficam neste celular e continuam tocando. Para usar o Calarmi de novo, você vai precisar entrar.
+account_signing_out	Signing out…	Cerrando sesión…	Saindo…
+account_delete	Delete account	Borrar cuenta	Apagar conta
+account_delete_title	Delete your account?	¿Borrar tu cuenta?	Apagar sua conta?
+account_delete_message	Your account and what you share are deleted: your shared alarms and countdowns stop being shared, and you leave what others shared with you and their trusted-people lists. The alarms on this phone stay. This can't be undone.	Se borran tu cuenta y lo que compartes: tus alarmas y cuentas regresivas compartidas dejan de estarlo, y sales de lo que otros compartieron contigo y de sus listas de personas de confianza. Las alarmas de este teléfono se quedan. No se puede deshacer.	Sua conta e o que você compartilha são apagados: seus alarmes e contagens regressivas compartilhados deixam de ser compartilhados, e você sai do que outras pessoas compartilharam com você e das listas de pessoas de confiança delas. Os alarmes deste celular ficam. Não dá para desfazer.
+account_deleting	Deleting your account…	Borrando tu cuenta…	Apagando sua conta…
+account_delete_error_title	Couldn't delete the account	No se pudo borrar la cuenta	Não foi possível apagar a conta
+account_delete_error	Try again in a moment. If it keeps failing, you can also ask for it from the privacy policy page.	Inténtalo de nuevo en un momento. Si sigue fallando, también puedes pedirlo desde la página de la política de privacidad.	Tente de novo daqui a pouco. Se continuar falhando, você também pode pedir pela página da política de privacidade.

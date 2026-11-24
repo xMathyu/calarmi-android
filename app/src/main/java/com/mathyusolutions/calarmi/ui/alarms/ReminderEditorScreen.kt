@@ -89,7 +89,6 @@ import com.mathyusolutions.calarmi.sharing.ui.SharePeopleSection
 import com.mathyusolutions.calarmi.sharing.ui.ShareTexts
 import com.mathyusolutions.calarmi.sharing.ui.SharedBySection
 import com.mathyusolutions.calarmi.sharing.ui.StopSharingRow
-import com.mathyusolutions.calarmi.sharing.ui.rememberNameGate
 import com.mathyusolutions.calarmi.ui.components.CategorySelection
 import com.mathyusolutions.calarmi.ui.components.CategoryStyle
 import com.mathyusolutions.calarmi.ui.components.ReminderIcon
@@ -299,7 +298,6 @@ fun ReminderEditorScreen(
     }
 
     // --- Compartir (alarmas propias)
-    val gate = rememberNameGate()
     var sharing by remember { mutableStateOf(false) }
     var shareError by remember { mutableStateOf<String?>(null) }
     var confirmLeave by remember { mutableStateOf(false) }
@@ -314,25 +312,23 @@ fun ReminderEditorScreen(
             showTitleError = true
             return
         }
-        gate.require {
-            sharing = true
-            scope.launch {
-                try {
-                    if (current != original) {
-                        // El contenido lo sube «Invitar» mismo: guardar sin avisar evita subirlo dos veces.
-                        container.reminders.save(current.toReminder(), syncRemote = false)
-                        val saved = current.copy(isNew = false)
-                        draft = saved
-                        original = saved
-                    }
-                    val invite = container.sharing.inviteReminder(current.id)
-                    val reminder = container.reminders.byId(current.id) ?: return@launch
-                    ShareTexts.send(context, ShareTexts.alarm(context, reminder, invite.url))
-                } catch (e: Exception) {
-                    shareError = ShareTexts.failure(context, e)
-                } finally {
-                    sharing = false
+        sharing = true
+        scope.launch {
+            try {
+                if (current != original) {
+                    // El contenido lo sube «Invitar» mismo: guardar sin avisar evita subirlo dos veces.
+                    container.reminders.save(current.toReminder(), syncRemote = false)
+                    val saved = current.copy(isNew = false)
+                    draft = saved
+                    original = saved
                 }
+                val invite = container.sharing.inviteReminder(current.id)
+                val reminder = container.reminders.byId(current.id) ?: return@launch
+                ShareTexts.send(context, ShareTexts.alarm(context, reminder, invite.url))
+            } catch (e: Exception) {
+                shareError = ShareTexts.failure(context, e)
+            } finally {
+                sharing = false
             }
         }
     }

@@ -6,6 +6,7 @@ import android.os.UserManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.mathyusolutions.calarmi.account.AccountService
 import com.mathyusolutions.calarmi.alarm.AlarmNotifications
 import com.mathyusolutions.calarmi.alarm.AlarmPlanner
 import com.mathyusolutions.calarmi.alarm.AlarmStateStore
@@ -68,6 +69,12 @@ class AppContainer(val app: Application) {
 
     /** Lo compartido por Firebase (alarmas, cuentas regresivas, personas de confianza). */
     val sharing: SharingService by lazy { SharingService(this) }
+
+    /**
+     * La cuenta obligatoria (decide si se ve la app). Solo la usa la interfaz: el motor
+     * de alarmas (receptores, `RingService`, `RingingActivity`, widgets) no pasa por aquí.
+     */
+    val account: AccountService by lazy { AccountService(this) }
 
     val reminders: ReminderRepository by lazy {
         ReminderRepository(database.reminders(), photos, hooks = { sharing.hooks }) { onDataChanged() }
